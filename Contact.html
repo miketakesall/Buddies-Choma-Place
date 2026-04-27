@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Buddies Choma Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+/* ═══════════════════════════════════════════════════════════
+   CONTACT PAGE — page-specific styles
+═══════════════════════════════════════════════════════════ */
+
+.contact-section {
+  padding:4rem 2rem 6rem;
+  max-width:960px; margin:0 auto;
+}
+
+/* ── CONTACT CARDS ───────────────────────────────────────── */
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+  margin-top:3rem;
+}
+.contact-card {
+  background:var(--mid); border-radius:4px; padding:2rem;
+  border:1px solid rgba(217,90,43,0.1);
+  display:flex; flex-direction:column; align-items:flex-start; gap:0.8rem;
+  transition:border-color 0.3s,transform 0.3s;
+  position:relative; overflow:hidden;
+}
+.contact-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right,var(--ember),transparent);
+  transform:scaleX(0); transform-origin:left; transition:transform 0.4s;
+}
+.contact-card:hover::before { transform:scaleX(1); }
+.contact-card:hover { border-color:rgba(217,90,43,0.35); transform:translateY(-4px); }
+
+.cc-icon {
+  width:50px; height:50px; border-radius:50%;
+  background:rgba(217,90,43,0.15);
+  display:flex; align-items:center; justify-content:center; font-size:1.4rem;
+}
+.cc-title { font-family:'Anton',sans-serif; font-size:1.1rem; letter-spacing:0.05em; color:var(--cream); }
+.cc-value { font-size:0.88rem; opacity:0.65; line-height:1.65; }
+.cc-phone { font-family:'Anton',sans-serif; font-size:1.5rem; color:var(--cream); letter-spacing:0.05em; }
+.cc-btn {
+  display:inline-block; margin-top:auto;
+  padding:0.65rem 1.5rem; border-radius:2px;
+  font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+  font-weight:500; transition:all 0.25s;
+}
+.cc-btn.wa  { background:rgba(37,211,102,0.12); color:#25D366; border:1px solid rgba(37,211,102,0.3); }
+.cc-btn.wa:hover  { background:#25D366; color:#fff; }
+.cc-btn.tel { background:rgba(217,90,43,0.12); color:var(--ember); border:1px solid rgba(217,90,43,0.3); }
+.cc-btn.tel:hover { background:var(--ember); color:#fff; }
+.cc-btn.map { background:rgba(255,255,255,0.06); color:var(--parch); border:1px solid rgba(255,255,255,0.15); }
+.cc-btn.map:hover { background:rgba(255,255,255,0.12); }
+
+/* ── CONTACT FORM ────────────────────────────────────────── */
+.contact-form {
+  background:var(--mid); border-radius:4px; padding:2.5rem;
+  border:1px solid rgba(217,90,43,0.15);
+  margin-top:1.5rem; grid-column:1 / -1;
+}
+.cf-heading {
+  font-family:'Caveat',cursive; font-size:1.8rem;
+  color:var(--cream); margin-bottom:0.4rem;
+}
+.cf-sub { font-size:0.85rem; opacity:0.55; margin-bottom:2rem; }
+
+.cf-row   { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.cf-field { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:1.1rem; }
+.cf-label {
+  font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase;
+  opacity:0.5; color:var(--parch);
+}
+.cf-input {
+  background:rgba(15,10,7,0.55); border:1px solid rgba(217,90,43,0.2);
+  border-radius:2px; padding:0.85rem 1rem;
+  font-family:'DM Sans',sans-serif; font-size:0.9rem;
+  color:var(--cream); outline:none;
+  transition:border-color 0.25s,box-shadow 0.25s;
+}
+.cf-input:focus {
+  border-color:var(--ember);
+  box-shadow:0 0 0 3px rgba(217,90,43,0.12);
+}
+.cf-input::placeholder { opacity:0.3; }
+textarea.cf-input { resize:vertical; min-height:110px; }
+
+select.cf-input option { background:var(--mid); color:var(--cream); }
+
+.cf-footer { display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-top:0.5rem; }
+.cf-submit {
+  background:var(--ember); color:#fff;
+  padding:0.95rem 2.5rem; border-radius:2px;
+  font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase;
+  font-weight:500; transition:all 0.3s;
+}
+.cf-submit:hover {
+  background:var(--glow); transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(217,90,43,0.4);
+}
+.cf-note { font-size:0.75rem; opacity:0.4; }
+
+/* ── SUCCESS TOAST ───────────────────────────────────────── */
+.toast {
+  position:fixed; bottom:6rem; left:50%; transform:translateX(-50%);
+  background:#25D366; color:#fff;
+  padding:0.8rem 2rem; border-radius:4px;
+  font-size:0.85rem; font-weight:500;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  opacity:0; pointer-events:none;
+  transition:opacity 0.4s;
+  z-index:1000;
+}
+.toast.show { opacity:1; }
+
+/* ── QUICK CONTACT STRIP ─────────────────────────────────── */
+.quick-strip {
+  display:flex; gap:1rem; flex-wrap:wrap; margin-top:3rem;
+  padding:2rem 2.5rem;
+  background:linear-gradient(135deg,#1A0D07,var(--mid));
+  border-radius:4px; border:1px solid rgba(217,90,43,0.2);
+  align-items:center; justify-content:space-between;
+}
+.qs-text h3 { font-family:'Anton',sans-serif; font-size:1.3rem; letter-spacing:0.04em; color:var(--cream); }
+.qs-text p  { font-size:0.82rem; opacity:0.55; margin-top:0.3rem; }
+.qs-actions { display:flex; gap:0.8rem; flex-wrap:wrap; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:640px) {
+  .contact-grid { grid-template-columns:1fr; }
+  .cf-row       { grid-template-columns:1fr; }
+  .quick-strip  { flex-direction:column; }
+  .contact-form { padding:1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE HERO
+════════════════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="page-hero-emoji">📞</div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Get in Touch</div>
+    <h1 class="page-hero-title">CONTACT<br>US</h1>
+    <p class="page-hero-sub">Call, WhatsApp, or just walk in — we're always on</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     CONTACT SECTION
+════════════════════════════════════════════════════════ -->
+<div class="contact-section">
+
+  <div class="fade-up">
+    <div class="section-eyebrow">Reach Us</div>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.8rem);">WE'RE ALWAYS CLOSE</h2>
+  </div>
+
+  <div class="contact-grid">
+
+    <!-- CALL -->
+    <div class="contact-card fade-up">
+      <div class="cc-icon">📞</div>
+      <div class="cc-title">CALL TO ORDER</div>
+      <div class="cc-value">The fastest way. We pick up from 11 AM to 10 PM daily. Just tell us what you want and we'll get it on the jiko.</div>
+      <div class="cc-phone">0722 552714</div>
+      <a href="tel:0722552714" class="cc-btn tel">📞 Call Now</a>
+    </div>
+
+    <!-- WHATSAPP -->
+    <div class="contact-card fade-up">
+      <div class="cc-icon">💬</div>
+      <div class="cc-title">WHATSAPP ORDER</div>
+      <div class="cc-value">Send your order via WhatsApp and we'll confirm it right away. Pre-filled message makes it super easy.</div>
+      <div class="cc-phone">0722 552714</div>
+      <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..."
+         target="_blank" class="cc-btn wa">💬 Open WhatsApp</a>
+    </div>
+
+    <!-- VISIT -->
+    <div class="contact-card fade-up">
+      <div class="cc-icon">📍</div>
+      <div class="cc-title">VISIT US</div>
+      <div class="cc-value">
+        Ground Floor, Githurai Complex<br>
+        Off Thika Road, Githurai<br>
+        Nairobi, Kenya<br><br>
+        <strong style="color:var(--cream);">Mon–Sun: 11:00 AM – 10:00 PM</strong>
+      </div>
+      <a href="location.html" class="cc-btn map">🗺 Get Directions</a>
+    </div>
+
+    <!-- GROUP BOOKINGS -->
+    <div class="contact-card fade-up">
+      <div class="cc-icon">👥</div>
+      <div class="cc-title">GROUP BOOKINGS</div>
+      <div class="cc-value">Planning something big? Call ahead — we'll reserve space and prep the grill. We love a full, noisy house.</div>
+      <div style="font-size:0.8rem;opacity:0.5;margin-top:0.2rem;">Groups of 10+ especially welcome</div>
+      <a href="tel:0722552714" class="cc-btn tel">📞 Book a Group</a>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-form fade-up">
+      <div class="cf-heading">Send us a message 🔥</div>
+      <div class="cf-sub">For group bookings, feedback, or just to say hi — we read everything.</div>
+
+      <div class="cf-row">
+        <div class="cf-field">
+          <label class="cf-label">Your Name</label>
+          <input class="cf-input" type="text" id="cfName" placeholder="e.g. James Kamau" />
+        </div>
+        <div class="cf-field">
+          <label class="cf-label">Phone Number</label>
+          <input class="cf-input" type="tel" id="cfPhone" placeholder="07XX XXX XXX" />
+        </div>
+      </div>
+
+      <div class="cf-field">
+        <label class="cf-label">What's this about?</label>
+        <select class="cf-input" id="cfSubject">
+          <option value="" disabled selected>Select a topic…</option>
+          <option>Place a takeaway order</option>
+          <option>Group / event booking</option>
+          <option>General enquiry</option>
+          <option>Feedback &amp; compliments</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="cf-field">
+        <label class="cf-label">Your Message</label>
+        <textarea class="cf-input" id="cfMessage" placeholder="Tell us what you need — we're listening…"></textarea>
+      </div>
+
+      <div class="cf-footer">
+        <button class="cf-submit" onclick="submitForm()">Send Message →</button>
+        <span class="cf-note">We usually reply within the hour during opening hours.</span>
+      </div>
+    </div>
+
+  </div><!-- /contact-grid -->
+
+  <!-- QUICK STRIP -->
+  <div class="quick-strip fade-up">
+    <div class="qs-text">
+      <h3>Hungry right now?</h3>
+      <p>Skip the form — just call or WhatsApp and we'll sort you out in minutes.</p>
+    </div>
+    <div class="qs-actions">
+      <a href="tel:0722552714" class="btn-primary" style="animation:none;background:var(--ember);">📞 Call 0722 552714</a>
+      <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..."
+         target="_blank" class="btn-outline" style="border-color:#25D366;color:#25D366;">💬 WhatsApp Now</a>
+    </div>
+  </div>
+
+</div><!-- /contact-section -->
+
+<!-- ════════════════════════════════════════════════════════
+     M-PESA PAYMENT SECTION
+════════════════════════════════════════════════════════ -->
+<section class="mpesa-section">
+  <div class="mpesa-inner">
+
+    <!-- HEADER -->
+    <div class="mpesa-header fade-up">
+      <div class="mpesa-logo-row">
+        <div class="mpesa-logo">
+          <span class="mpesa-m">M</span><span class="mpesa-pesa">-PESA</span>
+        </div>
+        <div class="mpesa-badge">Lipa Na M-Pesa</div>
+      </div>
+      <h2 class="mpesa-title">PAY BEFORE YOU ARRIVE</h2>
+      <p class="mpesa-sub">Secure your order with an M-Pesa payment. Your choma will be ready and waiting — no queue, no wait.</p>
+    </div>
+
+    <!-- PAYMENT WIDGET -->
+    <div class="mpesa-widget fade-up">
+
+      <!-- LEFT: HOW TO PAY -->
+      <div class="mpesa-steps-col">
+        <div class="mpesa-col-label">How to Pay via M-Pesa</div>
+
+        <div class="mpesa-step">
+          <div class="mpesa-step-num">1</div>
+          <div class="mpesa-step-body">
+            <div class="mpesa-step-title">Go to M-Pesa on your phone</div>
+            <div class="mpesa-step-desc">Open Safaricom menu → Select <strong>M-Pesa</strong> → Choose <strong>Lipa na M-Pesa</strong></div>
+          </div>
+        </div>
+
+        <div class="mpesa-step">
+          <div class="mpesa-step-num">2</div>
+          <div class="mpesa-step-body">
+            <div class="mpesa-step-title">Select Buy Goods & Services</div>
+            <div class="mpesa-step-desc">Tap <strong>Buy Goods and Services</strong> (not Paybill)</div>
+          </div>
+        </div>
+
+        <div class="mpesa-step">
+          <div class="mpesa-step-num">3</div>
+          <div class="mpesa-step-body">
+            <div class="mpesa-step-title">Enter Till Number</div>
+            <div class="mpesa-step-desc">Type our till number:
+              <div class="mpesa-till-display" onclick="copyTill()">
+                <span class="till-number" id="tillNumber">5XXXXXX</span>
+                <span class="copy-till-btn" id="copyTillBtn">📋 Copy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mpesa-step">
+          <div class="mpesa-step-num">4</div>
+          <div class="mpesa-step-body">
+            <div class="mpesa-step-title">Enter Amount & Confirm</div>
+            <div class="mpesa-step-desc">Type the amount for your order, enter your M-Pesa PIN and confirm. You'll get an SMS receipt instantly.</div>
+          </div>
+        </div>
+
+        <div class="mpesa-step">
+          <div class="mpesa-step-num">5</div>
+          <div class="mpesa-step-body">
+            <div class="mpesa-step-title">Send us the M-Pesa Code</div>
+            <div class="mpesa-step-desc">WhatsApp or call us with the <strong>M-Pesa confirmation code</strong> (e.g. QGH7X2K1A) and your order. We'll confirm immediately.</div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27ve%20paid%20via%20M-Pesa.%20My%20confirmation%20code%20is%3A%20%5BCODE%5D%20and%20my%20order%20is%3A"
+           target="_blank" class="mpesa-wa-btn">
+          💬 Send M-Pesa Code on WhatsApp
+        </a>
+      </div>
+
+      <!-- RIGHT: QUICK PAY CALCULATOR -->
+      <div class="mpesa-calc-col">
+        <div class="mpesa-col-label">Build Your Order</div>
+
+        <div class="calc-items" id="calcItems">
+          <div class="calc-item">
+            <div class="calc-item-name">¼ kg Choma</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="280">Ksh 280</div>
+          </div>
+          <div class="calc-item">
+            <div class="calc-item-name">½ kg Choma</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="520">Ksh 520</div>
+          </div>
+          <div class="calc-item">
+            <div class="calc-item-name">Mbuzi Choma (½kg)</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="225">Ksh 225</div>
+          </div>
+          <div class="calc-item">
+            <div class="calc-item-name">Mishkaki (6 pcs)</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="180">Ksh 180</div>
+          </div>
+          <div class="calc-item">
+            <div class="calc-item-name">Matumbo</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="220">Ksh 220</div>
+          </div>
+          <div class="calc-item">
+            <div class="calc-item-name">Ugali + Kachumbari</div>
+            <div class="calc-item-controls">
+              <button class="calc-btn" onclick="changeQty(this,-1)">−</button>
+              <span class="calc-qty">0</span>
+              <button class="calc-btn" onclick="changeQty(this,1)">+</button>
+            </div>
+            <div class="calc-item-price" data-price="90">Ksh 90</div>
+          </div>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="calc-total-row">
+          <div>
+            <div class="calc-total-label">Total to Pay</div>
+            <div class="calc-total-amount" id="calcTotal">Ksh 0</div>
+          </div>
+          <button class="calc-reset" onclick="resetCalc()">Clear</button>
+        </div>
+
+        <!-- GENERATE MESSAGE -->
+        <button class="calc-generate-btn" id="generateBtn" onclick="generateWhatsApp()" disabled>
+          Generate WhatsApp Order Message →
+        </button>
+
+        <div class="calc-note">
+          ⚠️ Prices shown are estimates. Final total confirmed by our team after your WhatsApp message.
+        </div>
+      </div>
+
+    </div><!-- /mpesa-widget -->
+
+    <!-- TRUST BADGES -->
+    <div class="mpesa-trust fade-up">
+      <div class="trust-badge">🔒 Secure Safaricom Network</div>
+      <div class="trust-badge">⚡ Instant M-Pesa Confirmation</div>
+      <div class="trust-badge">📱 No App Download Needed</div>
+      <div class="trust-badge">✅ Receipt via SMS</div>
+    </div>
+
+  </div><!-- /mpesa-inner -->
+</section>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✅ Message sent! We'll be in touch shortly.</div>
+<div class="toast" id="toastCopy" style="background:var(--ember);">📋 Till number copied!</div>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   M-PESA SECTION STYLES
+═══════════════════════════════════════════════════════════ */
+.mpesa-section {
+  background:linear-gradient(to bottom, #0A0604, #111008);
+  border-top:1px solid rgba(0,163,75,0.2);
+  padding:5rem 2rem 6rem;
+}
+.mpesa-inner { max-width:960px; margin:0 auto; }
+
+/* header */
+.mpesa-header { text-align:center; margin-bottom:3.5rem; }
+.mpesa-logo-row {
+  display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:1.2rem;
+}
+.mpesa-logo {
+  font-family:'Anton',sans-serif; font-size:2.2rem; letter-spacing:0.02em;
+  display:flex; align-items:center;
+}
+.mpesa-m    { color:#00a34b; }
+.mpesa-pesa { color:#fff; }
+.mpesa-badge {
+  background:rgba(0,163,75,0.15); color:#00a34b;
+  border:1px solid rgba(0,163,75,0.35); border-radius:20px;
+  font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase;
+  padding:0.35rem 0.9rem;
+}
+.mpesa-title {
+  font-family:'Anton',sans-serif; font-size:clamp(1.8rem,4vw,3rem);
+  letter-spacing:0.04em; color:var(--cream); margin-bottom:0.8rem;
+}
+.mpesa-sub { font-size:0.92rem; opacity:0.6; max-width:520px; margin:0 auto; line-height:1.7; }
+
+/* widget layout */
+.mpesa-widget {
+  display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; align-items:start;
+}
+.mpesa-col-label {
+  font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase;
+  color:#00a34b; margin-bottom:1.5rem;
+}
+
+/* steps */
+.mpesa-steps-col {
+  background:rgba(0,163,75,0.04);
+  border:1px solid rgba(0,163,75,0.15); border-radius:6px;
+  padding:2rem;
+}
+.mpesa-step {
+  display:flex; gap:1rem; align-items:flex-start; margin-bottom:1.5rem;
+}
+.mpesa-step:last-of-type { margin-bottom:1.8rem; }
+.mpesa-step-num {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  background:rgba(0,163,75,0.2); border:1.5px solid #00a34b;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Anton',sans-serif; font-size:0.9rem; color:#00a34b;
+}
+.mpesa-step-title { font-size:0.88rem; font-weight:500; color:var(--cream); margin-bottom:0.25rem; }
+.mpesa-step-desc  { font-size:0.8rem; opacity:0.6; line-height:1.6; }
+
+/* till display */
+.mpesa-till-display {
+  display:inline-flex; align-items:center; gap:0.8rem;
+  background:rgba(0,163,75,0.12); border:1px solid rgba(0,163,75,0.3);
+  border-radius:4px; padding:0.5rem 1rem; margin-top:0.5rem; cursor:pointer;
+  transition:background 0.2s;
+}
+.mpesa-till-display:hover { background:rgba(0,163,75,0.2); }
+.till-number { font-family:'Anton',sans-serif; font-size:1.3rem; color:#00a34b; letter-spacing:0.1em; }
+.copy-till-btn { font-size:0.72rem; color:var(--parch); opacity:0.6; }
+
+/* whatsapp button in steps */
+.mpesa-wa-btn {
+  display:flex; align-items:center; justify-content:center; gap:0.6rem;
+  background:#25D366; color:#fff;
+  padding:0.9rem 1.5rem; border-radius:4px;
+  font-size:0.82rem; letter-spacing:0.08em; font-weight:500;
+  transition:all 0.25s;
+}
+.mpesa-wa-btn:hover { background:#1db954; transform:translateY(-2px); box-shadow:0 6px 20px rgba(37,211,102,0.35); }
+
+/* calculator */
+.mpesa-calc-col {
+  background:var(--mid);
+  border:1px solid rgba(217,90,43,0.15); border-radius:6px;
+  padding:2rem;
+}
+.calc-items { display:flex; flex-direction:column; gap:0; }
+.calc-item {
+  display:flex; align-items:center; gap:0.8rem;
+  padding:0.85rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.calc-item:first-child { border-top:1px solid rgba(255,255,255,0.05); }
+.calc-item-name  { flex:1; font-size:0.85rem; color:var(--cream); opacity:0.85; }
+.calc-item-controls {
+  display:flex; align-items:center; gap:0.5rem;
+}
+.calc-btn {
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(217,90,43,0.2); color:var(--ember);
+  font-size:1rem; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:background 0.2s;
+  border:1px solid rgba(217,90,43,0.3);
+}
+.calc-btn:hover { background:var(--ember); color:#fff; }
+.calc-qty {
+  width:22px; text-align:center;
+  font-family:'Anton',sans-serif; font-size:1rem; color:var(--cream);
+}
+.calc-item-price {
+  font-family:'Caveat',cursive; font-size:1rem; color:var(--ember);
+  min-width:60px; text-align:right;
+}
+
+/* total */
+.calc-total-row {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-top:1.2rem; padding-top:1.2rem;
+  border-top:2px solid rgba(0,163,75,0.3);
+}
+.calc-total-label { font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:#00a34b; margin-bottom:0.2rem; }
+.calc-total-amount { font-family:'Anton',sans-serif; font-size:1.8rem; color:var(--cream); }
+.calc-reset {
+  font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--parch); opacity:0.4; cursor:pointer;
+  transition:opacity 0.2s;
+}
+.calc-reset:hover { opacity:0.8; }
+
+/* generate button */
+.calc-generate-btn {
+  width:100%; margin-top:1.2rem;
+  background:linear-gradient(135deg,#00a34b,#007a38);
+  color:#fff; padding:1rem; border-radius:4px;
+  font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase;
+  font-weight:500; transition:all 0.3s; cursor:pointer;
+}
+.calc-generate-btn:not(:disabled):hover {
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(0,163,75,0.4);
+}
+.calc-generate-btn:disabled {
+  opacity:0.35; cursor:not-allowed;
+}
+.calc-note {
+  font-size:0.72rem; opacity:0.4; line-height:1.5; margin-top:0.9rem; text-align:center;
+}
+
+/* trust badges */
+.mpesa-trust {
+  display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; margin-top:3rem;
+}
+.trust-badge {
+  background:rgba(0,163,75,0.08); border:1px solid rgba(0,163,75,0.2);
+  border-radius:20px; padding:0.45rem 1.1rem;
+  font-size:0.75rem; letter-spacing:0.05em; color:var(--parch); opacity:0.65;
+}
+
+/* responsive */
+@media(max-width:700px) {
+  .mpesa-widget { grid-template-columns:1fr; }
+}
+</style>
+
+<script src="shared.js"></script>
+<script>
+Buddies.init('contact');
+
+/* ── CONTACT FORM ───────────────────────────────────────── */
+function submitForm() {
+  const name    = document.getElementById('cfName').value.trim();
+  const phone   = document.getElementById('cfPhone').value.trim();
+  const subject = document.getElementById('cfSubject').value;
+  const msg     = document.getElementById('cfMessage').value.trim();
+  if (!name || !phone || !subject || !msg) {
+    alert('Please fill in all fields before sending.'); return;
+  }
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+  document.getElementById('cfName').value    = '';
+  document.getElementById('cfPhone').value   = '';
+  document.getElementById('cfSubject').value = '';
+  document.getElementById('cfMessage').value = '';
+}
+
+/* ── COPY TILL NUMBER ───────────────────────────────────── */
+function copyTill() {
+  const till = document.getElementById('tillNumber').textContent;
+  navigator.clipboard.writeText(till).then(() => {
+    document.getElementById('copyTillBtn').textContent = '✅ Copied!';
+    const t = document.getElementById('toastCopy');
+    t.classList.add('show');
+    setTimeout(() => {
+      t.classList.remove('show');
+      document.getElementById('copyTillBtn').textContent = '📋 Copy';
+    }, 2500);
+  });
+}
+
+/* ── ORDER CALCULATOR ───────────────────────────────────── */
+const orderState = {};
+
+function changeQty(btn, delta) {
+  const item    = btn.closest('.calc-item');
+  const qtyEl   = item.querySelector('.calc-qty');
+  const priceEl = item.querySelector('.calc-item-price');
+  const name    = item.querySelector('.calc-item-name').textContent;
+  const price   = parseInt(priceEl.getAttribute('data-price'));
+
+  let qty = parseInt(qtyEl.textContent) + delta;
+  if (qty < 0) qty = 0;
+  qtyEl.textContent = qty;
+
+  if (qty === 0) {
+    delete orderState[name];
+    item.style.opacity = '0.55';
+  } else {
+    orderState[name] = { qty, price };
+    item.style.opacity = '1';
+  }
+  updateTotal();
+}
+
+function updateTotal() {
+  let total = 0;
+  Object.values(orderState).forEach(v => total += v.qty * v.price);
+  document.getElementById('calcTotal').textContent = `Ksh ${total.toLocaleString()}`;
+  document.getElementById('generateBtn').disabled = total === 0;
+}
+
+function resetCalc() {
+  document.querySelectorAll('.calc-qty').forEach(el => el.textContent = '0');
+  document.querySelectorAll('.calc-item').forEach(el => el.style.opacity = '0.55');
+  for (const k in orderState) delete orderState[k];
+  updateTotal();
+}
+
+function generateWhatsApp() {
+  let lines = [];
+  Object.entries(orderState).forEach(([name, {qty, price}]) => {
+    lines.push(`  • ${qty}x ${name} = Ksh ${(qty*price).toLocaleString()}`);
+  });
+  const total = Object.values(orderState).reduce((s,v) => s + v.qty*v.price, 0);
+  const msg = encodeURIComponent(
+    `Hi Buddies! 🔥 I'd like to place an order and pay via M-Pesa.\n\nMy order:\n${lines.join('\n')}\n\nTotal: Ksh ${total.toLocaleString()}\n\nI'll send the M-Pesa confirmation code once I've paid. Please confirm!`
+  );
+  window.open(`https://wa.me/254722552714?text=${msg}`, '_blank');
+}
+</script>
+
+</body>
+</html>

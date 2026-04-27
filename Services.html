@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — Buddies Choma Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SERVICES PAGE — page-specific styles
+═══════════════════════════════════════════════════════════ */
+
+/* ── SERVICE CARDS ───────────────────────────────────────── */
+.services-section {
+  padding:5rem 2rem;
+  max-width:1100px; margin:0 auto;
+}
+.services-intro {
+  max-width:580px; margin-bottom:3.5rem;
+}
+.services-intro p {
+  font-size:1rem; line-height:1.8; opacity:0.68;
+}
+
+.services-grid {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:2rem;
+}
+.service-card {
+  background:var(--mid); border-radius:4px; padding:2.5rem;
+  border:1px solid rgba(217,90,43,0.1);
+  position:relative; overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
+}
+/* top bar reveal on hover */
+.service-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(to right,var(--ember),transparent);
+  transform:scaleX(0); transform-origin:left; transition:transform 0.4s;
+}
+.service-card:hover::before  { transform:scaleX(1); }
+.service-card:hover          { border-color:rgba(217,90,43,0.3); transform:translateY(-4px); }
+
+.sc-icon  { font-size:2.5rem; margin-bottom:1.2rem; }
+.sc-title {
+  font-family:'Anton',sans-serif; font-size:1.3rem;
+  letter-spacing:0.05em; color:var(--cream); margin-bottom:0.8rem;
+}
+.sc-body  { font-size:0.88rem; line-height:1.8; opacity:0.65; }
+.sc-features { margin-top:1.2rem; list-style:none; }
+.sc-features li {
+  font-size:0.8rem; opacity:0.6; padding:0.35rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  display:flex; align-items:center; gap:0.5rem;
+}
+.sc-features li::before { content:'›'; color:var(--ember); font-size:1rem; }
+
+/* ── CALLOUT BANNER ──────────────────────────────────────── */
+.callout-banner {
+  background:linear-gradient(135deg,var(--mid),#1A0D07);
+  border:1px solid rgba(217,90,43,0.25); border-radius:4px;
+  padding:3rem 2.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:2rem; flex-wrap:wrap;
+  margin:4rem 0;
+}
+.callout-banner-text h3 {
+  font-family:'Anton',sans-serif; font-size:1.6rem;
+  letter-spacing:0.05em; color:var(--cream); margin-bottom:0.5rem;
+}
+.callout-banner-text p { font-size:0.9rem; opacity:0.65; }
+.callout-banner-actions { display:flex; gap:1rem; flex-wrap:wrap; }
+
+/* ── PROCESS SECTION ─────────────────────────────────────── */
+.process-section {
+  padding:5rem 2rem;
+  background:linear-gradient(to bottom,#170D08,var(--char));
+}
+.process-steps {
+  max-width:800px; margin:3.5rem auto 0;
+  display:flex; flex-direction:column; gap:0;
+}
+.process-step {
+  display:grid; grid-template-columns:60px 1fr; gap:2rem;
+  position:relative; padding-bottom:3rem;
+}
+.process-step:not(:last-child)::after {
+  content:'';
+  position:absolute; left:29px; top:60px; bottom:0;
+  width:2px; background:linear-gradient(to bottom,var(--ember),transparent);
+}
+.step-num {
+  width:60px; height:60px; border-radius:50%;
+  border:2px solid var(--ember);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Anton',sans-serif; font-size:1.3rem; color:var(--ember);
+  flex-shrink:0; background:var(--char); z-index:1;
+}
+.step-title {
+  font-family:'Anton',sans-serif; font-size:1.1rem;
+  letter-spacing:0.05em; color:var(--cream); margin-bottom:0.5rem;
+  padding-top:0.9rem;
+}
+.step-desc { font-size:0.88rem; opacity:0.6; line-height:1.7; }
+
+/* ── WHY BUDDIES ─────────────────────────────────────────── */
+.why-section {
+  padding:5rem 2rem; max-width:1100px; margin:0 auto;
+}
+.why-grid {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:3rem;
+}
+.why-card {
+  text-align:center; padding:2rem 1rem;
+  border:1px solid rgba(217,90,43,0.1); border-radius:4px;
+  background:rgba(44,26,16,0.4);
+  transition:border-color 0.3s,background 0.3s;
+}
+.why-card:hover { border-color:rgba(217,90,43,0.35); background:var(--mid); }
+.why-card-icon  { font-size:2.2rem; margin-bottom:1rem; }
+.why-card-title { font-family:'Anton',sans-serif; font-size:0.95rem; letter-spacing:0.06em; color:var(--cream); margin-bottom:0.5rem; }
+.why-card-desc  { font-size:0.78rem; opacity:0.55; line-height:1.6; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px) {
+  .services-grid { grid-template-columns:1fr; }
+  .why-grid      { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:640px) {
+  .why-grid { grid-template-columns:1fr 1fr; }
+  .callout-banner { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE HERO
+════════════════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="page-hero-emoji">🥩</div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">What We Offer</div>
+    <h1 class="page-hero-title">OUR<br>SERVICES</h1>
+    <p class="page-hero-sub">Fire, community, and craft — all under one roof</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SERVICE CARDS
+════════════════════════════════════════════════════════ -->
+<section class="services-section">
+
+  <div class="services-intro fade-up">
+    <div class="section-eyebrow">What We Do</div>
+    <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.8rem); margin-bottom:1rem;">EVERYTHING CHOMA</h2>
+    <p>From a quick solo mishkaki after work to a full group spread for 50 — Buddies has you covered. Everything we do starts and ends with the grill.</p>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card fade-up">
+      <div class="sc-icon">🔥</div>
+      <div class="sc-title">OPEN-FIRE GRILLING</div>
+      <div class="sc-body">All our meat is grilled fresh over real charcoal — no shortcuts, no gas, no compromise. Every order is carved to order and put straight on the jiko.</div>
+      <ul class="sc-features">
+        <li>Real hardwood charcoal, every time</li>
+        <li>Daily fresh meat sourcing</li>
+        <li>Cooked-to-order, never pre-grilled</li>
+        <li>Traditional charring techniques</li>
+      </ul>
+    </div>
+
+    <div class="service-card fade-up">
+      <div class="sc-icon">👥</div>
+      <div class="sc-title">GROUP & EVENTS DINING</div>
+      <div class="sc-body">Planning a birthday, a team lunch, or a family gathering? We accommodate groups of all sizes. Let us know in advance and we'll have the grill ready for you.</div>
+      <ul class="sc-features">
+        <li>Groups from 5 to 50+</li>
+        <li>Reserved seating available</li>
+        <li>Group order discounts on large cuts</li>
+        <li>Custom meat platters for occasions</li>
+      </ul>
+    </div>
+
+    <div class="service-card fade-up">
+      <div class="sc-icon">📦</div>
+      <div class="sc-title">TAKEAWAY & PHONE ORDERS</div>
+      <div class="sc-body">Can't come in? Call or WhatsApp us and we'll have your order packed and ready. Pickups are quick — we keep the fire hot and the wait short.</div>
+      <ul class="sc-features">
+        <li>Phone orders: 0722 552714</li>
+        <li>WhatsApp orders accepted</li>
+        <li>Ready in 20–30 minutes</li>
+        <li>Secure foil packing — heat retained</li>
+      </ul>
+    </div>
+
+    <div class="service-card fade-up">
+      <div class="sc-icon">🌽</div>
+      <div class="sc-title">SIDES & ACCOMPANIMENTS</div>
+      <div class="sc-body">No choma meal is complete without the full spread. We serve hand-pounded ugali, freshly chopped kachumbari, roasted maize, and more alongside every plate.</div>
+      <ul class="sc-features">
+        <li>Fresh kachumbari — chopped daily</li>
+        <li>Ugali: white & yellow</li>
+        <li>Roasted maize & njugu</li>
+        <li>Homemade pepper sauce</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- CALLOUT -->
+  <div class="callout-banner fade-up">
+    <div class="callout-banner-text">
+      <h3>Ready to place a group order?</h3>
+      <p>Call ahead — we'll sort the seating, stoke the jiko, and make sure everything is ready when your crew arrives.</p>
+    </div>
+    <div class="callout-banner-actions">
+      <a href="tel:0722552714" class="btn-primary" style="animation:none;background:var(--ember);">📞 Call 0722 552714</a>
+      <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20make%20a%20group%20booking..."
+         target="_blank" class="btn-outline">💬 WhatsApp</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     PROCESS: COAL TO PLATE
+════════════════════════════════════════════════════════ -->
+<section class="process-section">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">The Craft</div>
+    <h2 class="section-title">FROM COAL TO PLATE</h2>
+  </div>
+  <div class="process-steps">
+
+    <div class="process-step fade-up">
+      <div class="step-num">01</div>
+      <div>
+        <div class="step-title">FRESH SOURCING, EVERY MORNING</div>
+        <div class="step-desc">We source beef, goat, and offal from trusted local butchers every single morning. Nothing sits in a fridge overnight — freshness is non-negotiable at Buddies.</div>
+      </div>
+    </div>
+
+    <div class="process-step fade-up">
+      <div class="step-num">02</div>
+      <div>
+        <div class="step-title">HAND-RUBBED & SEASONED</div>
+        <div class="step-desc">Each cut gets a hand-rub of sea salt, a whisper of spice, and nothing more. We believe good meat needs no disguising — just fire and time.</div>
+      </div>
+    </div>
+
+    <div class="process-step fade-up">
+      <div class="step-num">03</div>
+      <div>
+        <div class="step-title">SLOW CHARCOAL FIRE</div>
+        <div class="step-desc">We use real hardwood charcoal, not briquettes. The grill is maintained at the right temperature for slow, even cooking that seals in all the juices.</div>
+      </div>
+    </div>
+
+    <div class="process-step fade-up">
+      <div class="step-num">04</div>
+      <div>
+        <div class="step-title">CARVED & SERVED IMMEDIATELY</div>
+        <div class="step-desc">When your order is ready, we hand-chop it on a wooden board and plate it with fresh kachumbari and your sides. Straight from the fire to the table — no heat lamps.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
+     WHY BUDDIES
+════════════════════════════════════════════════════════ -->
+<section class="why-section">
+  <div class="section-header fade-up">
+    <div class="section-eyebrow">The Difference</div>
+    <h2 class="section-title">WHY BUDDIES</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card fade-up">
+      <div class="why-card-icon">🪵</div>
+      <div class="why-card-title">REAL CHARCOAL</div>
+      <div class="why-card-desc">Hardwood only. The smoke flavour you can't fake with gas.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-card-icon">🌅</div>
+      <div class="why-card-title">DAILY FRESH</div>
+      <div class="why-card-desc">New stock every morning. Nothing kept overnight.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-card-icon">🕙</div>
+      <div class="why-card-title">LATE NIGHTS</div>
+      <div class="why-card-desc">Last order at 10 PM. We're here when everyone else has closed.</div>
+    </div>
+    <div class="why-card fade-up">
+      <div class="why-card-icon">❤️</div>
+      <div class="why-card-title">COMMUNITY FIRST</div>
+      <div class="why-card-desc">Githurai-born and proud. This place is for the people.</div>
+    </div>
+  </div>
+</section>
+
+<script src="shared.js"></script>
+<script>Buddies.init('services');</script>
+</body>
+</html>

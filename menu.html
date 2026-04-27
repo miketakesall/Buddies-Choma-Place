@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Menu — Buddies Choma Place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="shared.css" />
+<style>
+/* ═══════════════════════════════════════════════════════════
+   MENU PAGE — page-specific styles
+═══════════════════════════════════════════════════════════ */
+
+/* ── FULL MENU WRAPPER ───────────────────────────────────── */
+.full-menu { padding:4rem 2rem 6rem; max-width:1100px; margin:0 auto; }
+
+/* ── CATEGORY FILTER PILLS ───────────────────────────────── */
+.menu-cats {
+  display:flex; gap:0.8rem; flex-wrap:wrap; margin-bottom:3.5rem;
+}
+.cat-btn {
+  padding:0.55rem 1.3rem; border-radius:2px;
+  font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase;
+  border:1px solid rgba(217,90,43,0.3); color:var(--parch); opacity:0.7;
+  transition:all 0.25s; cursor:pointer;
+}
+.cat-btn:hover,
+.cat-btn.active { background:var(--ember); color:#fff; opacity:1; border-color:var(--ember); }
+
+/* ── SECTION DIVIDER TITLE ───────────────────────────────── */
+.menu-section-title {
+  font-family:'Anton',sans-serif; font-size:1.5rem;
+  letter-spacing:0.06em; color:var(--cream);
+  margin:3.5rem 0 1.5rem;
+  display:flex; align-items:center; gap:1rem;
+}
+.menu-section-title::after {
+  content:''; flex:1; height:1px;
+  background:linear-gradient(to right,rgba(217,90,43,0.4),transparent);
+}
+
+/* ── MENU CARD ROWS ──────────────────────────────────────── */
+.menu-row-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+}
+.fmc {
+  background:var(--mid); border-radius:4px;
+  display:flex; align-items:center; gap:1.2rem;
+  padding:1rem 1.2rem;
+  border:1px solid rgba(217,90,43,0.08);
+  transition:all 0.3s; cursor:pointer;
+}
+.fmc:hover { border-color:rgba(217,90,43,0.35); background:#341F12; transform:translateY(-2px); }
+.fmc-thumb {
+  width:56px; height:56px; border-radius:4px; flex-shrink:0;
+  background:rgba(217,90,43,0.12);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden; font-size:1.6rem;
+}
+.fmc-thumb img { width:100%; height:100%; object-fit:cover; }
+.fmc-info  { flex:1; min-width:0; }
+.fmc-name  { font-family:'Anton',sans-serif; font-size:0.95rem; letter-spacing:0.04em; color:var(--cream); }
+.fmc-desc  { font-size:0.75rem; opacity:0.5; line-height:1.5; margin-top:0.15rem; }
+.fmc-price { font-family:'Caveat',cursive; font-size:1.3rem; color:var(--ember); flex-shrink:0; }
+
+/* ── MENU HERO SPLIT ─────────────────────────────────────── */
+.menu-split {
+  display:grid; grid-template-columns:1fr 1.3fr; gap:3rem;
+  margin-bottom:3rem; align-items:start;
+}
+.menu-split-visual {
+  border-radius:4px; overflow:hidden; height:520px; position:relative;
+  background:var(--mid);
+}
+.menu-split-visual img {
+  width:100%; height:100%; object-fit:cover; opacity:0.8;
+}
+.menu-split-visual-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(15,10,7,0.75) 0%,transparent 55%);
+}
+.split-caption {
+  position:absolute; bottom:1.5rem; left:1.5rem; right:1.5rem; z-index:1;
+}
+.split-caption-title {
+  font-family:'Anton',sans-serif; font-size:1.1rem;
+  letter-spacing:0.05em; color:var(--cream);
+}
+.split-caption-sub {
+  font-family:'Playfair Display',serif; font-style:italic;
+  font-size:0.85rem; opacity:0.65; margin-top:0.3rem;
+}
+
+/* ── ORDER CTA BLOCK ─────────────────────────────────────── */
+.order-cta {
+  text-align:center; margin-top:4rem; padding:3rem;
+  background:var(--mid); border-radius:4px;
+  border:1px solid rgba(217,90,43,0.2);
+}
+.order-cta-title {
+  font-family:'Caveat',cursive; font-size:2rem;
+  color:var(--cream); margin-bottom:0.5rem;
+}
+.order-cta-sub { font-size:0.88rem; opacity:0.6; margin-bottom:1.8rem; }
+.order-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:900px) {
+  .menu-split    { grid-template-columns:1fr; }
+  .menu-split-visual { height:280px; }
+}
+@media(max-width:640px) {
+  .menu-row-grid { grid-template-columns:1fr; }
+  .menu-cats     { gap:0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     PAGE HERO
+════════════════════════════════════════════════════════ -->
+<div class="page-hero">
+  <div class="page-hero-emoji">🍖</div>
+  <div class="page-hero-content">
+    <div class="page-hero-tag">Full Menu</div>
+    <h1 class="page-hero-title">WHAT'S<br>ON THE GRILL</h1>
+    <p class="page-hero-sub">Everything smoke-kissed and flame-finished</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     FULL MENU
+════════════════════════════════════════════════════════ -->
+<div class="full-menu">
+
+  <!-- CATEGORY FILTERS -->
+  <div class="menu-cats fade-up">
+    <button class="cat-btn active" onclick="filterMenu('all',this)">🍽 All Items</button>
+    <button class="cat-btn" onclick="filterMenu('beef',this)">🥩 Beef</button>
+    <button class="cat-btn" onclick="filterMenu('goat',this)">🐐 Goat</button>
+    <button class="cat-btn" onclick="filterMenu('skewers',this)">🍢 Skewers</button>
+    <button class="cat-btn" onclick="filterMenu('offal',this)">🫀 Offal</button>
+    <button class="cat-btn" onclick="filterMenu('sides',this)">🌽 Sides</button>
+    <button class="cat-btn" onclick="filterMenu('drinks',this)">🥤 Drinks</button>
+  </div>
+
+  <!-- SPLIT LAYOUT: hero image + first category -->
+  <div class="menu-split">
+
+    <!-- LEFT: Visual -->
+    <div class="menu-split-visual fade-up">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&auto=format&fit=crop" alt="Choma platter" />
+      <div class="menu-split-visual-overlay"></div>
+      <div class="split-caption">
+        <div class="split-caption-title">THE SIGNATURE PLATTER</div>
+        <div class="split-caption-sub">smoke-kissed goat · hand-chopped onions · lime</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Beef + Goat -->
+    <div class="fade-up">
+
+      <!-- BEEF -->
+      <div class="menu-section-title" data-cat="beef">🥩 Beef Cuts</div>
+      <div class="menu-row-grid" id="beefGrid">
+
+        <div class="fmc" data-cat="beef">
+          <div class="fmc-thumb">
+            <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=120&auto=format&fit=crop" alt="¼ kg choma" />
+          </div>
+          <div class="fmc-info">
+            <div class="fmc-name">¼ KG CHOMA</div>
+            <div class="fmc-desc">Beef, charcoal-grilled, with kachumbari</div>
+          </div>
+          <div class="fmc-price">280</div>
+        </div>
+
+        <div class="fmc" data-cat="beef">
+          <div class="fmc-thumb">
+            <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=120&auto=format&fit=crop" alt="½ kg choma" />
+          </div>
+          <div class="fmc-info">
+            <div class="fmc-name">½ KG CHOMA</div>
+            <div class="fmc-desc">Double portion, great for sharing</div>
+          </div>
+          <div class="fmc-price">520</div>
+        </div>
+
+        <div class="fmc" data-cat="beef">
+          <div class="fmc-thumb">
+            <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=120&auto=format&fit=crop" alt="1 kg choma" />
+          </div>
+          <div class="fmc-info">
+            <div class="fmc-name">1 KG CHOMA</div>
+            <div class="fmc-desc">Full kilo — perfect for a group</div>
+          </div>
+          <div class="fmc-price">980</div>
+        </div>
+
+        <div class="fmc" data-cat="beef">
+          <div class="fmc-thumb">🫀</div>
+          <div class="fmc-info">
+            <div class="fmc-name">BEEF RIBS</div>
+            <div class="fmc-desc">Slow-charred, fall-off-the-bone</div>
+          </div>
+          <div class="fmc-price">350</div>
+        </div>
+
+      </div><!-- /beefGrid -->
+
+      <!-- GOAT -->
+      <div class="menu-section-title" data-cat="goat">🐐 Goat</div>
+      <div class="menu-row-grid">
+
+        <div class="fmc" data-cat="goat">
+          <div class="fmc-thumb">
+            <img src="https://images.unsplash.com/photo-1544025162-d76594e8ded8?w=120&auto=format&fit=crop" alt="Mbuzi choma" />
+          </div>
+          <div class="fmc-info">
+            <div class="fmc-name">MBUZI CHOMA</div>
+            <div class="fmc-desc">Slow-roasted goat, open charcoal fire</div>
+          </div>
+          <div class="fmc-price">450/kg</div>
+        </div>
+
+        <div class="fmc" data-cat="goat">
+          <div class="fmc-thumb">🐐</div>
+          <div class="fmc-info">
+            <div class="fmc-name">MBUZI RIBS</div>
+            <div class="fmc-desc">Goat ribs, marinated and char-grilled</div>
+          </div>
+          <div class="fmc-price">380</div>
+        </div>
+
+      </div>
+    </div><!-- /right col -->
+  </div><!-- /menu-split -->
+
+  <!-- SKEWERS -->
+  <div class="menu-section-title" data-cat="skewers">🍢 Skewers</div>
+  <div class="menu-row-grid">
+
+    <div class="fmc" data-cat="skewers">
+      <div class="fmc-thumb">
+        <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=120&auto=format&fit=crop" alt="Mishkaki" />
+      </div>
+      <div class="fmc-info">
+        <div class="fmc-name">MISHKAKI (6 PCS)</div>
+        <div class="fmc-desc">Spiced beef cubes, char-grilled on skewers</div>
+      </div>
+      <div class="fmc-price">180</div>
+    </div>
+
+    <div class="fmc" data-cat="skewers">
+      <div class="fmc-thumb">🍢</div>
+      <div class="fmc-info">
+        <div class="fmc-name">MISHKAKI (12 PCS)</div>
+        <div class="fmc-desc">Double order — shareable party size</div>
+      </div>
+      <div class="fmc-price">340</div>
+    </div>
+
+    <div class="fmc" data-cat="skewers">
+      <div class="fmc-thumb">🐐</div>
+      <div class="fmc-info">
+        <div class="fmc-name">GOAT MISHKAKI (6)</div>
+        <div class="fmc-desc">Goat cubes, fire-kissed on the stick</div>
+      </div>
+      <div class="fmc-price">220</div>
+    </div>
+
+  </div>
+
+  <!-- OFFAL -->
+  <div class="menu-section-title" data-cat="offal">🫀 Offal & Specials</div>
+  <div class="menu-row-grid">
+
+    <div class="fmc" data-cat="offal">
+      <div class="fmc-thumb">🫀</div>
+      <div class="fmc-info">
+        <div class="fmc-name">MATUMBO</div>
+        <div class="fmc-desc">Tripe, slow-cooked & seasoned</div>
+      </div>
+      <div class="fmc-price">220</div>
+    </div>
+
+    <div class="fmc" data-cat="offal">
+      <div class="fmc-thumb">🧠</div>
+      <div class="fmc-info">
+        <div class="fmc-name">MAINI (LIVER)</div>
+        <div class="fmc-desc">Pan-fried liver with caramelised onions</div>
+      </div>
+      <div class="fmc-price">200</div>
+    </div>
+
+    <div class="fmc" data-cat="offal">
+      <div class="fmc-thumb">🩺</div>
+      <div class="fmc-info">
+        <div class="fmc-name">FIGO (KIDNEY)</div>
+        <div class="fmc-desc">Grilled kidney, seasoned and smoky</div>
+      </div>
+      <div class="fmc-price">200</div>
+    </div>
+
+    <div class="fmc" data-cat="offal">
+      <div class="fmc-thumb">🫁</div>
+      <div class="fmc-info">
+        <div class="fmc-name">MUTURA</div>
+        <div class="fmc-desc">Traditional Kenyan blood sausage, grilled</div>
+      </div>
+      <div class="fmc-price">150</div>
+    </div>
+
+  </div>
+
+  <!-- SIDES -->
+  <div class="menu-section-title" data-cat="sides">🌽 Sides & Extras</div>
+  <div class="menu-row-grid">
+
+    <div class="fmc" data-cat="sides">
+      <div class="fmc-thumb">
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=120&auto=format&fit=crop" alt="Ugali" />
+      </div>
+      <div class="fmc-info">
+        <div class="fmc-name">UGALI</div>
+        <div class="fmc-desc">White or yellow, hand-pounded fresh</div>
+      </div>
+      <div class="fmc-price">50</div>
+    </div>
+
+    <div class="fmc" data-cat="sides">
+      <div class="fmc-thumb">🥗</div>
+      <div class="fmc-info">
+        <div class="fmc-name">KACHUMBARI</div>
+        <div class="fmc-desc">Fresh tomato, onion, coriander, lime</div>
+      </div>
+      <div class="fmc-price">40</div>
+    </div>
+
+    <div class="fmc" data-cat="sides">
+      <div class="fmc-thumb">🌽</div>
+      <div class="fmc-info">
+        <div class="fmc-name">ROASTED MAIZE</div>
+        <div class="fmc-desc">Charcoal-grilled, rubbed with lime &amp; salt</div>
+      </div>
+      <div class="fmc-price">30</div>
+    </div>
+
+    <div class="fmc" data-cat="sides">
+      <div class="fmc-thumb">🥜</div>
+      <div class="fmc-info">
+        <div class="fmc-name">NJUGU KARANGA</div>
+        <div class="fmc-desc">Roasted peanuts, salted</div>
+      </div>
+      <div class="fmc-price">20</div>
+    </div>
+
+    <div class="fmc" data-cat="sides">
+      <div class="fmc-thumb">🍅</div>
+      <div class="fmc-info">
+        <div class="fmc-name">CHILLI SAUCE</div>
+        <div class="fmc-desc">Homemade pepper sauce — house special</div>
+      </div>
+      <div class="fmc-price">30</div>
+    </div>
+
+  </div>
+
+  <!-- DRINKS -->
+  <div class="menu-section-title" data-cat="drinks">🥤 Drinks</div>
+  <div class="menu-row-grid">
+
+    <div class="fmc" data-cat="drinks">
+      <div class="fmc-thumb">🥛</div>
+      <div class="fmc-info">
+        <div class="fmc-name">COLD SODA</div>
+        <div class="fmc-desc">Coke, Fanta, Sprite — assorted</div>
+      </div>
+      <div class="fmc-price">50</div>
+    </div>
+
+    <div class="fmc" data-cat="drinks">
+      <div class="fmc-thumb">💧</div>
+      <div class="fmc-info">
+        <div class="fmc-name">WATER (500ml)</div>
+        <div class="fmc-desc">Still water, chilled</div>
+      </div>
+      <div class="fmc-price">30</div>
+    </div>
+
+    <div class="fmc" data-cat="drinks">
+      <div class="fmc-thumb">🍺</div>
+      <div class="fmc-info">
+        <div class="fmc-name">TUSKER LAGER</div>
+        <div class="fmc-desc">Cold Kenyan beer — ask for availability</div>
+      </div>
+      <div class="fmc-price">150</div>
+    </div>
+
+  </div>
+
+  <!-- ORDER CTA -->
+  <div class="order-cta fade-up">
+    <div class="order-cta-title">Ready to order? 🔥</div>
+    <div class="order-cta-sub">Call us or drop a WhatsApp — we'll have your choma ready in 20–30 minutes.</div>
+    <div class="order-cta-btns">
+      <a href="tel:0722552714" class="btn-primary" style="animation:none;background:var(--ember);">📞 Call 0722 552714</a>
+      <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..."
+         target="_blank" class="btn-outline" style="border-color:#25D366;color:#25D366;">💬 WhatsApp Order</a>
+    </div>
+  </div>
+
+</div><!-- /full-menu -->
+
+<script src="shared.js"></script>
+<script>
+Buddies.init('menu');
+
+/* ── MENU FILTER ─────────────────────────────────────────── */
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // filter item rows
+  document.querySelectorAll('.fmc').forEach(el => {
+    const elCat = el.getAttribute('data-cat') || '';
+    el.style.display = (cat === 'all' || elCat.includes(cat)) ? 'flex' : 'none';
+  });
+
+  // hide/show section titles
+  document.querySelectorAll('.menu-section-title[data-cat]').forEach(h => {
+    const hCat = h.getAttribute('data-cat') || '';
+    h.style.display = (cat === 'all' || hCat.includes(cat)) ? 'flex' : 'none';
+  });
+}
+</script>
+</body>
+</html>
