@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Buddies Choma Place – Order Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════ */
+:root{
+  --char:   #0D0905;
+  --dark:   #1A100A;
+  --mid:    #2C1810;
+  --panel:  #1F1208;
+  --ember:  #D95A2B;
+  --flame:  #E8622E;
+  --glow:   #FF8C42;
+  --cream:  #F2D4A8;
+  --parch:  #E8D5B0;
+  --dim:    #8A6A50;
+  --green:  #00A34B;
+  --green2: #007A38;
+  --wa:     #25D366;
+  --gold:   #C9952A;
+  --r:      6px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;scroll-behavior:smooth;}
+body{
+  background:var(--char);
+  color:var(--parch);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;border:none;font:inherit;}
+input{font:inherit;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--char);}
+::-webkit-scrollbar-thumb{background:var(--ember);border-radius:3px;}
+
+/* noise overlay */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.3;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════════════ */
+.app-shell{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  grid-template-rows:auto 1fr;
+  min-height:100vh;
+}
+.main-content{
+  grid-column:1;grid-row:1/3;
+  padding:0 0 6rem;
+}
+.cart-sidebar{
+  grid-column:2;grid-row:1/3;
+  position:sticky;top:0;height:100vh;
+  background:var(--dark);
+  border-left:1px solid rgba(217,90,43,0.2);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER / HERO
+═══════════════════════════════════════════════════════ */
+.site-header{
+  position:relative;
+  padding:3rem 2.5rem 2.5rem;
+  background:linear-gradient(135deg,#1A0C06 0%,#2C1810 40%,#1A0C06 100%);
+  border-bottom:1px solid rgba(217,90,43,0.15);
+  overflow:hidden;
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 70%,rgba(217,90,43,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 50% at 85% 30%,rgba(178,50,20,0.08) 0%,transparent 55%);
+}
+.site-header::after{
+  content:'🔥';
+  position:absolute;right:2rem;top:50%;transform:translateY(-50%);
+  font-size:8rem;opacity:0.06;pointer-events:none;
+}
+.header-inner{position:relative;z-index:1;}
+.header-eyebrow{
+  font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:0.6rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.header-eyebrow::before{content:'';width:24px;height:1px;background:var(--ember);}
+.site-title{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(2rem,5vw,3.8rem);
+  letter-spacing:0.04em;
+  color:var(--cream);
+  line-height:0.95;
+  margin-bottom:0.5rem;
+}
+.site-title span{color:var(--ember);}
+.site-tagline{
+  font-family:'Libre Baskerville',serif;
+  font-style:italic;
+  font-size:0.95rem;
+  color:var(--parch);opacity:0.65;
+  margin-bottom:1.2rem;
+}
+.header-meta{
+  display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
+}
+.meta-pill{
+  display:flex;align-items:center;gap:0.4rem;
+  background:rgba(217,90,43,0.1);
+  border:1px solid rgba(217,90,43,0.25);
+  border-radius:20px;padding:0.3rem 0.75rem;
+  font-size:0.72rem;letter-spacing:0.05em;
+  color:var(--parch);opacity:0.8;
+}
+.till-pill{
+  background:rgba(0,163,75,0.12);
+  border-color:rgba(0,163,75,0.3);
+  color:#00a34b;font-weight:600;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CATEGORY NAV
+═══════════════════════════════════════════════════════ */
+.cat-nav{
+  display:flex;gap:0.5rem;padding:1.2rem 2.5rem;
+  overflow-x:auto;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  position:sticky;top:0;z-index:50;
+  background:rgba(13,9,5,0.97);backdrop-filter:blur(16px);
+}
+.cat-nav::-webkit-scrollbar{display:none;}
+.cat-btn{
+  padding:0.5rem 1.2rem;border-radius:20px;
+  font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid rgba(217,90,43,0.25);
+  color:var(--parch);opacity:0.6;
+  background:transparent;white-space:nowrap;
+  transition:all 0.25s;flex-shrink:0;
+}
+.cat-btn:hover{opacity:0.9;border-color:rgba(217,90,43,0.5);}
+.cat-btn.active{
+  background:var(--ember);color:#fff;
+  border-color:var(--ember);opacity:1;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MENU SECTIONS
+═══════════════════════════════════════════════════════ */
+.menu-sections{padding:2rem 2.5rem 0;}
+
+.menu-section{margin-bottom:3rem;}
+.section-header{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.5rem;
+}
+.section-icon{font-size:1.6rem;}
+.section-title{
+  font-family:'Anton',sans-serif;
+  font-size:clamp(1.2rem,2.5vw,1.8rem);
+  letter-spacing:0.06em;
+  color:var(--cream);
+}
+.section-line{
+  flex:1;height:1px;
+  background:linear-gradient(to right,rgba(217,90,43,0.4),transparent);
+}
+.section-count{
+  font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ember);opacity:0.7;
+}
+
+/* ── MENU ITEM GRID ── */
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:1rem;
+}
+
+/* ── MENU ITEM CARD ── */
+.menu-item{
+  background:var(--panel);
+  border:1px solid rgba(217,90,43,0.08);
+  border-radius:var(--r);
+  padding:1.1rem 1.2rem;
+  display:flex;flex-direction:column;gap:0.6rem;
+  transition:all 0.25s;
+  position:relative;overflow:hidden;
+}
+.menu-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--ember),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform 0.3s;
+}
+.menu-item:hover{
+  border-color:rgba(217,90,43,0.28);
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(0,0,0,0.4);
+}
+.menu-item:hover::before{transform:scaleX(1);}
+.menu-item.in-cart{
+  border-color:rgba(0,163,75,0.3);
+  background:rgba(0,163,75,0.04);
+}
+.menu-item.in-cart::before{
+  background:linear-gradient(to right,var(--green),transparent);
+  transform:scaleX(1);
+}
+
+.item-name{
+  font-size:0.9rem;
+  color:var(--cream);
+  line-height:1.4;
+  flex:1;
+}
+.item-bottom{
+  display:flex;align-items:center;justify-content:space-between;gap:0.8rem;
+}
+.item-price{
+  font-family:'Anton',sans-serif;
+  font-size:1.05rem;
+  color:var(--ember);
+  letter-spacing:0.04em;
+  white-space:nowrap;
+}
+.item-price .ksh{
+  font-family:'DM Sans',sans-serif;
+  font-size:0.7rem;font-weight:500;
+  opacity:0.6;letter-spacing:0.05em;
+}
+
+/* qty control */
+.qty-ctrl{
+  display:flex;align-items:center;gap:0.4rem;
+}
+.qty-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(217,90,43,0.15);
+  border:1px solid rgba(217,90,43,0.3);
+  color:var(--ember);font-size:1rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.qty-btn:hover{background:var(--ember);color:#fff;border-color:var(--ember);}
+.qty-btn.add-only{
+  width:auto;padding:0 0.9rem;border-radius:4px;
+  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
+}
+.qty-val{
+  font-family:'Anton',sans-serif;font-size:0.95rem;
+  color:var(--cream);min-width:20px;text-align:center;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CART SIDEBAR
+═══════════════════════════════════════════════════════ */
+.cart-header{
+  padding:1.5rem 1.5rem 1rem;
+  border-bottom:1px solid rgba(217,90,43,0.15);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-title{
+  font-family:'Anton',sans-serif;font-size:1.2rem;
+  letter-spacing:0.06em;color:var(--cream);
+  display:flex;align-items:center;gap:0.6rem;
+}
+.cart-badge{
+  background:var(--ember);color:#fff;
+  width:22px;height:22px;border-radius:50%;
+  font-size:0.72rem;font-weight:700;font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+.cart-clear{
+  font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--parch);opacity:0.35;cursor:pointer;transition:opacity 0.2s;
+}
+.cart-clear:hover{opacity:0.8;}
+
+.cart-items{
+  flex:1;overflow-y:auto;padding:1rem 1.5rem;
+}
+.cart-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;text-align:center;gap:0.8rem;opacity:0.35;
+  padding:2rem;
+}
+.cart-empty-icon{font-size:3rem;}
+.cart-empty-text{font-size:0.85rem;line-height:1.6;}
+
+.cart-item{
+  display:grid;grid-template-columns:1fr auto auto;gap:0.6rem;
+  align-items:start;padding:0.8rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  animation:slideIn 0.25s ease;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:translateX(0);}}
+.ci-name{font-size:0.82rem;color:var(--cream);line-height:1.4;}
+.ci-price{font-family:'Caveat',cursive;font-size:1.05rem;color:var(--ember);white-space:nowrap;}
+.ci-remove{
+  font-size:0.9rem;color:var(--parch);opacity:0.3;cursor:pointer;
+  transition:opacity 0.2s;padding:0 0.2rem;
+}
+.ci-remove:hover{opacity:0.8;color:#ff4444;}
+.ci-qty-row{
+  grid-column:1/-1;
+  display:flex;align-items:center;gap:0.5rem;margin-top:0.2rem;
+}
+.ci-qty-btn{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(217,90,43,0.12);border:1px solid rgba(217,90,43,0.25);
+  color:var(--ember);font-size:0.9rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;transition:all 0.2s;
+}
+.ci-qty-btn:hover{background:var(--ember);color:#fff;}
+.ci-qty-val{font-size:0.82rem;color:var(--cream);min-width:20px;text-align:center;}
+.ci-subtotal{font-size:0.78rem;opacity:0.5;margin-left:auto;}
+
+/* cart footer */
+.cart-footer{
+  padding:1.2rem 1.5rem;
+  border-top:1px solid rgba(217,90,43,0.15);
+  background:rgba(13,9,5,0.6);
+}
+.cart-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:1rem;
+}
+.cart-total-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.55;}
+.cart-total-amt{
+  font-family:'Anton',sans-serif;font-size:1.6rem;
+  color:var(--cream);letter-spacing:0.04em;
+}
+.cart-total-amt .ksh-small{
+  font-family:'DM Sans',sans-serif;font-size:0.7rem;
+  opacity:0.5;letter-spacing:0.05em;
+}
+.checkout-btn{
+  width:100%;padding:1rem;border-radius:4px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  color:#fff;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;
+  font-weight:600;transition:all 0.3s;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+}
+.checkout-btn:not(:disabled):hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 24px rgba(0,163,75,0.4);
+}
+.checkout-btn:disabled{
+  opacity:0.25;cursor:not-allowed;transform:none;box-shadow:none;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MODAL OVERLAY
+═══════════════════════════════════════════════════════ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(5,3,2,0.88);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--dark);
+  border:1px solid rgba(217,90,43,0.2);
+  border-radius:10px;
+  width:100%;max-width:500px;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(20px);transition:transform 0.3s;
+  position:relative;
+}
+.modal-overlay.open .modal{transform:translateY(0);}
+
+.modal-header{
+  padding:1.8rem 2rem 1.2rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+}
+.modal-title{
+  font-family:'Anton',sans-serif;font-size:1.4rem;
+  letter-spacing:0.04em;color:var(--cream);
+}
+.modal-subtitle{font-size:0.8rem;opacity:0.5;margin-top:0.2rem;}
+.modal-close{
+  font-size:1.4rem;color:var(--parch);opacity:0.4;cursor:pointer;
+  transition:opacity 0.2s;flex-shrink:0;padding:0.2rem;
+}
+.modal-close:hover{opacity:1;}
+
+.modal-body{padding:1.5rem 2rem;}
+
+/* ── ORDER SUMMARY IN MODAL ── */
+.modal-order-summary{
+  background:rgba(217,90,43,0.05);
+  border:1px solid rgba(217,90,43,0.12);
+  border-radius:4px;padding:1rem;margin-bottom:1.5rem;
+  max-height:160px;overflow-y:auto;
+}
+.mos-item{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:0.82rem;padding:0.3rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.mos-item:last-child{border-bottom:none;}
+.mos-name{opacity:0.8;flex:1;padding-right:0.5rem;}
+.mos-price{font-family:'Caveat',cursive;font-size:0.95rem;color:var(--ember);}
+.mos-total-row{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:0.8rem;padding-top:0.8rem;
+  border-top:1px solid rgba(217,90,43,0.2);
+}
+.mos-total-label{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5;}
+.mos-total-amt{font-family:'Anton',sans-serif;font-size:1.2rem;color:var(--cream);}
+
+/* ── TILL INFO ── */
+.till-card{
+  background:rgba(0,163,75,0.06);
+  border:1px solid rgba(0,163,75,0.2);
+  border-radius:4px;padding:1rem;margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.till-card-icon{font-size:2rem;}
+.till-card-info{}
+.till-card-label{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--green);margin-bottom:0.2rem;}
+.till-card-num{font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:0.08em;}
+.till-card-name{font-size:0.78rem;opacity:0.55;}
+
+/* ── FORM FIELDS ── */
+.form-group{margin-bottom:1.2rem;}
+.form-label{
+  display:block;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;
+  opacity:0.5;margin-bottom:0.45rem;
+}
+.form-input{
+  width:100%;background:rgba(13,9,5,0.7);
+  border:1px solid rgba(217,90,43,0.2);border-radius:4px;
+  padding:0.85rem 1rem;color:var(--cream);
+  font-size:0.95rem;outline:none;transition:border-color 0.25s,box-shadow 0.25s;
+}
+.form-input:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 3px rgba(0,163,75,0.12);
+}
+.form-input::placeholder{opacity:0.3;}
+.form-input.error{border-color:#ff4444;box-shadow:0 0 0 3px rgba(255,68,68,0.1);}
+.form-hint{font-size:0.72rem;opacity:0.38;margin-top:0.35rem;line-height:1.5;}
+.form-error{font-size:0.72rem;color:#ff6b6b;margin-top:0.35rem;}
+
+/* ── PAY BUTTON ── */
+.pay-btn{
+  width:100%;padding:1.1rem;border-radius:4px;
+  background:linear-gradient(135deg,#00a34b,#007a38);
+  color:#fff;font-size:0.92rem;letter-spacing:0.12em;text-transform:uppercase;
+  font-weight:700;transition:all 0.3s;
+  display:flex;align-items:center;justify-content:center;gap:0.6rem;
+  margin-top:0.5rem;
+}
+.pay-btn:not(:disabled):hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(0,163,75,0.5);
+}
+.pay-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.pay-btn-note{
+  text-align:center;font-size:0.72rem;opacity:0.38;
+  margin-top:0.6rem;line-height:1.5;
+}
+
+/* ── STK PUSH STATUS SCREENS ── */
+.status-screen{
+  text-align:center;padding:2rem 1rem;
+  display:none;flex-direction:column;align-items:center;gap:1rem;
+}
+.status-screen.active{display:flex;}
+
+/* sending */
+.stk-spinner{
+  width:60px;height:60px;border-radius:50%;
+  border:4px solid rgba(0,163,75,0.2);border-top-color:#00a34b;
+  animation:spin 0.9s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.stk-phone-anim{
+  font-size:3rem;animation:phonePulse 1.5s ease-in-out infinite;
+}
+@keyframes phonePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1) rotate(-5deg);}}
+.stk-title{font-family:'Anton',sans-serif;font-size:1.2rem;color:var(--cream);letter-spacing:0.04em;}
+.stk-sub{font-size:0.85rem;opacity:0.55;line-height:1.6;max-width:320px;}
+.stk-code{
+  font-family:'Anton',sans-serif;letter-spacing:0.2em;
+  background:rgba(0,163,75,0.1);border:1px solid rgba(0,163,75,0.25);
+  border-radius:4px;padding:0.6rem 1.2rem;font-size:1.1rem;color:var(--green);
+}
+
+/* PIN prompt */
+.pin-prompt-box{
+  background:rgba(0,163,75,0.06);
+  border:2px solid rgba(0,163,75,0.3);
+  border-radius:8px;padding:1.5rem;
+  max-width:300px;text-align:center;
+}
+.pin-prompt-title{font-family:'Anton',sans-serif;font-size:1rem;color:var(--cream);margin-bottom:0.5rem;letter-spacing:0.05em;}
+.pin-prompt-amt{font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--green);margin-bottom:0.4rem;}
+.pin-prompt-merchant{font-size:0.75rem;opacity:0.5;margin-bottom:1rem;}
+
+/* PIN dots */
+.pin-dots-row{display:flex;gap:0.7rem;justify-content:center;margin-bottom:0.8rem;}
+.pin-dot{
+  width:14px;height:14px;border-radius:50%;
+  border:2px solid rgba(0,163,75,0.4);background:transparent;
+  transition:all 0.15s;
+}
+.pin-dot.filled{background:var(--green);border-color:var(--green);}
+.pin-prompt-cta{font-size:0.72rem;opacity:0.5;font-style:italic;}
+
+/* success */
+.success-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:var(--green);color:#fff;
+  font-size:2rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  animation:popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+@keyframes popIn{from{transform:scale(0)rotate(-15deg);}to{transform:scale(1)rotate(0);}}
+.success-confetti{font-size:2rem;animation:bounce 1s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.success-receipt{
+  background:rgba(0,163,75,0.06);border:1px solid rgba(0,163,75,0.2);
+  border-radius:6px;padding:1rem;width:100%;max-width:320px;
+  font-size:0.8rem;line-height:1.8;text-align:left;
+}
+.receipt-row{display:flex;justify-content:space-between;}
+.receipt-label{opacity:0.5;}
+.receipt-val{color:var(--cream);font-weight:500;}
+.receipt-code{font-family:'Anton',sans-serif;color:var(--green);letter-spacing:0.1em;}
+
+/* failure */
+.fail-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:#c0392b;color:#fff;
+  font-size:2rem;
+  display:flex;align-items:center;justify-content:center;
+  animation:popIn 0.4s ease;
+}
+.retry-btn{
+  padding:0.8rem 2rem;border-radius:4px;
+  background:rgba(217,90,43,0.15);color:var(--ember);
+  border:1px solid rgba(217,90,43,0.35);
+  font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.25s;
+}
+.retry-btn:hover{background:var(--ember);color:#fff;}
+
+/* ── WA share button ── */
+.wa-share-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.6rem;
+  background:var(--wa);color:#fff;padding:0.9rem 1.5rem;border-radius:4px;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.06em;
+  transition:all 0.25s;width:100%;margin-top:0.6rem;
+}
+.wa-share-btn:hover{background:#1db954;transform:translateY(-2px);}
+
+/* ── BACK / ANOTHER ORDER ── */
+.modal-action-row{display:flex;gap:0.8rem;margin-top:1rem;flex-wrap:wrap;}
+.btn-ghost-modal{
+  flex:1;padding:0.75rem;border-radius:4px;
+  background:rgba(255,255,255,0.06);color:var(--parch);
+  border:1px solid rgba(255,255,255,0.12);
+  font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.btn-ghost-modal:hover{background:rgba(255,255,255,0.1);}
+
+/* ═══════════════════════════════════════════════════════
+   BACKEND DOCS SECTION
+═══════════════════════════════════════════════════════ */
+.backend-docs{
+  margin:3rem 2.5rem 0;
+  border:1px solid rgba(0,163,75,0.2);
+  border-radius:8px;overflow:hidden;
+}
+.backend-docs summary{
+  padding:1rem 1.5rem;
+  background:rgba(0,163,75,0.06);
+  cursor:pointer;
+  display:flex;align-items:center;gap:0.8rem;
+  font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--green);font-weight:600;
+  list-style:none;
+  transition:background 0.2s;
+}
+.backend-docs summary:hover{background:rgba(0,163,75,0.1);}
+.backend-docs summary::marker{display:none;}
+.backend-docs[open] summary{border-bottom:1px solid rgba(0,163,75,0.2);}
+.docs-body{padding:1.5rem;}
+.docs-h{
+  font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:0.06em;
+  color:var(--cream);margin:1.2rem 0 0.5rem;
+}
+.docs-h:first-child{margin-top:0;}
+.docs-p{font-size:0.85rem;opacity:0.65;line-height:1.8;margin-bottom:0.8rem;}
+.docs-code{
+  background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);
+  border-radius:4px;padding:1rem;
+  font-family:'Courier New',monospace;font-size:0.78rem;
+  color:#00ff88;line-height:1.7;overflow-x:auto;margin-bottom:1rem;
+  white-space:pre;
+}
+.docs-list{
+  list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-bottom:0.8rem;
+}
+.docs-list li{
+  font-size:0.83rem;opacity:0.65;padding-left:1rem;position:relative;line-height:1.6;
+}
+.docs-list li::before{content:'›';position:absolute;left:0;color:var(--green);}
+.docs-tag{
+  display:inline-block;
+  background:rgba(0,163,75,0.12);color:var(--green);
+  border:1px solid rgba(0,163,75,0.25);border-radius:3px;
+  font-family:'Courier New',monospace;font-size:0.75rem;
+  padding:0.1rem 0.4rem;margin:0 0.1rem;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE CART TOGGLE
+═══════════════════════════════════════════════════════ */
+.mobile-cart-fab{
+  display:none;
+  position:fixed;bottom:1.5rem;right:1.5rem;z-index:200;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--ember);color:#fff;
+  box-shadow:0 4px 20px rgba(217,90,43,0.5);
+  align-items:center;justify-content:center;
+  font-size:1.4rem;transition:transform 0.25s;
+}
+.mobile-cart-fab:hover{transform:scale(1.08);}
+.mobile-cart-fab-badge{
+  position:absolute;top:-4px;right:-4px;
+  width:20px;height:20px;border-radius:50%;
+  background:#fff;color:var(--ember);
+  font-size:0.65rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--ember);
+}
+
+.cart-sidebar-mobile-close{
+  display:none;padding:0.5rem 1.5rem;
+  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--parch);opacity:0.4;cursor:pointer;border-top:1px solid rgba(255,255,255,0.05);
+  text-align:center;transition:opacity 0.2s;
+}
+.cart-sidebar-mobile-close:hover{opacity:0.8;}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════ */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+  background:rgba(20,12,7,0.95);border:1px solid rgba(217,90,43,0.3);
+  color:var(--cream);padding:0.75rem 1.5rem;border-radius:30px;
+  font-size:0.82rem;z-index:2000;
+  transition:transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275);
+  white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.green{border-color:rgba(0,163,75,0.4);}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════════════ */
+@media(max-width:860px){
+  .app-shell{grid-template-columns:1fr;}
+  .cart-sidebar{
+    position:fixed;right:0;top:0;bottom:0;
+    width:340px;z-index:500;
+    transform:translateX(100%);transition:transform 0.35s ease;
+    box-shadow:-8px 0 40px rgba(0,0,0,0.5);
+  }
+  .cart-sidebar.open{transform:translateX(0);}
+  .mobile-cart-fab{display:flex;}
+  .cart-sidebar-mobile-close{display:block;}
+  .menu-sections{padding:1.5rem 1.2rem 0;}
+  .site-header{padding:2rem 1.2rem 1.8rem;}
+  .cat-nav{padding:0.9rem 1.2rem;}
+  .backend-docs{margin:2rem 1.2rem 0;}
+  .menu-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .cart-sidebar{width:100%;}
+  .modal{max-width:100%;border-radius:16px 16px 0 0;}
+  .modal-overlay{align-items:flex-end;padding:0;}
+  .modal{max-height:85vh;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     APP SHELL
+════════════════════════════════════════════════ -->
+<div class="app-shell">
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main class="main-content">
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-eyebrow">Githurai Complex · Ground Floor</div>
+        <h1 class="site-title">BUDDIES <span>CHOMA</span><br>PLACE</h1>
+        <p class="site-tagline">Fire-grilled perfection — open till 24hrs</p>
+        <div class="header-meta">
+          <div class="meta-pill">📞 0722 552714</div>
+          <div class="meta-pill till-pill">🏦 Till: 8462960</div>
+          <div class="meta-pill">🕙 Open 24hrs</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CATEGORY NAV -->
+    <nav class="cat-nav" id="catNav">
+      <button class="cat-btn active" onclick="scrollToSection('choma',this)">🔥 Choma</button>
+      <button class="cat-btn" onclick="scrollToSection('main',this)">🍽 Main Dishes</button>
+      <button class="cat-btn" onclick="scrollToSection('snacks',this)">🥟 Snacks</button>
+      <button class="cat-btn" onclick="scrollToSection('drinks',this)">🥤 Drinks</button>
+    </nav>
+
+    <!-- MENU SECTIONS -->
+    <div class="menu-sections">
+
+      <!-- CHOMA -->
+      <section class="menu-section" id="sec-choma">
+        <div class="section-header">
+          <span class="section-icon">🔥</span>
+          <h2 class="section-title">CHOMA</h2>
+          <div class="section-line"></div>
+          <span class="section-count">9 items</span>
+        </div>
+        <div class="menu-grid" id="grid-choma"></div>
+      </section>
+
+      <!-- MAIN DISHES -->
+      <section class="menu-section" id="sec-main">
+        <div class="section-header">
+          <span class="section-icon">🍽</span>
+          <h2 class="section-title">MAIN DISHES</h2>
+          <div class="section-line"></div>
+          <span class="section-count">15 items</span>
+        </div>
+        <div class="menu-grid" id="grid-main"></div>
+      </section>
+
+      <!-- SNACKS -->
+      <section class="menu-section" id="sec-snacks">
+        <div class="section-header">
+          <span class="section-icon">🥟</span>
+          <h2 class="section-title">SNACKS</h2>
+          <div class="section-line"></div>
+          <span class="section-count">4 items</span>
+        </div>
+        <div class="menu-grid" id="grid-snacks"></div>
+      </section>
+
+      <!-- DRINKS -->
+      <section class="menu-section" id="sec-drinks">
+        <div class="section-header">
+          <span class="section-icon">🥤</span>
+          <h2 class="section-title">DRINKS</h2>
+          <div class="section-line"></div>
+          <span class="section-count">7 items</span>
+        </div>
+        <div class="menu-grid" id="grid-drinks"></div>
+      </section>
+
+      <!-- BACKEND DOCS -->
+      <details class="backend-docs">
+        <div class="docs-body">
+          <div class="docs-h">What You Need (Safaricom Daraja API)</div>
+          <p class="docs-p">To enable real M-Pesa STK Push payments, you need a backend server. The frontend cannot call Daraja directly due to CORS and security. Follow these steps:</p>
+          <ul class="docs-list">
+            <li>Register at <span class="docs-tag">developer.safaricom.co.ke</span> and create an app</li>
+            <li>Get your <span class="docs-tag">Consumer Key</span> and <span class="docs-tag">Consumer Secret</span></li>
+            <li>Get your <span class="docs-tag">Business Shortcode</span> (Till Number: 8462960)</li>
+            <li>Get your <span class="docs-tag">Lipa Na Mpesa Online Passkey</span> from the portal</li>
+            <li>Set up a callback URL (publicly accessible HTTPS endpoint)</li>
+          </ul>
+
+          <div class="docs-h">Backend Endpoint (Node.js / Express)</div>
+          <div class="docs-code">// npm install express axios dotenv
+// POST /api/mpesa/stkpush
+
+const express = require('express');
+const axios = require('axios');
+const app = express();
+app.use(express.json());
+
+const CONSUMER_KEY    = process.env.MPESA_CONSUMER_KEY;
+const CONSUMER_SECRET = process.env.MPESA_CONSUMER_SECRET;
+const SHORTCODE       = '8462960';
+const PASSKEY         = process.env.MPESA_PASSKEY;
+const CALLBACK_URL    = 'https://yourdomain.com/api/mpesa/callback';
+
+// Step 1: Get OAuth access token
+async function getAccessToken() {
+  const auth = Buffer.from(`${CONSUMER_KEY}:${CONSUMER_SECRET}`).toString('base64');
+  const res = await axios.get(
+    'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+    { headers: { Authorization: `Basic ${auth}` } }
+  );
+  return res.data.access_token;
+}
+
+// Step 2: STK Push
+app.post('/api/mpesa/stkpush', async (req, res) => {
+  const { phoneNumber, amount, tillNumber } = req.body;
+  const token = await getAccessToken();
+  const timestamp = new Date().toISOString().replace(/[^0-9]/g,'').slice(0,14);
+  const password = Buffer.from(`${SHORTCODE}${PASSKEY}${timestamp}`).toString('base64');
+
+  const payload = {
+    BusinessShortCode: SHORTCODE,
+    Password: password,
+    Timestamp: timestamp,
+    TransactionType: 'CustomerBuyGoodsOnline',
+    Amount: Math.ceil(amount),
+    PartyA: phoneNumber,
+    PartyB: SHORTCODE,
+    PhoneNumber: phoneNumber,
+    CallBackURL: CALLBACK_URL,
+    AccountReference: 'BuddiesChoma',
+    TransactionDesc: 'Food Order - Buddies Choma Place'
+  };
+
+  const mpesaRes = await axios.post(
+    'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+    payload,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  res.json(mpesaRes.data);
+});
+
+// Step 3: Callback (Safaricom calls this after payment)
+app.post('/api/mpesa/callback', (req, res) => {
+  const result = req.body.Body.stkCallback;
+  if (result.ResultCode === 0) {
+    // Payment successful — update your DB here
+    const code = result.CallbackMetadata.Item.find(i => i.Name === 'MpesaReceiptNumber').Value;
+    console.log('Payment success. Receipt:', code);
+  }
+  res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
+});
+
+app.listen(3000);</div>
+
+          <div class="docs-h">Frontend Real API Call (uncomment in JS)</div>
+          <div class="docs-code">// Replace simulateStkPush() with this for live payments:
+async function realStkPush(phoneNumber, amount) {
+  const res = await fetch('/api/mpesa/stkpush', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      phoneNumber,   // e.g. "254712345678"
+      amount,        // e.g. 1500
+      tillNumber: '8462960'
+    })
+  });
+  const data = await res.json();
+  if (data.ResponseCode === '0') {
+    // STK Push sent successfully — show PIN prompt to user
+    return { success: true, checkoutId: data.CheckoutRequestID };
+  } else {
+    return { success: false, message: data.ResponseDescription };
+  }
+}
+
+// Poll payment status (or use webhook/callback)
+async function checkPaymentStatus(checkoutId) {
+  const res = await fetch(`/api/mpesa/status/${checkoutId}`);
+  return await res.json();
+}</div>
+
+          <div class="docs-h">Environment Variables (.env)</div>
+          <div class="docs-code">MPESA_CONSUMER_KEY=your_consumer_key_here
+MPESA_CONSUMER_SECRET=your_consumer_secret_here
+MPESA_PASSKEY=your_lipa_na_mpesa_passkey_here
+# For production: change sandbox URLs to live:
+# sandbox.safaricom.co.ke → api.safaricom.co.ke</div>
+
+          <div class="docs-h">Alternative: PHP (using cURL)</div>
+          <div class="docs-code">&lt;?php
+// POST /api/mpesa/stkpush.php
+$consumerKey    = 'your_key';
+$consumerSecret = 'your_secret';
+$shortcode      = '8462960';
+$passkey        = 'your_passkey';
+$timestamp      = date('YmdHis');
+$password       = base64_encode($shortcode . $passkey . $timestamp);
+$auth           = base64_encode("$consumerKey:$consumerSecret");
+
+// 1. Get token
+$ch = curl_init('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials');
+curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER=>true, CURLOPT_HTTPHEADER=>["Authorization: Basic $auth"]]);
+$token = json_decode(curl_exec($ch))->access_token;
+
+// 2. STK Push
+$data = json_encode(['BusinessShortCode'=>$shortcode,'Password'=>$password,
+  'Timestamp'=>$timestamp,'TransactionType'=>'CustomerBuyGoodsOnline',
+  'Amount'=>$_POST['amount'],'PartyA'=>$_POST['phoneNumber'],'PartyB'=>$shortcode,
+  'PhoneNumber'=>$_POST['phoneNumber'],'CallBackURL'=>'https://yourdomain.com/callback.php',
+  'AccountReference'=>'BuddiesChoma','TransactionDesc'=>'Food Order']);
+$ch = curl_init('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest');
+curl_setopt_array($ch, [CURLOPT_POST=>true, CURLOPT_POSTFIELDS=>$data,
+  CURLOPT_RETURNTRANSFER=>true, CURLOPT_HTTPHEADER=>["Authorization: Bearer $token","Content-Type:application/json"]]);
+echo curl_exec($ch);</div>
+
+          <div class="docs-h">Using mpesa-js package (npm)</div>
+          <div class="docs-code">// npm install mpesa-js
+const MpesaJs = require('mpesa-js');
+const mpesa = new MpesaJs({
+  consumerKey: process.env.MPESA_CONSUMER_KEY,
+  consumerSecret: process.env.MPESA_CONSUMER_SECRET,
+  shortCode: '8462960',
+  passKey: process.env.MPESA_PASSKEY,
+  callbackUrl: 'https://yourdomain.com/callback',
+  environment: 'sandbox' // change to 'production' when live
+});
+
+await mpesa.lipaNaMpesaOnline({
+  phoneNumber: '254712345678',
+  amount: 1500,
+  accountReference: 'BuddiesChoma',
+  transactionDesc: 'Food order'
+});</div>
+        </div>
+      </details>
+
+    </div><!-- /menu-sections -->
+  </main>
+
+  <!-- ══ CART SIDEBAR ══ -->
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <div class="cart-title">
+        🛒 Your Order
+        <div class="cart-badge" id="cartBadge">0</div>
+      </div>
+      <div class="cart-clear" onclick="clearCart()">Clear all</div>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">🍽</div>
+        <div class="cart-empty-text">Your cart is empty.<br>Add items from the menu to get started.</div>
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <div class="cart-total-label">Total</div>
+        <div class="cart-total-amt">
+          <span class="ksh-small">KSH </span><span id="cartTotal">0</span>
+        </div>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" onclick="openCheckout()" disabled>
+        💳 Pay with M-Pesa
+      </button>
+    </div>
+
+    <div class="cart-sidebar-mobile-close" onclick="toggleMobileCart()">✕ Close Cart</div>
+  </aside>
+
+</div><!-- /app-shell -->
+
+<!-- MOBILE FAB -->
+<button class="mobile-cart-fab" id="mobileFab" onclick="toggleMobileCart()">
+  🛒
+  <div class="mobile-cart-fab-badge" id="fabBadge">0</div>
+</button>
+
+<!-- ═══════════════════════════════════════════════
+     CHECKOUT MODAL
+════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+
+    <!-- PAYMENT FORM SCREEN -->
+    <div id="screenForm">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">M-PESA CHECKOUT</div>
+          <div class="modal-subtitle">Lipa Na M-Pesa · Buy Goods & Services</div>
+        </div>
+        <div class="modal-close" onclick="closeCheckout()">✕</div>
+      </div>
+      <div class="modal-body">
+
+        <!-- Order summary -->
+        <div class="modal-order-summary" id="modalOrderSummary"></div>
+
+        <!-- Till card -->
+        <div class="till-card">
+          <div class="till-card-icon">🏦</div>
+          <div class="till-card-info">
+            <div class="till-card-label">Pay To — Till Number</div>
+            <div class="till-card-num">8462960</div>
+            <div class="till-card-name">Buddies Choma Place</div>
+          </div>
+        </div>
+
+        <!-- Phone input -->
+        <div class="form-group">
+          <label class="form-label" for="mpesaPhone">Your M-Pesa Phone Number</label>
+          <input class="form-input" id="mpesaPhone" type="tel"
+            placeholder="e.g. 254712345678"
+            maxlength="12"
+            oninput="this.value=this.value.replace(/\D/g,''); validatePhone();" />
+          <div class="form-hint">Format: 2547XXXXXXXX (12 digits, starting with 254)</div>
+          <div class="form-error" id="phoneError" style="display:none;"></div>
+        </div>
+
+        <!-- Customer name (optional) -->
+        <div class="form-group">
+          <label class="form-label" for="customerName">Your Name <span style="opacity:0.4;">(optional)</span></label>
+          <input class="form-input" id="customerName" type="text" placeholder="e.g. James Kamau" />
+        </div>
+
+        <!-- Pay button -->
+        <button class="pay-btn" id="payBtn" onclick="initiateStkPush()" disabled>
+          <span>🔒</span> Pay KSH <span id="payBtnAmt">0</span> with M-Pesa
+        </button>
+        <div class="pay-btn-note">
+          🔒 You will receive a push notification on your phone to enter your M-Pesa PIN
+        </div>
+      </div>
+    </div>
+
+    <!-- STK SENDING SCREEN -->
+    <div id="screenSending" class="status-screen" style="padding:3rem 2rem;">
+      <div class="stk-spinner"></div>
+      <div class="stk-phone-anim">📱</div>
+      <div class="stk-title">SENDING STK PUSH…</div>
+      <div class="stk-sub" id="sendingMsg">Connecting to Safaricom M-Pesa network…</div>
+    </div>
+
+    <!-- PIN PROMPT SCREEN -->
+    <div id="screenPin" class="status-screen" style="padding:2.5rem 2rem;">
+      <div class="stk-phone-anim" style="animation:phonePulse 0.8s ease-in-out infinite;">📲</div>
+      <div class="stk-title">CHECK YOUR PHONE</div>
+      <div class="stk-sub" id="pinMsg">An M-Pesa prompt has been sent to your phone.</div>
+      <div class="pin-prompt-box">
+        <div class="pin-prompt-title">ENTER M-PESA PIN</div>
+        <div class="pin-prompt-amt" id="pinAmt">KSH 0</div>
+        <div class="pin-prompt-merchant">Buddies Choma Place (8462960)</div>
+        <div class="pin-dots-row">
+          <span class="pin-dot" id="pd1"></span>
+          <span class="pin-dot" id="pd2"></span>
+          <span class="pin-dot" id="pd3"></span>
+          <span class="pin-dot" id="pd4"></span>
+        </div>
+        <div class="pin-prompt-cta">Enter your PIN on your phone to complete payment</div>
+      </div>
+      <div class="stk-sub" style="font-size:0.78rem;opacity:0.4;margin-top:0.5rem;">Waiting for confirmation… <span id="pinCountdown">30</span>s</div>
+    </div>
+
+    <!-- SUCCESS SCREEN -->
+    <div id="screenSuccess" class="status-screen" style="padding:2.5rem 2rem;">
+      <div class="success-confetti">🎉</div>
+      <div class="success-icon">✓</div>
+      <div class="stk-title">PAYMENT SUCCESSFUL!</div>
+      <div class="stk-sub">Your order has been placed. We're firing up the jiko!</div>
+      <div class="success-receipt" id="successReceipt"></div>
+      <a class="wa-share-btn" id="waShareBtn" href="#" target="_blank">
+        💬 Send Order to Buddies on WhatsApp
+      </a>
+      <div class="modal-action-row">
+        <button class="btn-ghost-modal" onclick="closeCheckout(); clearCart(); showToast('🔥 New order started!','green')">
+          + New Order
+        </button>
+        <button class="btn-ghost-modal" onclick="closeCheckout()">Close</button>
+      </div>
+    </div>
+
+    <!-- FAILURE SCREEN -->
+    <div id="screenFail" class="status-screen" style="padding:2.5rem 2rem;">
+      <div class="fail-icon">✕</div>
+      <div class="stk-title">PAYMENT FAILED</div>
+      <div class="stk-sub" id="failMsg">The payment was not completed. Please try again.</div>
+      <button class="retry-btn" onclick="showScreen('screenForm')">Try Again</button>
+      <div class="modal-action-row" style="justify-content:center;margin-top:0.5rem;">
+        <button class="btn-ghost-modal" onclick="closeCheckout()">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Item added</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
+<script>
+/* ═══════════════════════════════════════════════════════
+   MENU DATA
+   Note: "Half Chicken dry fry – 9,00" auto-corrected to 900
+═══════════════════════════════════════════════════════ */
+const MENU = {
+  choma: [
+    { id:'c1',  name:'1 Kg Mbuzi Choma with Ugali (Marinated)',     price: 2000 },
+    { id:'c2',  name:'1 Kg Mbuzi Choma with Ugali (Not Marinated)', price: 1900 },
+    { id:'c3',  name:'½ Kg Mbuzi Choma with Ugali (Not Marinated)', price: 1100 },
+    { id:'c4',  name:'½ Kg Mbuzi Choma with Ugali (Marinated)',     price: 1150 },
+    { id:'c5',  name:'1 Kg Mbuzi Choma (Marinated)',                price: 1900 },
+    { id:'c6',  name:'1 Kg Mbuzi Choma (Not Marinated)',            price: 1800 },
+    { id:'c7',  name:'½ Kg Mbuzi Choma (Marinated)',                price: 1000 },
+    { id:'c8',  name:'½ Kg Mbuzi Choma (Not Marinated)',            price: 1000 },
+    { id:'c9',  name:'Ugali Plain',                                  price:  150 },
+  ],
+  main: [
+    { id:'m1',  name:'Full Chicken Dry Fry',        price: 1800 },
+    { id:'m2',  name:'Half Chicken Dry Fry',        price:  900 }, // ← auto-corrected from 9,00
+    { id:'m3',  name:'Ugali Chicken Wet Fry',       price:  700 },
+    { id:'m4',  name:'Ugali Beef Fry',              price:  500 },
+    { id:'m5',  name:'Ugali Plain',                 price:  150 },
+    { id:'m6',  name:'Rice Chicken Wet Fry',        price:  700 },
+    { id:'m7',  name:'Rice Beef Fry',               price:  500 },
+    { id:'m8',  name:'Pilau Chicken Wet Fry',       price:  750 },
+    { id:'m9',  name:'Pilau Beef Fry',              price:  670 },
+    { id:'m10', name:'Chapati (1) Chicken Wet Fry', price:  550 },
+    { id:'m11', name:'Chapati (1) Beef Fry',        price:  420 },
+    { id:'m12', name:'Chips',                       price:  250 },
+    { id:'m13', name:'Chips Masala',                price:  370 },
+    { id:'m14', name:'Chips Chicken',               price:  700 },
+    { id:'m15', name:'Chips Sausage',               price:  350 },
+  ],
+  snacks: [
+    { id:'s1',  name:'Samosa',           price: 100 },
+    { id:'s2',  name:'Sausage',          price: 100 },
+    { id:'s3',  name:'Chapati',          price:  80 },
+    { id:'s4',  name:'Spanish Omelette', price: 200 },
+  ],
+  drinks: [
+    { id:'d1',  name:'PET Soda 500ml',             price: 150 },
+    { id:'d2',  name:'PET Soda 1 Litre',           price: 180 },
+    { id:'d3',  name:'Minute Maid Juice 400ml',    price: 150 },
+    { id:'d4',  name:'Minute Maid Juice 1 Litre',  price: 250 },
+    { id:'d5',  name:'Delmonte Juice 1 Litre',     price: 470 },
+    { id:'d6',  name:"Pick 'N' Peel Juice 1 Litre",price: 470 },
+    { id:'d7',  name:'Water 1 Litre',              price: 100 },
+  ]
+};
+
+/* ═══════════════════════════════════════════════════════
+   CART STATE
+═══════════════════════════════════════════════════════ */
+let cart = {}; // { itemId: { item, qty } }
+
+function cartTotal() {
+  return Object.values(cart).reduce((s,v) => s + v.item.price * v.qty, 0);
+}
+function cartCount() {
+  return Object.values(cart).reduce((s,v) => s + v.qty, 0);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER MENU
+═══════════════════════════════════════════════════════ */
+function renderMenu() {
+  Object.entries(MENU).forEach(([cat, items]) => {
+    const grid = document.getElementById(`grid-${cat}`);
+    if (!grid) return;
+    grid.innerHTML = items.map(item => `
+      <div class="menu-item" id="mi-${item.id}">
+        <div class="item-name">${item.name}</div>
+        <div class="item-bottom">
+          <div class="item-price">
+            <span class="ksh">KSH </span>${item.price.toLocaleString()}
+          </div>
+          <div class="qty-ctrl" id="qc-${item.id}">
+            <button class="qty-btn add-only" onclick="addToCart('${item.id}','${cat}')">+ Add</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   CART OPERATIONS
+═══════════════════════════════════════════════════════ */
+function findItem(id) {
+  for (const cat of Object.values(MENU)) {
+    const found = cat.find(i => i.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function addToCart(id) {
+  const item = findItem(id);
+  if (!item) return;
+  if (cart[id]) {
+    cart[id].qty++;
+  } else {
+    cart[id] = { item, qty: 1 };
+  }
+  updateMenuItemUI(id);
+  renderCart();
+  showToast(`✔ ${item.name.split(' ').slice(0,4).join(' ')} added`,'green');
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateMenuItemUI(id);
+  renderCart();
+}
+
+function changeCartQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) {
+    removeFromCart(id);
+    return;
+  }
+  renderCart();
+  updateMenuItemUI(id);
+}
+
+function clearCart() {
+  const ids = Object.keys(cart);
+  cart = {};
+  ids.forEach(id => updateMenuItemUI(id));
+  renderCart();
+}
+
+function updateMenuItemUI(id) {
+  const qcEl = document.getElementById(`qc-${id}`);
+  const miEl = document.getElementById(`mi-${id}`);
+  if (!qcEl) return;
+  const inCart = !!cart[id];
+  miEl.classList.toggle('in-cart', inCart);
+  if (inCart) {
+    const qty = cart[id].qty;
+    qcEl.innerHTML = `
+      <button class="qty-btn" onclick="changeCartQty('${id}',-1)">−</button>
+      <span class="qty-val">${qty}</span>
+      <button class="qty-btn" onclick="changeCartQty('${id}',1)">+</button>
+    `;
+  } else {
+    qcEl.innerHTML = `<button class="qty-btn add-only" onclick="addToCart('${id}')">+ Add</button>`;
+  }
+}
+
+function renderCart() {
+  const total = cartTotal();
+  const count = cartCount();
+
+  // badges
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('fabBadge').textContent  = count;
+
+  // total
+  document.getElementById('cartTotal').textContent = total.toLocaleString();
+  document.getElementById('payBtnAmt').textContent = total.toLocaleString();
+
+  // checkout btn
+  document.getElementById('checkoutBtn').disabled = count === 0;
+
+  // cart items area
+  const container = document.getElementById('cartItems');
+  const emptyEl   = document.getElementById('cartEmpty');
+
+  if (count === 0) {
+    emptyEl.style.display = 'flex';
+    // remove all items except empty
+    [...container.children].forEach(c => { if (c !== emptyEl) c.remove(); });
+    return;
+  }
+  emptyEl.style.display = 'none';
+
+  // rebuild
+  const existing = new Set([...container.querySelectorAll('.cart-item')].map(el => el.dataset.id));
+  const current  = new Set(Object.keys(cart));
+
+  // remove deleted
+  [...container.querySelectorAll('.cart-item')].forEach(el => {
+    if (!current.has(el.dataset.id)) el.remove();
+  });
+
+  // add / update
+  Object.entries(cart).forEach(([id, {item, qty}]) => {
+    let el = container.querySelector(`.cart-item[data-id="${id}"]`);
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'cart-item';
+      el.dataset.id = id;
+      container.insertBefore(el, emptyEl);
+    }
+    el.innerHTML = `
+      <div class="ci-name">${item.name}</div>
+      <div class="ci-price">KSH ${(item.price * qty).toLocaleString()}</div>
+      <div class="ci-remove" onclick="removeFromCart('${id}')">✕</div>
+      <div class="ci-qty-row">
+        <button class="ci-qty-btn" onclick="changeCartQty('${id}',-1)">−</button>
+        <span class="ci-qty-val">${qty}</span>
+        <button class="ci-qty-btn" onclick="changeCartQty('${id}',1)">+</button>
+        <span class="ci-subtotal">@ KSH ${item.price.toLocaleString()} each</span>
+      </div>
+    `;
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   CATEGORY NAV
+═══════════════════════════════════════════════════════ */
+const sectionMap = { choma:'sec-choma', main:'sec-main', snacks:'sec-snacks', drinks:'sec-drinks' };
+function scrollToSection(key, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById(sectionMap[key]);
+  if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE CART TOGGLE
+═══════════════════════════════════════════════════════ */
+function toggleMobileCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════════════
+   CHECKOUT MODAL
+═══════════════════════════════════════════════════════ */
+function openCheckout() {
+  if (cartCount() === 0) return;
+  buildModalSummary();
+  showScreen('screenForm');
+  document.getElementById('checkoutModal').classList.add('open');
+  document.getElementById('mpesaPhone').value = '';
+  document.getElementById('customerName').value = '';
+  document.getElementById('payBtn').disabled = true;
+  document.getElementById('phoneError').style.display = 'none';
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+  clearPinAnimation();
+}
+
+function buildModalSummary() {
+  const total = cartTotal();
+  const el = document.getElementById('modalOrderSummary');
+  el.innerHTML = Object.values(cart).map(({item,qty}) => `
+    <div class="mos-item">
+      <span class="mos-name">${item.name} × ${qty}</span>
+      <span class="mos-price">KSH ${(item.price*qty).toLocaleString()}</span>
+    </div>
+  `).join('') + `
+    <div class="mos-total-row">
+      <span class="mos-total-label">Total</span>
+      <span class="mos-total-amt">KSH ${total.toLocaleString()}</span>
+    </div>
+  `;
+}
+
+function showScreen(id) {
+  ['screenForm','screenSending','screenPin','screenSuccess','screenFail'].forEach(s => {
+    const el = document.getElementById(s);
+    if (el.classList.contains('status-screen')) {
+      el.classList.toggle('active', el.id === id);
+    } else {
+      el.style.display = el.id === id ? 'block' : 'none';
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   PHONE VALIDATION
+═══════════════════════════════════════════════════════ */
+function validatePhone() {
+  const phone = document.getElementById('mpesaPhone').value.trim();
+  const errEl = document.getElementById('phoneError');
+  const inpEl = document.getElementById('mpesaPhone');
+  const payBtn = document.getElementById('payBtn');
+
+  if (phone.length === 0) {
+    errEl.style.display = 'none';
+    inpEl.classList.remove('error');
+    payBtn.disabled = true;
+    return false;
+  }
+  if (!/^2547\d{8}$/.test(phone)) {
+    errEl.textContent = 'Invalid format. Use 2547XXXXXXXX (12 digits)';
+    errEl.style.display = 'block';
+    inpEl.classList.add('error');
+    payBtn.disabled = true;
+    return false;
+  }
+  errEl.style.display = 'none';
+  inpEl.classList.remove('error');
+  payBtn.disabled = false;
+  return true;
+}
+
+/* ═══════════════════════════════════════════════════════
+   M-PESA STK PUSH — SIMULATION
+   -------------------------------------------------------
+   SIMULATION MODE (default, no backend required):
+   Simulates the full STK Push flow for demo/testing.
+
+   TO SWITCH TO REAL MODE:
+   1. Set up your Node.js/PHP backend (see docs above)
+   2. Replace simulateStkPush() with realStkPush()
+   3. Uncomment the realStkPush fetch block below
+═══════════════════════════════════════════════════════ */
+
+let pinInterval  = null;
+let pinCountdown = null;
+let pinStep      = 0;
+
+function initiateStkPush() {
+  if (!validatePhone()) return;
+  const phone = document.getElementById('mpesaPhone').value.trim();
+  const total = cartTotal();
+
+  /* ── UNCOMMENT BELOW FOR REAL API MODE ────────────────
+  realStkPush(phone, total);
+  return;
+  ─────────────────────────────────────────────────── */
+
+  simulateStkPush(phone, total);
+}
+
+
+
+/* ─── SIMULATION LOGIC ─── */
+function simulateStkPush(phone, amount) {
+  // Step 1: Sending screen
+  showScreen('screenSending');
+  document.getElementById('sendingMsg').textContent =
+    `Sending STK Push to ${phone.replace(/(\d{3})(\d{3})(\d{6})/, '$1 $2 $3')}…`;
+
+  setTimeout(() => {
+    document.getElementById('sendingMsg').textContent = 'Request received by Safaricom network…';
+  }, 1000);
+
+  setTimeout(() => {
+    // Step 2: PIN prompt screen
+    showPinScreen(phone, amount);
+  }, 2200);
+}
+
+function showPinScreen(phone, amount) {
+  showScreen('screenPin');
+  const fmt = phone.replace(/(\d{3})(\d{3})(\d{6})/, '+$1 $2 $3');
+  document.getElementById('pinMsg').textContent =
+    `M-Pesa prompt sent to ${fmt}. Check your phone and enter your PIN.`;
+  document.getElementById('pinAmt').textContent = `KSH ${amount.toLocaleString()}`;
+
+  // animate PIN dots filling
+  pinStep = 0;
+  clearPinAnimation();
+  document.querySelectorAll('.pin-dot').forEach(d => d.classList.remove('filled'));
+
+  pinInterval = setInterval(() => {
+    if (pinStep < 4) {
+      document.getElementById(`pd${pinStep+1}`).classList.add('filled');
+      pinStep++;
+    } else {
+      clearInterval(pinInterval);
+      pinInterval = null;
+      // After PIN filled → processing
+      setTimeout(() => resolvePayment(phone, amount), 800);
+    }
+  }, 600);
+
+  // countdown
+  let secs = 30;
+  document.getElementById('pinCountdown').textContent = secs;
+  pinCountdown = setInterval(() => {
+    secs--;
+    const el = document.getElementById('pinCountdown');
+    if (el) el.textContent = secs;
+    if (secs <= 0) clearInterval(pinCountdown);
+  }, 1000);
+}
+
+function resolvePayment(phone, amount) {
+  clearPinAnimation();
+  // 85% success rate simulation
+  const success = Math.random() < 0.85;
+  if (success) {
+    const code = generateReceiptCode();
+    showSuccess(phone, amount, code);
+  } else {
+    showFailure('Payment cancelled or timed out. Please try again.');
+  }
+}
+
+function showSuccess(phone, amount, receiptCode) {
+  showScreen('screenSuccess');
+  const name = document.getElementById('customerName').value.trim() || 'Customer';
+  const now  = new Date();
+  const time = now.toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'});
+  const date = now.toLocaleDateString('en-KE',{day:'2-digit',month:'short',year:'numeric'});
+
+  document.getElementById('successReceipt').innerHTML = `
+    <div class="receipt-row"><span class="receipt-label">Receipt No.</span><span class="receipt-val receipt-code">${receiptCode}</span></div>
+    <div class="receipt-row"><span class="receipt-label">Amount</span><span class="receipt-val">KSH ${amount.toLocaleString()}</span></div>
+    <div class="receipt-row"><span class="receipt-label">To</span><span class="receipt-val">Buddies Choma (8462960)</span></div>
+    <div class="receipt-row"><span class="receipt-label">Phone</span><span class="receipt-val">${phone}</span></div>
+    <div class="receipt-row"><span class="receipt-label">Name</span><span class="receipt-val">${name}</span></div>
+    <div class="receipt-row"><span class="receipt-label">Date & Time</span><span class="receipt-val">${date}, ${time}</span></div>
+  `;
+
+  // Build WhatsApp order message
+  const orderLines = Object.values(cart).map(({item,qty}) =>
+    `  • ${qty}x ${item.name} — KSH ${(item.price*qty).toLocaleString()}`
+  ).join('\n');
+  const waMsg = encodeURIComponent(
+`🔥 Hi Buddies Choma Place!
+
+I just paid via M-Pesa. Here's my order:
+
+${orderLines}
+
+💰 Total: KSH ${amount.toLocaleString()}
+📲 M-Pesa Receipt: ${receiptCode}
+👤 Name: ${name}
+📞 Phone: ${phone}
+
+Please confirm my order. Asante! 🙏`
+  );
+  document.getElementById('waShareBtn').href = `https://wa.me/254722552714?text=${waMsg}`;
+}
+
+function showFailure(msg) {
+  showScreen('screenFail');
+  document.getElementById('failMsg').textContent = msg;
+}
+
+function generateReceiptCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+  let code = '';
+  for (let i = 0; i < 10; i++) code += chars[Math.floor(Math.random()*chars.length)];
+  return code;
+}
+
+function clearPinAnimation() {
+  if (pinInterval)  { clearInterval(pinInterval);  pinInterval  = null; }
+  if (pinCountdown) { clearInterval(pinCountdown); pinCountdown = null; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════ */
+let toastTimer = null;
+function showToast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CLOSE MODAL ON OVERLAY CLICK
+═══════════════════════════════════════════════════════ */
+document.getElementById('checkoutModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════ */
+renderMenu();
+renderCart();
+</script>
+</body>
+</html>
