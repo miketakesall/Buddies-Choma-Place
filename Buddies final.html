@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Buddies Choma Place – Githurai's Fire-Grilled Perfection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@600&display=swap" rel="stylesheet" />
+<style>
+/* ─── DESIGN TOKENS ──────────────────────────────────────────── */
+:root {
+  --char:    #0F0A07;
+  --dark:    #1A0F09;
+  --mid:     #2C1A10;
+  --ember:   #D95A2B;
+  --flame:   #E25E3A;
+  --glow:    #FF8C42;
+  --cream:   #F2D4A8;
+  --parch:   #ECE5D8;
+  --brass:   #B8860B;
+  --brass2:  #D4A017;
+  --smoke:   rgba(15,10,7,0.72);
+  --r:       0.55rem;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{background:var(--char);color:var(--parch);font-family:'DM Sans',sans-serif;font-weight:400;overflow-x:hidden;cursor:default;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{cursor:pointer;border:none;background:none;font:inherit;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--char);}
+::-webkit-scrollbar-thumb{background:var(--ember);border-radius:3px;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.35;}
+
+/* ─── NAV ────────────────────────────────────────────────────── */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:linear-gradient(to bottom,rgba(15,10,7,0.95),transparent);backdrop-filter:blur(2px);transition:background 0.3s;}
+nav.scrolled{background:rgba(15,10,7,0.97);}
+.nav-logo{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:0.12em;color:var(--cream);display:flex;align-items:center;gap:0.5rem;}
+.nav-logo span{color:var(--ember);}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--parch);opacity:0.8;position:relative;padding-bottom:3px;transition:opacity 0.2s;}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--ember);transition:width 0.3s;}
+.nav-links a:hover{opacity:1;}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{opacity:1;color:var(--cream);}
+.nav-cta{background:var(--ember);color:#fff;padding:0.55rem 1.25rem;border-radius:2px;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;transition:background 0.25s,transform 0.2s;}
+.nav-cta:hover{background:var(--glow);transform:translateY(-1px);}
+.burger{display:none;flex-direction:column;gap:5px;padding:4px;}
+.burger span{width:24px;height:2px;background:var(--cream);transition:all 0.3s;display:block;}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,10,7,0.98);z-index:850;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Anton',sans-serif;font-size:2rem;letter-spacing:0.1em;color:var(--cream);transition:color 0.2s;}
+.mobile-menu a:hover{color:var(--ember);}
+.mobile-close{position:absolute;top:1.5rem;right:1.5rem;font-size:2rem;color:var(--parch);opacity:0.6;cursor:pointer;}
+
+/* ─── PAGES ──────────────────────────────────────────────────── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;}
+
+/* ─── HOME ───────────────────────────────────────────────────── */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 50%, #3A1E12, #0F0A07);z-index:0;}
+.hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 55% 70%, rgba(217,90,43,0.18) 0%, transparent 60%),radial-gradient(ellipse 40% 60% at 25% 80%, rgba(178,50,20,0.12) 0%, transparent 50%);animation:fireShift 6s ease-in-out infinite alternate;}
+@keyframes fireShift{0%{opacity:0.6;transform:scale(1);}100%{opacity:1;transform:scale(1.05);}}
+.grill-grid{position:absolute;inset:0;z-index:1;background-image:repeating-linear-gradient(0deg,transparent,transparent 38px,rgba(217,90,43,0.06) 38px,rgba(217,90,43,0.06) 40px),repeating-linear-gradient(90deg,transparent,transparent 38px,rgba(217,90,43,0.06) 38px,rgba(217,90,43,0.06) 40px);}
+.hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(15,10,7,0.85) 0%,rgba(15,10,7,0.4) 50%,rgba(15,10,7,0.2) 100%);}
+.smoke-container{position:absolute;inset:0;z-index:2;overflow:hidden;}
+.smoke{position:absolute;bottom:0;width:120px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(200,170,140,0.08) 0%,transparent 70%);animation:smokeRise 8s ease-in infinite;transform-origin:bottom center;}
+.smoke:nth-child(1){left:20%;animation-delay:0s;width:80px;}
+.smoke:nth-child(2){left:45%;animation-delay:2.5s;width:140px;}
+.smoke:nth-child(3){left:70%;animation-delay:5s;width:100px;}
+@keyframes smokeRise{0%{transform:translateY(0) scaleX(1);opacity:0;}20%{opacity:1;}100%{transform:translateY(-100vh) scaleX(2.5);opacity:0;}}
+.hero-content{position:relative;z-index:3;text-align:center;padding:2rem;animation:heroFadeIn 1.2s ease-out both;}
+@keyframes heroFadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.hero-eyebrow{font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:40px;height:1px;background:var(--ember);opacity:0.6;}
+.hero-title{font-family:'Anton',sans-serif;font-size:clamp(2.8rem,8vw,7rem);letter-spacing:0.04em;line-height:0.95;color:var(--cream);text-shadow:0 4px 40px rgba(217,90,43,0.3);margin-bottom:0.5rem;}
+.hero-title span{color:var(--ember);}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--parch);opacity:0.85;margin-bottom:2.2rem;letter-spacing:0.02em;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn-primary{background:var(--ember);color:#fff;padding:0.9rem 2rem;border-radius:2px;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.3s;animation:flamePulse 3s ease-in-out infinite;}
+@keyframes flamePulse{0%,100%{background:var(--flame);}50%{background:var(--glow);}}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(217,90,43,0.5);}
+.btn-outline{border:1px solid rgba(242,212,168,0.4);color:var(--cream);padding:0.9rem 2rem;border-radius:2px;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;transition:border-color 0.3s,transform 0.2s;}
+.btn-outline:hover{border-color:var(--cream);transform:translateY(-3px);}
+.hero-badge{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;align-items:center;gap:0.6rem;font-size:0.75rem;letter-spacing:0.1em;color:var(--parch);opacity:0.7;animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+.hero-badge svg{width:16px;height:16px;fill:var(--ember);}
+.features{background:var(--mid);padding:1.2rem 2rem;display:flex;align-items:center;justify-content:center;gap:3rem;overflow-x:auto;border-top:1px solid rgba(217,90,43,0.2);border-bottom:1px solid rgba(217,90,43,0.2);}
+.feature-item{display:flex;align-items:center;gap:0.65rem;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--cream);opacity:0.75;white-space:nowrap;}
+.feature-item .fi{font-size:1.1rem;}
+.about-strip{padding:6rem 2rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-label{font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
+.about-heading{font-family:'Anton',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);letter-spacing:0.04em;color:var(--cream);line-height:1.1;margin-bottom:1.5rem;}
+.about-heading em{font-style:italic;font-family:'Playfair Display',serif;color:var(--ember);font-size:0.85em;}
+.about-body{line-height:1.8;opacity:0.78;font-size:0.95rem;margin-bottom:2rem;}
+.about-stats{display:flex;gap:2rem;}
+.stat{border-left:2px solid var(--ember);padding-left:1rem;}
+.stat-num{font-family:'Anton',sans-serif;font-size:2rem;color:var(--cream);}
+.stat-label{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6;}
+.about-visual{position:relative;height:420px;background:var(--mid);border-radius:4px;overflow:hidden;}
+.about-visual-inner{width:100%;height:100%;background:radial-gradient(ellipse 80% 60% at 50% 80%, rgba(217,90,43,0.25) 0%, transparent 60%),var(--mid);display:flex;align-items:center;justify-content:center;font-size:6rem;}
+.about-badge{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;background:rgba(15,10,7,0.85);backdrop-filter:blur(12px);border:1px solid rgba(217,90,43,0.3);border-radius:4px;padding:1rem;}
+.ab-title{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--cream);margin-bottom:0.3rem;}
+.ab-sub{font-size:0.75rem;opacity:0.6;letter-spacing:0.05em;}
+.menu-preview{padding:5rem 2rem;background:linear-gradient(to bottom, var(--char), #170D08);}
+.section-header{text-align:center;margin-bottom:4rem;}
+.section-eyebrow{font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:0.8rem;}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(2rem,4vw,3.5rem);letter-spacing:0.04em;color:var(--cream);}
+.menu-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.menu-card{background:var(--mid);border-radius:4px;overflow:hidden;cursor:pointer;border:1px solid rgba(217,90,43,0.1);transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;position:relative;}
+.menu-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(217,90,43,0.2);border-color:rgba(217,90,43,0.4);}
+.menu-card-img{height:180px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:4rem;background:radial-gradient(circle at 50% 80%,rgba(217,90,43,0.2),transparent 70%);}
+.menu-card-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85;transition:transform 0.4s,opacity 0.3s;}
+.menu-card:hover .menu-card-img img{transform:scale(1.07);opacity:1;}
+.menu-card-body{padding:1.2rem 1.2rem 1.4rem;}
+.mc-name{font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:0.06em;color:var(--cream);margin-bottom:0.3rem;}
+.mc-desc{font-size:0.8rem;opacity:0.55;line-height:1.6;margin-bottom:0.8rem;}
+.mc-price{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ember);}
+.menu-card-hover{position:absolute;inset:0;background:rgba(15,10,7,0.93);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center;opacity:0;transition:opacity 0.3s;}
+.menu-card:hover .menu-card-hover{opacity:1;}
+.mch-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:0.9rem;color:var(--cream);line-height:1.7;margin-bottom:1rem;}
+.mch-cta{font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ember);border-bottom:1px solid var(--ember);padding-bottom:2px;}
+.view-all{text-align:center;margin-top:3rem;}
+.btn-ghost{border:1px solid rgba(217,90,43,0.5);color:var(--ember);padding:0.85rem 2.5rem;border-radius:2px;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;transition:all 0.3s;display:inline-block;}
+.btn-ghost:hover{background:var(--ember);color:#fff;transform:translateY(-2px);}
+.vibe-wall{padding:5rem 2rem;background:var(--char);}
+.vibe-grid{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.sticky-note{padding:1.5rem;border-radius:2px;position:relative;transform:rotate(var(--r));transition:transform 0.3s;box-shadow:4px 4px 16px rgba(0,0,0,0.4);}
+.sticky-note:hover{transform:rotate(0deg) scale(1.03);}
+.sticky-note:nth-child(1){background:#2C1A10;--r:-1.5deg;}
+.sticky-note:nth-child(2){background:#1E1206;--r:1deg;}
+.sticky-note:nth-child(3){background:#2C1A10;--r:-0.5deg;}
+.sticky-note:nth-child(4){background:#221608;--r:2deg;}
+.sticky-note:nth-child(5){background:#1E1206;--r:-1deg;}
+.sticky-note:nth-child(6){background:#2C1A10;--r:0.8deg;}
+.sticky-quote{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--cream);line-height:1.6;margin-bottom:0.8rem;}
+.sticky-author{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;display:flex;align-items:center;gap:0.5rem;}
+.sticky-avatar{width:28px;height:28px;border-radius:50%;background:var(--ember);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:#fff;font-weight:700;}
+.location-teaser{padding:5rem 2rem;background:linear-gradient(to right,#170D08,var(--mid));display:flex;align-items:center;justify-content:center;}
+.lt-inner{max-width:900px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.lt-map{height:320px;border-radius:4px;overflow:hidden;border:1px solid rgba(217,90,43,0.25);}
+.lt-map iframe{width:100%;height:100%;border:none;filter:saturate(0.4) brightness(0.7);}
+.lt-info h2{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:0.04em;color:var(--cream);margin-bottom:1rem;}
+.lt-address{font-size:0.9rem;line-height:1.8;opacity:0.7;margin-bottom:1.5rem;}
+.lt-hours{display:flex;align-items:center;gap:0.5rem;font-size:0.8rem;margin-bottom:1.5rem;}
+.open-dot{width:8px;height:8px;border-radius:50%;background:#4CAF50;box-shadow:0 0 6px #4CAF50;animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* ─── SERVICES ───────────────────────────────────────────────── */
+.page-hero{height:55vh;min-height:400px;position:relative;display:flex;align-items:flex-end;justify-content:flex-start;padding:4rem 3rem;background:radial-gradient(circle at 80% 50%,#3A1E12,#0F0A07);overflow:hidden;}
+.page-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,7,0.9) 0%,rgba(15,10,7,0.3) 60%,transparent 100%);}
+.page-hero-emoji{position:absolute;right:8%;top:50%;transform:translateY(-50%);font-size:clamp(6rem,15vw,12rem);opacity:0.18;filter:blur(1px);pointer-events:none;}
+.page-hero-content{position:relative;z-index:1;max-width:600px;}
+.page-hero-tag{font-size:0.72rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ember);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.6rem;}
+.page-hero-tag::before{content:'';width:30px;height:1px;background:var(--ember);}
+.page-hero-title{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.04em;color:var(--cream);line-height:1;}
+.page-hero-sub{font-family:'Playfair Display',serif;font-style:italic;font-size:1.1rem;color:var(--parch);opacity:0.7;margin-top:0.8rem;}
+.services-section{padding:5rem 2rem;max-width:1100px;margin:0 auto;}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;}
+.service-card{background:var(--mid);border-radius:4px;padding:2.5rem;border:1px solid rgba(217,90,43,0.1);transition:border-color 0.3s,transform 0.3s;position:relative;overflow:hidden;}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--ember),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+.service-card:hover::before{transform:scaleX(1);}
+.service-card:hover{border-color:rgba(217,90,43,0.3);transform:translateY(-4px);}
+.sc-icon{font-size:2.5rem;margin-bottom:1.2rem;}
+.sc-title{font-family:'Anton',sans-serif;font-size:1.3rem;letter-spacing:0.05em;color:var(--cream);margin-bottom:0.8rem;}
+.sc-body{font-size:0.88rem;line-height:1.8;opacity:0.65;}
+.sc-features{margin-top:1.2rem;list-style:none;}
+.sc-features li{font-size:0.8rem;opacity:0.6;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;gap:0.5rem;}
+.sc-features li::before{content:'›';color:var(--ember);font-size:1rem;}
+.process-section{padding:5rem 2rem;background:linear-gradient(to bottom,#170D08,var(--char));}
+.process-steps{max-width:800px;margin:3rem auto 0;display:flex;flex-direction:column;gap:0;}
+.process-step{display:grid;grid-template-columns:60px 1fr;gap:2rem;position:relative;padding-bottom:3rem;}
+.process-step:not(:last-child)::after{content:'';position:absolute;left:29px;top:60px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--ember),transparent);}
+.step-num{width:60px;height:60px;border-radius:50%;border:2px solid var(--ember);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--ember);flex-shrink:0;background:var(--char);z-index:1;}
+.step-title{font-family:'Anton',sans-serif;font-size:1.1rem;letter-spacing:0.05em;color:var(--cream);margin-bottom:0.5rem;}
+.step-desc{font-size:0.88rem;opacity:0.6;line-height:1.7;}
+
+/* ═══════════════════════════════════════════════════════════════
+   MENU PAGE — Cart + M-Pesa Payment
+═══════════════════════════════════════════════════════════════ */
+
+/* ── MENU APP SHELL ── */
+.menu-app-shell{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:0;
+  min-height:calc(100vh - 80px);
+  align-items:start;
+}
+.menu-app-main{padding:2rem 2.5rem 6rem;}
+
+/* ── FILTER PILLS ── */
+.menu-filter-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.mf-btn{padding:0.5rem 1.1rem;border-radius:20px;font-size:0.76rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(217,90,43,0.25);color:var(--parch);opacity:0.65;background:transparent;cursor:pointer;transition:all 0.22s;white-space:nowrap;}
+.mf-btn:hover{opacity:0.9;border-color:rgba(217,90,43,0.5);}
+.mf-btn.active{background:var(--ember);color:#fff;border-color:var(--ember);opacity:1;}
+
+/* ── MENU SECTIONS ── */
+.menu-app-section{margin-bottom:3rem;}
+.mas-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;}
+.mas-icon{font-size:1.4rem;}
+.mas-title{font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:0.06em;color:var(--cream);}
+.mas-line{flex:1;height:1px;background:linear-gradient(to right,rgba(217,90,43,0.4),transparent);}
+
+/* ── MENU ITEM CARDS ── */
+.mas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.85rem;}
+.mas-item{
+  background:var(--mid);border-radius:6px;
+  padding:1rem 1.1rem;
+  border:1px solid rgba(217,90,43,0.08);
+  display:flex;align-items:center;justify-content:space-between;gap:0.8rem;
+  transition:all 0.22s;position:relative;overflow:hidden;
+}
+.mas-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--ember),transparent);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.mas-item:hover{border-color:rgba(217,90,43,0.28);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.35);}
+.mas-item:hover::before{transform:scaleX(1);}
+.mas-item.in-cart{border-color:rgba(0,163,75,0.35);background:rgba(0,163,75,0.04);}
+.mas-item.in-cart::before{background:linear-gradient(to right,#00a34b,transparent);transform:scaleX(1);}
+.mas-item-info{flex:1;min-width:0;}
+.mas-item-name{font-size:0.84rem;color:var(--cream);line-height:1.4;}
+.mas-item-price{font-family:'Anton',sans-serif;font-size:0.95rem;color:var(--ember);white-space:nowrap;margin-top:0.3rem;}
+.mas-item-right{display:flex;flex-direction:column;align-items:flex-end;gap:0.4rem;flex-shrink:0;}
+
+/* qty control */
+.mas-qty-ctrl{display:flex;align-items:center;gap:0.4rem;}
+.mas-qbtn{width:26px;height:26px;border-radius:50%;background:rgba(217,90,43,0.15);border:1px solid rgba(217,90,43,0.3);color:var(--ember);font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.mas-qbtn:hover{background:var(--ember);color:#fff;border-color:var(--ember);}
+.mas-qbtn.green{background:rgba(0,163,75,0.15);border-color:rgba(0,163,75,0.3);color:#00a34b;}
+.mas-qbtn.green:hover{background:#00a34b;color:#fff;border-color:#00a34b;}
+.mas-qval{font-family:'Anton',sans-serif;font-size:0.88rem;color:var(--cream);min-width:18px;text-align:center;}
+.mas-add-btn{
+  padding:0.35rem 0.85rem;border-radius:3px;
+  background:rgba(217,90,43,0.15);border:1px solid rgba(217,90,43,0.3);
+  color:var(--ember);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.mas-add-btn:hover{background:var(--ember);color:#fff;border-color:var(--ember);}
+
+/* ── CART SIDEBAR ── */
+.cart-panel{
+  position:sticky;top:0;
+  height:100vh;
+  background:var(--dark);
+  border-left:1px solid rgba(217,90,43,0.15);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  transition:transform 0.3s;
+}
+.cart-panel-header{
+  padding:1.4rem 1.4rem 1rem;
+  border-bottom:1px solid rgba(217,90,43,0.12);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(10,6,3,0.4);
+}
+.cp-title{
+  font-family:'Anton',sans-serif;font-size:1rem;
+  letter-spacing:0.06em;color:var(--cream);
+  display:flex;align-items:center;gap:0.6rem;
+}
+.cp-badge{
+  background:var(--ember);color:#fff;
+  min-width:22px;height:22px;border-radius:11px;
+  padding:0 0.4rem;
+  font-size:0.7rem;font-weight:700;font-family:'DM Sans',sans-serif;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform 0.2s;
+}
+.cp-badge.pop{animation:badgePop 0.3s ease;}
+@keyframes badgePop{0%{transform:scale(1);}50%{transform:scale(1.4);}100%{transform:scale(1);}}
+.cp-clear{font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--parch);opacity:0.3;cursor:pointer;transition:opacity 0.2s;}
+.cp-clear:hover{opacity:0.8;}
+
+.cart-panel-items{flex:1;overflow-y:auto;padding:0.8rem 1.4rem;}
+.cart-panel-items::-webkit-scrollbar{width:3px;}
+.cart-panel-items::-webkit-scrollbar-thumb{background:var(--ember);border-radius:2px;}
+
+.cart-empty{
+  height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;opacity:0.3;gap:0.6rem;
+  padding:2rem;
+}
+.cart-empty-icon{font-size:3rem;}
+.cart-empty-txt{font-size:0.82rem;line-height:1.5;}
+
+.cp-item{
+  padding:0.7rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  animation:cpIn 0.25s ease;
+}
+@keyframes cpIn{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:translateX(0);}}
+.cp-item-top{display:flex;align-items:flex-start;gap:0.5rem;margin-bottom:0.35rem;}
+.cp-item-name{font-size:0.78rem;color:var(--cream);flex:1;line-height:1.4;}
+.cp-item-remove{color:var(--parch);opacity:0.2;cursor:pointer;transition:opacity 0.2s;font-size:0.85rem;padding:0 0.15rem;}
+.cp-item-remove:hover{opacity:1;color:#ff5555;}
+.cp-item-bot{display:flex;align-items:center;gap:0.5rem;}
+.cp-qbtn{width:20px;height:20px;border-radius:50%;background:rgba(217,90,43,0.12);border:1px solid rgba(217,90,43,0.25);color:var(--ember);font-size:0.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.cp-qbtn:hover{background:var(--ember);color:#fff;}
+.cp-qval{font-size:0.78rem;color:var(--cream);min-width:16px;text-align:center;}
+.cp-item-sub{margin-left:auto;font-family:'Caveat',cursive;font-size:0.95rem;color:var(--ember);}
+
+.cart-panel-footer{
+  padding:1rem 1.4rem 1.2rem;
+  border-top:1px solid rgba(217,90,43,0.12);
+  background:rgba(8,4,2,0.6);
+}
+.cp-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+.cp-subtotal-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.45;}
+.cp-subtotal-amt{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--parch);opacity:0.7;}
+.cp-total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1rem;}
+.cp-total-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5;}
+.cp-total-amt{font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--cream);}
+.cp-item-count{font-size:0.65rem;opacity:0.4;margin-left:0.4rem;}
+.cp-checkout-btn{
+  width:100%;padding:0.95rem;border-radius:6px;
+  background:linear-gradient(135deg,#00a34b,#007a38);
+  color:#fff;font-size:0.82rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;
+  cursor:pointer;transition:all 0.3s;border:none;
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+}
+.cp-checkout-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(0,163,75,0.45);}
+.cp-checkout-btn:disabled{opacity:0.22;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* ── MOBILE CART FAB ── */
+.cart-fab-btn{
+  display:none;position:fixed;bottom:5.5rem;right:1.2rem;z-index:400;
+  background:var(--ember);color:#fff;
+  padding:0.7rem 1.2rem;border-radius:30px;
+  font-size:0.85rem;font-weight:600;letter-spacing:0.04em;
+  box-shadow:0 4px 22px rgba(217,90,43,0.55);
+  align-items:center;gap:0.5rem;cursor:pointer;transition:all 0.25s;border:none;
+}
+.cart-fab-btn:hover{transform:scale(1.05);}
+.cfb-badge{background:#fff;color:var(--ember);width:20px;height:20px;border-radius:50%;font-size:0.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;}
+
+/* ── PAYMENT MODAL ── */
+.pay-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(5,3,1,0.92);
+  backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.pay-overlay.open{opacity:1;pointer-events:all;}
+.pay-modal{
+  background:var(--dark);
+  border:1px solid rgba(217,90,43,0.2);
+  border-radius:12px;
+  width:100%;max-width:540px;
+  max-height:92vh;overflow-y:auto;
+  transform:translateY(24px);transition:transform 0.35s;
+}
+.pay-overlay.open .pay-modal{transform:translateY(0);}
+.pay-modal::-webkit-scrollbar{width:4px;}
+.pay-modal::-webkit-scrollbar-thumb{background:var(--ember);border-radius:2px;}
+
+/* modal header */
+.pm-head{
+  padding:1.6rem 1.8rem 1.2rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:flex-start;justify-content:space-between;
+  position:sticky;top:0;background:var(--dark);z-index:10;
+}
+.pm-head-left{}
+.pm-title{font-family:'Anton',sans-serif;font-size:1.35rem;letter-spacing:0.04em;color:var(--cream);}
+.pm-sub{font-size:0.73rem;opacity:0.4;margin-top:0.2rem;}
+.pm-close{font-size:1.3rem;color:var(--parch);opacity:0.4;cursor:pointer;transition:opacity 0.2s;padding:0.2rem 0.4rem;border-radius:4px;}
+.pm-close:hover{opacity:1;background:rgba(255,255,255,0.07);}
+.pm-body{padding:1.4rem 1.8rem 2rem;}
+
+/* screen states */
+.pm-screen{display:none;}
+.pm-screen.active{display:block;}
+
+/* order review in modal */
+.pm-order-box{
+  background:rgba(217,90,43,0.05);border:1px solid rgba(217,90,43,0.12);
+  border-radius:6px;padding:0.9rem 1rem;margin-bottom:1.2rem;
+  max-height:160px;overflow-y:auto;
+}
+.pm-order-box::-webkit-scrollbar{width:3px;}
+.pm-order-box::-webkit-scrollbar-thumb{background:var(--ember);}
+.pm-oi{display:flex;justify-content:space-between;font-size:0.8rem;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.pm-oi:last-child{border:none;}
+.pm-oi-name{opacity:0.72;flex:1;padding-right:0.5rem;}
+.pm-oi-price{font-family:'Caveat',cursive;font-size:0.9rem;color:var(--ember);}
+.pm-order-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:0.7rem;padding-top:0.7rem;border-top:1px solid rgba(217,90,43,0.2);}
+.pm-order-total-lbl{font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;}
+.pm-order-total-amt{font-family:'Anton',sans-serif;font-size:1.1rem;color:var(--cream);}
+
+/* till display */
+.pm-till-card{
+  background:rgba(0,163,75,0.07);border:1px solid rgba(0,163,75,0.22);border-radius:6px;
+  padding:0.9rem 1rem;margin-bottom:1.2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.pm-till-icon{font-size:1.8rem;}
+.pm-till-lbl{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:#00a34b;margin-bottom:0.2rem;}
+.pm-till-num{font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:0.08em;}
+.pm-till-name{font-size:0.72rem;opacity:0.5;margin-top:0.1rem;}
+
+/* form */
+.pm-label{display:block;font-size:0.66rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.5;margin-bottom:0.45rem;}
+.pm-phone-wrap{display:flex;border:1px solid rgba(217,90,43,0.2);border-radius:6px;overflow:hidden;margin-bottom:0.4rem;transition:border-color 0.22s,box-shadow 0.22s;}
+.pm-phone-wrap:focus-within{border-color:#00a34b;box-shadow:0 0 0 3px rgba(0,163,75,0.1);}
+.pm-phone-prefix{padding:0.82rem 0.9rem;background:rgba(0,163,75,0.1);border-right:1px solid rgba(0,163,75,0.2);font-size:0.88rem;color:#00a34b;white-space:nowrap;font-weight:500;}
+.pm-phone-input{flex:1;background:rgba(10,6,3,0.7);border:none;padding:0.82rem 0.9rem;color:var(--cream);font-size:0.95rem;outline:none;font-family:'DM Sans',sans-serif;}
+.pm-phone-input::placeholder{opacity:0.28;}
+.pm-hint{font-size:0.7rem;opacity:0.35;line-height:1.5;margin-bottom:1.2rem;}
+.pm-error{font-size:0.7rem;color:#e74c3c;margin-bottom:0.8rem;display:none;}
+.pm-security{
+  background:rgba(0,163,75,0.05);border:1px solid rgba(0,163,75,0.15);border-radius:4px;
+  padding:0.8rem;font-size:0.74rem;opacity:0.6;line-height:1.6;margin-bottom:1.2rem;
+}
+.pm-pay-btn{
+  width:100%;padding:1.05rem;border-radius:6px;
+  background:linear-gradient(135deg,#00a34b,#007a38);
+  color:#fff;font-size:0.88rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:700;
+  cursor:pointer;border:none;transition:all 0.3s;
+}
+.pm-pay-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,163,75,0.45);}
+.pm-pay-btn:disabled{opacity:0.25;cursor:not-allowed;}
+.pm-pay-note{text-align:center;font-size:0.68rem;opacity:0.3;margin-top:0.5rem;line-height:1.5;}
+
+/* ── SCREEN 2: SENDING ── */
+.pm-status{display:flex;flex-direction:column;align-items:center;text-align:center;padding:2.5rem 2rem;gap:0.8rem;}
+.pm-spinner{width:52px;height:52px;border-radius:50%;border:3px solid rgba(0,163,75,0.2);border-top-color:#00a34b;animation:pmSpin 0.8s linear infinite;margin-bottom:0.5rem;}
+@keyframes pmSpin{to{transform:rotate(360deg);}}
+.pm-status-icon{font-size:2.8rem;}
+.pm-status-title{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:0.04em;color:var(--cream);}
+.pm-status-sub{font-size:0.82rem;opacity:0.5;line-height:1.6;max-width:300px;}
+
+/* ── SCREEN 3: PIN PROMPT ── */
+.pm-pin-wrap{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;padding:1.5rem 0.5rem;}
+.pm-phone-shell{
+  width:220px;flex-shrink:0;
+  background:#0e0e0e;border-radius:28px;
+  box-shadow:0 0 0 7px #1a1a1a,0 0 0 9px #222,0 24px 60px rgba(0,0,0,0.7);
+  overflow:hidden;
+}
+.pm-phone-bar{height:24px;background:#000;display:flex;align-items:center;justify-content:center;}
+.pm-phone-bar::after{content:'';width:70px;height:12px;background:#0e0e0e;border-radius:0 0 10px 10px;}
+.pm-phone-screen{background:#000;padding:0.7rem 0.6rem;display:flex;flex-direction:column;align-items:center;min-height:340px;}
+.pm-phone-home{height:20px;background:#000;display:flex;align-items:center;justify-content:center;}
+.pm-phone-home::after{content:'';width:70px;height:4px;background:#222;border-radius:2px;}
+.pm-phone-mpesa{font-family:'Anton',sans-serif;font-size:0.9rem;color:#00a34b;margin-bottom:0.2rem;margin-top:0.2rem;}
+.pm-phone-merchant{font-size:0.58rem;color:#666;letter-spacing:0.06em;text-transform:uppercase;text-align:center;margin-bottom:0.3rem;}
+.pm-phone-amt{font-family:'Anton',sans-serif;font-size:1.5rem;color:#00a34b;margin-bottom:0.15rem;}
+.pm-phone-prompt{font-size:0.58rem;color:#555;margin-bottom:0.7rem;}
+.pm-pin-dots{display:flex;gap:0.55rem;margin-bottom:0.8rem;}
+.pm-pin-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid #333;background:transparent;transition:all 0.12s;}
+.pm-pin-dot.on{background:#00a34b;border-color:#00a34b;}
+.pm-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:0.3rem;width:100%;}
+.pm-key{
+  background:#181818;color:#eee;border-radius:6px;padding:0.42rem 0;
+  font-size:0.88rem;font-weight:600;cursor:pointer;transition:all 0.12s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border:1px solid #252525;
+}
+.pm-key small{font-size:0.35rem;color:#555;letter-spacing:0.04em;line-height:1;}
+.pm-key:hover{background:#252525;}
+.pm-key:active{background:#00a34b;transform:scale(0.93);}
+.pm-key-blank{background:transparent;border-color:transparent;cursor:default;}
+.pm-key-blank:hover{background:transparent;}
+.pm-cancel-key{font-size:0.7rem;color:#444;margin-top:0.5rem;cursor:pointer;transition:color 0.2s;background:none;border:none;}
+.pm-cancel-key:hover{color:#888;}
+
+/* pin instructions */
+.pm-pin-instructions{padding:0.5rem 0;}
+.pm-pin-step{display:flex;gap:0.8rem;align-items:flex-start;margin-bottom:1.1rem;}
+.pm-pi-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center;margin-top:0.1rem;}
+.pm-pi-title{font-size:0.85rem;color:var(--cream);font-weight:500;margin-bottom:0.15rem;}
+.pm-pi-desc{font-size:0.75rem;opacity:0.5;line-height:1.5;}
+
+/* ── SCREEN 4: PROCESSING ── */
+/* uses .pm-status + .pm-spinner */
+
+/* ── SCREEN 5: SUCCESS ── */
+.pm-success-icon{
+  width:68px;height:68px;border-radius:50%;background:#00a34b;color:#fff;
+  font-size:2rem;display:flex;align-items:center;justify-content:center;
+  animation:pmPop 0.45s cubic-bezier(0.175,0.885,0.32,1.275);
+}
+@keyframes pmPop{from{transform:scale(0)rotate(-15deg);}to{transform:scale(1)rotate(0);}}
+.pm-receipt{
+  background:rgba(0,163,75,0.05);border:1px solid rgba(0,163,75,0.2);
+  border-radius:6px;padding:1rem 1.1rem;
+  width:100%;max-width:320px;font-size:0.78rem;line-height:2;
+}
+.pm-receipt-row{display:flex;justify-content:space-between;}
+.pm-receipt-lbl{opacity:0.45;}
+.pm-receipt-val{color:var(--cream);font-weight:500;}
+.pm-receipt-code{font-family:'Anton',sans-serif;color:#00a34b;letter-spacing:0.1em;}
+.pm-wa-btn{
+  display:flex;align-items:center;justify-content:center;gap:0.5rem;
+  background:#25D366;color:#fff;padding:0.88rem 1.4rem;border-radius:6px;
+  font-size:0.82rem;font-weight:600;letter-spacing:0.05em;
+  width:100%;max-width:320px;transition:all 0.25s;
+}
+.pm-wa-btn:hover{background:#1db954;transform:translateY(-2px);}
+.pm-action-row{display:flex;gap:0.8rem;width:100%;max-width:320px;}
+.pm-action-btn{
+  flex:1;padding:0.78rem;border-radius:6px;
+  background:rgba(255,255,255,0.06);color:var(--parch);
+  border:1px solid rgba(255,255,255,0.1);font-size:0.75rem;
+  letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-align:center;
+}
+.pm-action-btn:hover{background:rgba(255,255,255,0.1);}
+
+/* ── SCREEN 6: FAIL ── */
+.pm-fail-icon{
+  width:68px;height:68px;border-radius:50%;background:#c0392b;color:#fff;
+  font-size:2rem;display:flex;align-items:center;justify-content:center;
+  animation:pmPop 0.4s ease;
+}
+.pm-retry-btn{
+  padding:0.85rem 2.2rem;border-radius:6px;
+  background:rgba(217,90,43,0.12);color:var(--ember);
+  border:1px solid rgba(217,90,43,0.3);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.22s;
+}
+.pm-retry-btn:hover{background:var(--ember);color:#fff;}
+
+/* developer notes expandable */
+.pm-dev{
+  margin-top:1.3rem;border:1px solid rgba(0,163,75,0.15);border-radius:6px;overflow:hidden;
+}
+.pm-dev summary{
+  padding:0.75rem 1rem;background:rgba(0,163,75,0.05);cursor:pointer;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#00a34b;font-weight:600;
+  list-style:none;display:flex;align-items:center;gap:0.4rem;
+}
+.pm-dev[open] summary{border-bottom:1px solid rgba(0,163,75,0.15);}
+.pm-dev-body{padding:1.1rem;}
+.pm-dev-code{
+  background:rgba(0,0,0,0.7);border:1px solid rgba(255,255,255,0.06);border-radius:4px;
+  padding:0.85rem;font-family:'Courier New',monospace;font-size:0.68rem;
+  color:#00ff88;line-height:1.65;overflow-x:auto;white-space:pre;margin-bottom:0.8rem;
+}
+.pm-dev-h{font-family:'Anton',sans-serif;font-size:0.85rem;letter-spacing:0.04em;color:var(--cream);margin:0.9rem 0 0.35rem;}
+.pm-dev-p{font-size:0.78rem;opacity:0.58;line-height:1.7;margin-bottom:0.5rem;}
+
+/* ── LOCATION / CONTACT / MPESA ── */
+.location-section{padding:4rem 2rem 6rem;max-width:1100px;margin:0 auto;}
+.location-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start;margin-top:3rem;}
+.map-big{border-radius:6px;overflow:hidden;height:460px;border:1px solid rgba(217,90,43,0.2);}
+.map-big iframe{width:100%;height:100%;border:none;}
+.info-block{background:var(--mid);border-radius:4px;padding:1.5rem;border:1px solid rgba(217,90,43,0.1);margin-bottom:1rem;}
+.ib-label{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:0.5rem;}
+.ib-value{font-size:0.95rem;line-height:1.6;}
+.copy-btn{margin-top:0.7rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ember);border:1px solid rgba(217,90,43,0.4);padding:0.4rem 1rem;border-radius:2px;transition:all 0.2s;display:inline-block;cursor:pointer;}
+.copy-btn:hover{background:var(--ember);color:#fff;}
+.hours-table{width:100%;border-collapse:collapse;font-size:0.85rem;}
+.hours-table td{padding:0.4rem 0;opacity:0.7;}
+.hours-table td:last-child{text-align:right;}
+.hours-table tr.today td{opacity:1;color:var(--cream);}
+.gallery-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;}
+.gallery-card{border-radius:4px;overflow:hidden;height:180px;position:relative;cursor:pointer;background:var(--mid);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.gallery-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.8;transition:transform 0.4s,opacity 0.3s;}
+.gallery-card:hover img{transform:scale(1.08);opacity:1;}
+.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,10,7,0.7) 0%,transparent 60%);}
+.gallery-label{position:absolute;bottom:0.7rem;left:0.9rem;right:0.9rem;font-size:0.72rem;letter-spacing:0.08em;color:var(--cream);opacity:0.8;z-index:1;}
+.contact-section{padding:4rem 2rem 6rem;max-width:900px;margin:0 auto;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem;}
+.contact-card{background:var(--mid);border-radius:4px;padding:2rem;border:1px solid rgba(217,90,43,0.1);display:flex;flex-direction:column;align-items:flex-start;gap:1rem;transition:border-color 0.3s,transform 0.3s;}
+.contact-card:hover{border-color:rgba(217,90,43,0.4);transform:translateY(-4px);}
+.cc-icon{width:52px;height:52px;border-radius:50%;background:rgba(217,90,43,0.15);display:flex;align-items:center;justify-content:center;font-size:1.5rem;}
+.cc-title{font-family:'Anton',sans-serif;font-size:1.1rem;letter-spacing:0.05em;color:var(--cream);}
+.cc-value{font-size:0.95rem;opacity:0.7;line-height:1.6;}
+.cc-btn{margin-top:auto;display:inline-block;padding:0.65rem 1.5rem;border-radius:2px;font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;transition:all 0.25s;}
+.cc-btn.wa{background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3);}
+.cc-btn.wa:hover{background:#25D366;color:#fff;}
+.cc-btn.tel{background:rgba(217,90,43,0.15);color:var(--ember);border:1px solid rgba(217,90,43,0.3);}
+.cc-btn.tel:hover{background:var(--ember);color:#fff;}
+.contact-form{background:var(--mid);border-radius:4px;padding:2rem;border:1px solid rgba(217,90,43,0.1);grid-column:1/-1;}
+.cf-title{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--cream);margin-bottom:1.5rem;}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.cf-field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+.cf-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.5;}
+.cf-input{background:rgba(15,10,7,0.5);border:1px solid rgba(217,90,43,0.2);border-radius:2px;padding:0.8rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--cream);outline:none;transition:border-color 0.25s;}
+.cf-input:focus{border-color:var(--ember);}
+.cf-input::placeholder{opacity:0.35;}
+textarea.cf-input{resize:vertical;min-height:100px;}
+.cf-submit{background:var(--ember);color:#fff;padding:0.9rem 2.5rem;border-radius:2px;font-size:0.82rem;letter-spacing:0.15em;text-transform:uppercase;font-weight:500;transition:all 0.3s;cursor:pointer;}
+.cf-submit:hover{background:var(--glow);transform:translateY(-2px);box-shadow:0 6px 24px rgba(217,90,43,0.4);}
+
+/* ─── MPESA PAGE ─────────────────────────────────────────────── */
+.mpesa-wrap{padding:3rem 2rem 6rem;max-width:1060px;margin:0 auto;}
+.mp-stepper{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:3rem;flex-wrap:wrap;}
+.mp-step-tab{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.2rem;border-radius:20px;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--parch);opacity:0.35;transition:all 0.3s;border:1px solid transparent;}
+.mp-step-tab.active{background:rgba(0,163,75,0.12);color:#00a34b;border-color:rgba(0,163,75,0.3);opacity:1;}
+.mp-step-tab.done{background:rgba(0,163,75,0.06);color:#00a34b;border-color:rgba(0,163,75,0.15);opacity:0.7;}
+.mp-stab-num{width:22px;height:22px;border-radius:50%;background:rgba(0,163,75,0.2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.72rem;}
+.mp-step-tab.active .mp-stab-num{background:#00a34b;color:#fff;}
+.mp-step-connector{width:2rem;height:1px;background:rgba(255,255,255,0.1);flex-shrink:0;}
+.mp-flow-step{animation:fadeSlideIn 0.35s ease both;}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.mpesa-calc-card,.mpesa-steps-card,.mp-single-card{background:var(--mid);border-radius:8px;padding:2rem;border:1px solid rgba(217,90,43,0.12);}
+.mpesa-steps-card{background:rgba(0,163,75,0.04);border-color:rgba(0,163,75,0.16);}
+.mp-single-card{max-width:640px;margin:0 auto;}
+.mp-col-label{font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:#00a34b;margin-bottom:1.2rem;}
+.mp-card-heading{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:0.04em;color:var(--cream);margin-bottom:0.4rem;}
+.mp-card-sub{font-size:0.88rem;opacity:0.55;line-height:1.6;margin-bottom:1.8rem;}
+.mpesa-logo-lockup{display:flex;align-items:center;gap:0.6rem;}
+.mp-m{font-family:'Anton',sans-serif;font-size:2rem;color:#00a34b;line-height:1;}
+.mp-pesa{font-family:'Anton',sans-serif;font-size:2rem;color:var(--cream);line-height:1;}
+.mp-badge{background:rgba(0,163,75,0.12);color:#00a34b;border:1px solid rgba(0,163,75,0.3);border-radius:20px;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.3rem 0.8rem;}
+.mpesa-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;}
+.mp-calc-items{display:flex;flex-direction:column;}
+.mp-calc-item{display:grid;grid-template-columns:30px 1fr auto 72px;align-items:center;gap:0.8rem;padding:0.85rem 0.5rem;border-bottom:1px solid rgba(255,255,255,0.05);border-radius:4px;transition:background 0.2s;}
+.mp-calc-item:first-child{border-top:1px solid rgba(255,255,255,0.05);}
+.mp-calc-item:hover{background:rgba(217,90,43,0.05);}
+.mp-ci-img{font-size:1.3rem;text-align:center;}
+.mp-ci-name{font-size:0.85rem;color:var(--cream);}
+.mp-ci-unit{font-size:0.7rem;opacity:0.4;margin-top:0.1rem;}
+.mp-ci-ctrl{display:flex;align-items:center;gap:0.4rem;justify-content:center;}
+.mp-btn-q{width:24px;height:24px;border-radius:50%;background:rgba(217,90,43,0.18);color:var(--ember);border:1px solid rgba(217,90,43,0.3);font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.mp-btn-q:hover{background:var(--ember);color:#fff;}
+.mp-qty{width:18px;text-align:center;font-family:'Anton',sans-serif;font-size:0.9rem;color:var(--cream);}
+.mp-ci-sub{font-family:'Caveat',cursive;font-size:0.95rem;color:var(--ember);text-align:right;}
+.mp-total-bar{display:flex;align-items:center;justify-content:space-between;margin-top:1.2rem;padding-top:1.2rem;border-top:2px solid rgba(0,163,75,0.3);}
+.mp-total-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#00a34b;margin-bottom:0.2rem;}
+.mp-total-amt{font-family:'Anton',sans-serif;font-size:1.8rem;color:var(--cream);}
+.mp-clear-btn{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--parch);opacity:0.35;cursor:pointer;transition:opacity 0.2s;}
+.mp-clear-btn:hover{opacity:0.8;}
+.mp-next-btn{width:100%;margin-top:1.2rem;background:linear-gradient(135deg,#00a34b,#007a38);color:#fff;padding:1rem 1.5rem;border-radius:4px;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all 0.3s;border:none;}
+.mp-next-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,163,75,0.4);}
+.mp-next-btn:disabled{opacity:0.28;cursor:not-allowed;}
+.mp-step-nav{display:flex;gap:0.8rem;margin-top:1.5rem;align-items:center;}
+.mp-back-btn{padding:0.9rem 1.2rem;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--parch);border:1px solid rgba(255,255,255,0.12);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.mp-back-btn:hover{background:rgba(255,255,255,0.1);}
+.mp-proceed-pay-btn{flex:1;padding:1rem;border-radius:4px;background:linear-gradient(135deg,#00a34b,#007a38);color:#fff;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all 0.3s;border:none;}
+.mp-proceed-pay-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,163,75,0.4);}
+.mp-till-box{display:inline-flex;align-items:center;gap:1rem;background:rgba(0,163,75,0.1);border:1px solid rgba(0,163,75,0.35);border-radius:4px;padding:0.5rem 1rem;margin-top:0.5rem;cursor:pointer;transition:background 0.2s;}
+.mp-till-box:hover{background:rgba(0,163,75,0.2);}
+.mp-till-num{font-family:'Anton',sans-serif;font-size:1.3rem;color:#00a34b;letter-spacing:0.1em;}
+.mp-copy-lbl{font-size:0.7rem;color:var(--parch);opacity:0.5;}
+.mp-info-row{margin-bottom:1.2rem;}
+.mp-ir-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.45;margin-bottom:0.35rem;}
+.mp-ir-val{font-size:0.9rem;color:var(--cream);}
+.mp-safaricom-note{background:rgba(0,163,75,0.07);border:1px solid rgba(0,163,75,0.15);border-radius:4px;padding:0.9rem;margin-top:1.2rem;font-size:0.78rem;opacity:0.65;line-height:1.6;display:flex;gap:0.5rem;align-items:flex-start;}
+.mp-trust-row{display:flex;gap:0.6rem;flex-wrap:wrap;}
+.mp-trust{background:rgba(0,163,75,0.07);border:1px solid rgba(0,163,75,0.18);border-radius:20px;padding:0.28rem 0.75rem;font-size:0.68rem;letter-spacing:0.05em;color:var(--parch);opacity:0.6;}
+.mp-form-group{margin-bottom:1.4rem;}
+.mp-form-label{display:block;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.5;margin-bottom:0.5rem;}
+.mp-form-input{width:100%;background:rgba(15,10,7,0.6);border:1px solid rgba(217,90,43,0.2);border-radius:4px;padding:0.85rem 1rem;font-family:'DM Sans',sans-serif;font-size:0.95rem;color:var(--cream);outline:none;transition:border-color 0.25s,box-shadow 0.25s;}
+.mp-form-input:focus{border-color:#00a34b;box-shadow:0 0 0 3px rgba(0,163,75,0.12);}
+.mp-form-input::placeholder{opacity:0.3;}
+.mp-form-hint{font-size:0.72rem;opacity:0.38;margin-top:0.4rem;}
+.mp-phone-wrap{display:flex;gap:0;border:1px solid rgba(217,90,43,0.2);border-radius:4px;overflow:hidden;}
+.mp-phone-prefix{padding:0.85rem 0.9rem;background:rgba(0,163,75,0.1);border-right:1px solid rgba(0,163,75,0.2);font-size:0.88rem;color:#00a34b;white-space:nowrap;font-weight:500;}
+.mp-phone-input{border:none!important;border-radius:0!important;flex:1;}
+.mp-phone-input:focus{box-shadow:none!important;}
+.mp-phone-wrap:focus-within{border-color:#00a34b;box-shadow:0 0 0 3px rgba(0,163,75,0.12);}
+.mp-summary-table{background:rgba(0,163,75,0.04);border:1px solid rgba(0,163,75,0.15);border-radius:4px;padding:1rem;margin-bottom:1rem;}
+.mp-sum-row{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;font-size:0.88rem;}
+.mp-sum-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.04);}
+.mp-sum-item{color:var(--parch);opacity:0.8;}
+.mp-sum-price{font-family:'Caveat',cursive;font-size:1rem;color:var(--ember);}
+.mp-sum-total{font-family:'Anton',sans-serif;font-size:1.1rem;color:var(--cream);}
+.mp-sum-total-price{font-family:'Anton',sans-serif;font-size:1.1rem;color:#00a34b;}
+.mp-customer-row{background:rgba(217,90,43,0.06);border:1px solid rgba(217,90,43,0.15);border-radius:4px;padding:0.9rem 1rem;margin-bottom:1.2rem;font-size:0.85rem;display:flex;gap:1.5rem;flex-wrap:wrap;}
+.mp-cr-field{display:flex;flex-direction:column;gap:0.2rem;}
+.mp-cr-label{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;opacity:0.45;}
+.mp-cr-val{color:var(--cream);}
+.mp-prompt-box-wrap{margin-bottom:1.2rem;}
+.mp-prompt-box-label{display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:#00a34b;margin-bottom:0.6rem;}
+.mp-prompt-box{background:rgba(0,163,75,0.05);border:1px solid rgba(0,163,75,0.2);border-radius:4px;padding:1.2rem;font-family:'Caveat',cursive;font-size:1.02rem;color:var(--cream);line-height:1.8;white-space:pre-wrap;max-height:200px;overflow-y:auto;}
+.mp-pp-note{font-size:0.72rem;opacity:0.38;line-height:1.5;}
+.mp-pin-outer{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:start;max-width:860px;margin:0 auto;}
+.mp-phone-mockup{width:260px;flex-shrink:0;background:#111;border-radius:36px;padding:0;box-shadow:0 0 0 8px #1a1a1a,0 0 0 10px #2a2a2a,0 30px 80px rgba(0,0,0,0.6);overflow:hidden;position:relative;}
+.mp-phone-notch{height:28px;background:#000;display:flex;align-items:center;justify-content:center;}
+.mp-phone-notch::after{content:'';width:80px;height:14px;background:#111;border-radius:0 0 12px 12px;}
+.mp-phone-screen{background:#000;min-height:420px;padding:0;display:flex;flex-direction:column;}
+.mp-phone-home-bar{height:24px;background:#000;display:flex;align-items:center;justify-content:center;}
+.mp-phone-home-bar::after{content:'';width:80px;height:4px;background:#333;border-radius:2px;}
+.mp-screen-state{flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0.8rem 0.5rem;}
+.mp-screen-logo{margin-bottom:0.3rem;}
+.mp-screen-merchant{font-size:0.7rem;color:#888;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem;text-align:center;}
+.mp-screen-amount{font-family:'Anton',sans-serif;font-size:1.8rem;color:#00a34b;margin-bottom:0.2rem;}
+.mp-screen-prompt{font-size:0.7rem;color:#666;margin-bottom:1rem;}
+.mp-pin-dots{display:flex;gap:0.8rem;margin-bottom:1.2rem;}
+.mp-pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid #444;background:transparent;transition:all 0.15s;}
+.mp-pin-dot.filled{background:#00a34b;border-color:#00a34b;}
+.mp-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;width:100%;padding:0 0.3rem;}
+.mp-key{background:#1a1a1a;color:#fff;border-radius:8px;padding:0.6rem 0;text-align:center;cursor:pointer;font-size:1rem;font-weight:600;transition:background 0.15s;display:flex;flex-direction:column;align-items:center;gap:0;border:1px solid #2a2a2a;}
+.mp-key span{font-size:0.45rem;color:#666;letter-spacing:0.05em;line-height:1;}
+.mp-key:hover{background:#2a2a2a;}
+.mp-key:active{background:#00a34b;transform:scale(0.95);}
+.mp-key-blank{background:transparent;border-color:transparent;cursor:default;}
+.mp-key-blank:hover{background:transparent;}
+.mp-key-del{font-size:1.1rem;}
+.mp-screen-cancel{font-size:0.7rem;color:#555;margin-top:0.8rem;cursor:pointer;transition:color 0.2s;}
+.mp-screen-cancel:hover{color:#888;}
+.mp-processing-spinner{width:48px;height:48px;border-radius:50%;border:3px solid rgba(0,163,75,0.2);border-top-color:#00a34b;animation:spin 0.8s linear infinite;margin:2rem auto 1.2rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.mp-processing-text{font-size:0.95rem;color:var(--cream);margin-bottom:0.3rem;}
+.mp-processing-sub{font-size:0.72rem;color:#555;}
+.mp-success-icon{width:56px;height:56px;border-radius:50%;background:#00a34b;color:#fff;font-size:1.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;margin:1.5rem auto 0.8rem;animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);}
+@keyframes popIn{from{transform:scale(0);}to{transform:scale(1);}}
+.mp-success-title{font-family:'Anton',sans-serif;font-size:1.2rem;color:var(--cream);margin-bottom:0.4rem;}
+.mp-success-code{font-family:'Anton',sans-serif;font-size:1rem;color:#00a34b;letter-spacing:0.15em;margin-bottom:0.3rem;}
+.mp-success-detail{font-size:0.65rem;color:#666;text-align:center;line-height:1.4;padding:0 0.5rem;}
+.mp-pin-instructions{padding-top:0.5rem;}
+.mp-pin-steps{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:1.5rem;}
+.mp-pin-step{display:flex;gap:1rem;align-items:flex-start;transition:opacity 0.4s;}
+.mp-ps-icon{font-size:1.4rem;flex-shrink:0;width:32px;text-align:center;}
+.mp-ps-title{font-size:0.88rem;color:var(--cream);font-weight:500;margin-bottom:0.2rem;}
+.mp-ps-desc{font-size:0.78rem;opacity:0.55;line-height:1.6;}
+.mp-wa-btn{display:flex;align-items:center;justify-content:center;gap:0.6rem;background:#25D366;color:#fff;padding:0.9rem 1.2rem;border-radius:4px;font-size:0.82rem;letter-spacing:0.06em;font-weight:500;transition:all 0.25s;margin-bottom:0.8rem;}
+.mp-wa-btn:hover{background:#1db954;transform:translateY(-2px);}
+.mp-start-again{width:100%;padding:0.75rem;border-radius:4px;background:rgba(255,255,255,0.06);color:var(--parch);border:1px solid rgba(255,255,255,0.12);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.mp-start-again:hover{background:rgba(255,255,255,0.1);}
+.mp-pin-disclaimer{margin-top:1.2rem;font-size:0.72rem;opacity:0.35;line-height:1.6;padding:0.8rem;background:rgba(255,255,255,0.03);border-radius:4px;border:1px solid rgba(255,255,255,0.06);}
+
+/* ─── FAB ────────────────────────────────────────────────────── */
+.fab{position:fixed;bottom:2rem;right:2rem;z-index:800;width:58px;height:58px;border-radius:50%;background:var(--brass);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.5);cursor:pointer;transition:transform 0.3s,box-shadow 0.3s;font-size:1.3rem;}
+.fab:hover{transform:scale(1.1) rotate(-10deg);box-shadow:0 8px 30px rgba(184,134,11,0.5);}
+.fab-panel{position:fixed;bottom:5.5rem;right:2rem;z-index:799;width:280px;background:rgba(20,12,7,0.88);backdrop-filter:blur(20px);border:1px solid rgba(217,90,43,0.25);border-radius:8px;padding:1.5rem;transform:translateY(20px);opacity:0;pointer-events:none;transition:all 0.3s;}
+.fab-panel.open{transform:translateY(0);opacity:1;pointer-events:all;}
+.fab-heading{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--cream);margin-bottom:1.2rem;text-align:center;}
+.fab-options{display:flex;flex-direction:column;gap:0.8rem;}
+.fab-opt{display:flex;align-items:center;gap:0.8rem;padding:0.9rem 1rem;border-radius:4px;font-size:0.82rem;letter-spacing:0.05em;transition:all 0.25s;cursor:pointer;}
+.fab-opt.call{background:rgba(217,90,43,0.15);color:var(--cream);border:1px solid rgba(217,90,43,0.3);}
+.fab-opt.call:hover{background:var(--ember);color:#fff;}
+.fab-opt.wa{background:rgba(37,211,102,0.1);color:#25D366;border:1px solid rgba(37,211,102,0.25);}
+.fab-opt.wa:hover{background:#25D366;color:#fff;}
+.fab-opt-icon{font-size:1.2rem;}
+.mobile-sticky{display:none;position:fixed;bottom:0;left:0;right:0;z-index:700;background:rgba(15,10,7,0.97);border-top:1px solid rgba(217,90,43,0.2);padding:0.8rem 1rem;grid-template-columns:1fr 1fr;gap:0.5rem;}
+@media(max-width:640px){.mobile-sticky{display:grid;}}
+.ms-btn{padding:0.8rem;border-radius:2px;text-align:center;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;}
+.ms-btn.call{background:var(--ember);color:#fff;}
+.ms-btn.wa{background:#25D366;color:#fff;}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer{background:#090604;border-top:1px solid rgba(217,90,43,0.15);padding:3rem 2rem 1.5rem;}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+.f-brand-name{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:0.08em;color:var(--cream);margin-bottom:0.5rem;}
+.f-brand-name span{color:var(--ember);}
+.f-tagline{font-size:0.82rem;opacity:0.5;line-height:1.6;max-width:260px;margin-bottom:1rem;}
+.f-open{display:flex;align-items:center;gap:0.6rem;font-size:0.78rem;}
+.f-col-title{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.f-links a{font-size:0.85rem;opacity:0.55;transition:opacity 0.2s;}
+.f-links a:hover{opacity:1;color:var(--ember);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.05);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;font-size:0.75rem;opacity:0.35;}
+
+/* ─── SCROLL ANIMATIONS ──────────────────────────────────────── */
+.fade-up{opacity:0;transform:translateY(25px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media(max-width:1000px){
+  .menu-app-shell{grid-template-columns:1fr;}
+  .cart-panel{
+    display:none;position:fixed;right:0;top:0;bottom:0;
+    width:320px;z-index:500;
+    box-shadow:-8px 0 40px rgba(0,0,0,0.6);
+    transform:translateX(100%);
+  }
+  .cart-panel.mobile-open{display:flex;transform:translateX(0);}
+  .cart-fab-btn{display:flex;}
+}
+@media(max-width:900px){
+  .about-strip,.lt-inner,.location-grid{grid-template-columns:1fr;gap:2rem;}
+  .menu-grid,.services-grid{grid-template-columns:1fr 1fr;}
+  .vibe-grid{grid-template-columns:1fr 1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;}
+  .gallery-strip{grid-template-columns:1fr 1fr;}
+  nav .nav-links{display:none;}
+  .burger{display:flex;}
+  .contact-grid{grid-template-columns:1fr;}
+  .mpesa-grid{grid-template-columns:1fr;}
+  .mp-pin-outer{grid-template-columns:1fr;justify-items:center;}
+  .mp-phone-mockup{width:240px;}
+}
+@media(max-width:640px){
+  .hero-title{font-size:clamp(2.2rem,10vw,3.5rem);}
+  .menu-grid{grid-template-columns:1fr;}
+  .services-grid{grid-template-columns:1fr;}
+  .vibe-grid{grid-template-columns:1fr;}
+  .gallery-strip{grid-template-columns:1fr;}
+  .cf-row{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;}
+  .hero{height:90vh;}
+  .page-hero{height:45vh;padding:2rem 1.5rem;}
+  nav{padding:1rem 1.2rem;}
+  .features{gap:1.5rem;}
+  .fab{bottom:5.5rem;right:1rem;}
+  .fab-panel{right:1rem;bottom:9rem;}
+  .pm-pin-wrap{grid-template-columns:1fr;justify-items:center;}
+  .pm-phone-shell{width:220px;}
+  .pay-modal{max-width:100%;border-radius:16px 16px 0 0;max-height:88vh;}
+  .pay-overlay{align-items:flex-end;padding:0;}
+  .mas-grid{grid-template-columns:1fr;}
+  .menu-app-main{padding:1.5rem 1.2rem 6rem;}
+}
+@media(max-width:480px){
+  .mp-stepper{gap:0.2rem;}
+  .mp-stab-lbl{display:none;}
+  .mp-calc-item{grid-template-columns:26px 1fr auto 60px;gap:0.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="mainNav">
+  <div class="nav-logo"><span>🔥</span> BUDDIES <span>CHOMA</span></div>
+  <div class="nav-links">
+    <a href="#" class="active" onclick="showPage('home',this)">Home</a>
+    <a href="#" onclick="showPage('services',this)">Services</a>
+    <a href="#" onclick="showPage('menu',this)">Menu</a>
+    <a href="#" onclick="showPage('location',this)">Location</a>
+    <a href="#" onclick="showPage('contact',this)">Contact</a>
+    <a href="#" onclick="showPage('mpesa',this)" style="color:#00a34b;">🟢 M-Pesa Pay</a>
+    <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." class="nav-cta" target="_blank">Order Now</a>
+  </div>
+  <div class="burger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <span class="mobile-close" onclick="toggleMobile()">✕</span>
+  <a href="#" onclick="showPage('home',null);toggleMobile()">Home</a>
+  <a href="#" onclick="showPage('services',null);toggleMobile()">Services</a>
+  <a href="#" onclick="showPage('menu',null);toggleMobile()">Menu</a>
+  <a href="#" onclick="showPage('location',null);toggleMobile()">Location</a>
+  <a href="#" onclick="showPage('contact',null);toggleMobile()">Contact</a>
+  <a href="#" onclick="showPage('mpesa',null);toggleMobile()" style="color:#00a34b;">🟢 M-Pesa Pay</a>
+</div>
+
+<div class="fab" onclick="toggleFab()">🍴</div>
+<div class="fab-panel" id="fabPanel">
+  <div class="fab-heading">Tafadhali chagua</div>
+  <div class="fab-options">
+    <a href="tel:0722552714" class="fab-opt call"><span class="fab-opt-icon">📞</span> Call to Order — 0722 552714</a>
+    <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." target="_blank" class="fab-opt wa"><span class="fab-opt-icon">💬</span> WhatsApp Order</a>
+  </div>
+</div>
+<div class="mobile-sticky">
+  <a href="tel:0722552714" class="ms-btn call">📞 Call</a>
+  <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." target="_blank" class="ms-btn wa">💬 WhatsApp</a>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="grill-grid"></div>
+    <div class="smoke-container"><div class="smoke"></div><div class="smoke"></div><div class="smoke"></div></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Since 2022 · Githurai, Nairobi</div>
+      <h1 class="hero-title">BUDDIES<br><span>CHOMA</span><br>PLACE</h1>
+      <p class="hero-sub">Githurai's Home for Fire‑Grilled Perfection. <span style="color:var(--glow);">Open 24 Hours.</span></p>
+      <div class="hero-actions">
+        <a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." target="_blank" class="btn-primary">💬 Order via WhatsApp</a>
+        <a href="#" onclick="showPage('menu',null)" class="btn-outline">View Menu</a>
+      </div>
+    </div>
+    <div class="hero-badge"><svg viewBox="0 0 24 24"><path d="M12 17l-5-5h10z"/></svg> Scroll Down</div>
+  </section>
+  <div class="features">
+    <div class="feature-item"><span class="fi">🔥</span> Charcoal Grilled</div>
+    <div class="feature-item"><span class="fi">🥩</span> Fresh Daily Cuts</div>
+    <div class="feature-item"><span class="fi">🌿</span> Fresh Kachumbari</div>
+    <div class="feature-item"><span class="fi">🕙</span> Open 24 Hours</div>
+    <div class="feature-item"><span class="fi">📍</span> Githurai Complex</div>
+    <div class="feature-item"><span class="fi">👥</span> Groups Welcome</div>
+  </div>
+  <section class="about-strip fade-up">
+    <div>
+      <div class="about-label">Our Story</div>
+      <h2 class="about-heading">Where every cut tells a <em>story of fire</em></h2>
+      <p class="about-body">Nestled on the ground floor of Githurai Complex, Buddies Choma Place has been the neighbourhood's open-air secret since 2022. We slow-cook over real charcoal, hand-chop the kachumbari fresh every evening, and stay open until the last group of friends has had their fill.</p>
+      <p class="about-body">No shortcuts. Just smoke, heat, and honest meat served the way it was meant to be — with your hands, among buddies.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years Serving</div></div>
+        <div class="stat"><div class="stat-num">12+</div><div class="stat-label">Cuts on Menu</div></div>
+        <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">Always Open</div></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-visual-inner"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&auto=format&fit=crop" alt="Grilled meat" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.7;" /></div>
+      <div class="about-badge"><div class="ab-title">"Smoke-kissed. Hand-served. Always worth the wait."</div><div class="ab-sub">— The Buddies Philosophy</div></div>
+    </div>
+  </section>
+  <section class="menu-preview">
+    <div class="section-header fade-up"><div class="section-eyebrow">What We Grill</div><h2 class="section-title">SIGNATURE CUTS</h2></div>
+    <div class="menu-grid">
+      <div class="menu-card fade-up"><div class="menu-card-img"><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=400&auto=format&fit=crop" alt="Mbuzi Choma" /></div><div class="menu-card-body"><div class="mc-name">1 KG MBUZI CHOMA (MARINATED)</div><div class="mc-desc">One full kilo of marinated goat, fire-roasted over open charcoal</div><div class="mc-price">Ksh 1,900</div></div><div class="menu-card-hover"><div class="mch-quote">"smoke-kissed goat, marinated overnight, hand-chopped with lime — the house special"</div><div class="mch-cta">Order This →</div></div></div>
+      <div class="menu-card fade-up"><div class="menu-card-img"><img src="https://images.unsplash.com/photo-1544025162-d76594e8ded8?w=400&auto=format&fit=crop" alt="Full Chicken" /></div><div class="menu-card-body"><div class="mc-name">FULL CHICKEN DRY FRY</div><div class="mc-desc">Whole chicken dry-fried golden with house spices — crisp skin, juicy inside</div><div class="mc-price">Ksh 1,800</div></div><div class="menu-card-hover"><div class="mch-quote">"whole bird, dry-fried golden — every bite seasoned, every corner crisp"</div><div class="mch-cta">Order This →</div></div></div>
+      <div class="menu-card fade-up"><div class="menu-card-img"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=400&auto=format&fit=crop" alt="Mbuzi with Ugali" /></div><div class="menu-card-body"><div class="mc-name">½ KG MBUZI + UGALI (MARINATED)</div><div class="mc-desc">Marinated goat choma with fresh ugali and hand-chopped kachumbari</div><div class="mc-price">Ksh 1,150</div></div><div class="menu-card-hover"><div class="mch-quote">"tender marinated goat with ugali — the Githurai classic, eaten with your hands"</div><div class="mch-cta">Order This →</div></div></div>
+    </div>
+    <div class="view-all"><a href="#" onclick="showPage('menu',null)" class="btn-ghost">See Full Menu →</a></div>
+  </section>
+  <section class="vibe-wall">
+    <div class="section-header fade-up"><div class="section-eyebrow">From Our Regulars</div><h2 class="section-title">BUDDIES BANTER</h2></div>
+    <div class="vibe-grid">
+      <div class="sticky-note fade-up"><div class="sticky-quote">"Best smoky mbuzi this side of Thika Road. I've never left disappointed."</div><div class="sticky-author"><div class="sticky-avatar">JK</div> James K. — Githurai 44</div></div>
+      <div class="sticky-note fade-up"><div class="sticky-quote">"Open late, always lit. We finish work at 8 and they're still throwing meat on the jiko."</div><div class="sticky-author"><div class="sticky-avatar">AM</div> Amina M. — Regular</div></div>
+      <div class="sticky-note fade-up"><div class="sticky-quote">"The 0700 crew after work. Every Friday without fail. See you at Buddies."</div><div class="sticky-author"><div class="sticky-avatar">PO</div> Peter O. — Friday Crew</div></div>
+      <div class="sticky-note fade-up"><div class="sticky-quote">"Kachumbari so fresh it slaps. The ugali is the perfect base. Unmatched."</div><div class="sticky-author"><div class="sticky-avatar">GW</div> Grace W. — Thika Rd</div></div>
+      <div class="sticky-note fade-up"><div class="sticky-quote">"Took my whole family for my birthday. The matumbo alone — lakini! — absolutely divine."</div><div class="sticky-author"><div class="sticky-avatar">DM</div> David M. — Birthday Boy</div></div>
+      <div class="sticky-note fade-up"><div class="sticky-quote">"The filament lights, the wooden benches, the smoke — you don't just eat, you experience."</div><div class="sticky-author"><div class="sticky-avatar">SR</div> Stacy R. — First Timer</div></div>
+    </div>
+  </section>
+  <section class="location-teaser fade-up">
+    <div class="lt-inner">
+      <div class="lt-map"><iframe src="https://maps.google.com/maps?q=Githurai+Complex+Nairobi&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe></div>
+      <div class="lt-info">
+        <h2>Find Us in Githurai</h2>
+        <p class="lt-address">Ground Floor, Githurai Complex<br>Off Thika Road, Githurai<br>Nairobi, Kenya</p>
+        <div class="lt-hours"><div class="open-dot"></div><span style="font-size:0.82rem;">Open 24hrs</span></div>
+        <a href="#" onclick="showPage('location',null)" class="btn-ghost" style="font-size:0.78rem;padding:0.7rem 1.8rem;">View Full Map →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════ SERVICES ═══════════ -->
+<div class="page" id="page-services">
+  <div class="page-hero"><div class="page-hero-emoji">🥩</div><div class="page-hero-content"><div class="page-hero-tag">What We Offer</div><h1 class="page-hero-title">OUR<br>SERVICES</h1><p class="page-hero-sub">Fire, community, and craft — all under one roof</p></div></div>
+  <div class="services-section">
+    <div class="section-header fade-up" style="text-align:left;"><div class="section-eyebrow">What We Do</div><h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.8rem);">EVERYTHING CHOMA</h2></div>
+    <div class="services-grid">
+      <div class="service-card fade-up"><div class="sc-icon">🔥</div><div class="sc-title">OPEN-FIRE GRILLING</div><div class="sc-body">All our meat is grilled fresh over real charcoal — no shortcuts, no gas, no compromise. Every order is carved to order and put straight on the jiko.</div><ul class="sc-features"><li>Real hardwood charcoal</li><li>Daily fresh meat sourcing</li><li>Cooked-to-order servings</li><li>Traditional charring techniques</li></ul></div>
+      <div class="service-card fade-up"><div class="sc-icon">👥</div><div class="sc-title">GROUP & EVENTS DINING</div><div class="sc-body">Planning a birthday, a team lunch, or a family gathering? We accommodate groups of all sizes. Let us know in advance and we'll have the grill ready for you.</div><ul class="sc-features"><li>Groups from 5 to 50+</li><li>Reserved seating available</li><li>Group order discounts</li><li>Custom meat platters</li></ul></div>
+      <div class="service-card fade-up"><div class="sc-icon">📦</div><div class="sc-title">TAKEAWAY & PHONE ORDERS</div><div class="sc-body">Can't come in? Call or WhatsApp us and we'll have your order packed and ready. Pickups are quick — we keep the fire hot and the wait short. We're open 24 hours.</div><ul class="sc-features"><li>Phone: 0722 552714</li><li>WhatsApp orders accepted</li><li>Ready in 20–30 minutes</li><li>Secure foil packing</li></ul></div>
+      <div class="service-card fade-up"><div class="sc-icon">🌽</div><div class="sc-title">SIDES & ACCOMPANIMENTS</div><div class="sc-body">No choma meal is complete without the full spread. We serve hand-pounded ugali, freshly chopped kachumbari, roasted maize, and more alongside every plate.</div><ul class="sc-features"><li>Fresh kachumbari daily</li><li>Ugali — white</li><li>Chips</li><li>Homemade pepper sauce</li></ul></div>
+    </div>
+  </div>
+  <section class="process-section">
+    <div class="section-header fade-up" style="text-align:center;"><div class="section-eyebrow">The Craft</div><h2 class="section-title">FROM COAL TO PLATE</h2></div>
+    <div class="process-steps">
+      <div class="process-step fade-up"><div class="step-num">01</div><div class="step-content"><div class="step-title">FRESH SOURCING, EVERY MORNING</div><div class="step-desc">We source our beef, goat, and offal from trusted local butchers every single morning. Nothing sits in a fridge overnight — freshness is non-negotiable at Buddies.</div></div></div>
+      <div class="process-step fade-up"><div class="step-num">02</div><div class="step-content"><div class="step-title">HAND-RUBBED & SEASONED</div><div class="step-desc">Each cut gets a hand-rub of sea salt, a whisper of spice, and nothing more. We believe good meat needs no disguising — just fire and time.</div></div></div>
+      <div class="process-step fade-up"><div class="step-num">03</div><div class="step-content"><div class="step-title">SLOW CHARCOAL FIRE</div><div class="step-desc">We use real hardwood charcoal, not briquettes. The grill is maintained at the right temperature for slow, even cooking that seals in all the juices.</div></div></div>
+      <div class="process-step fade-up"><div class="step-num">04</div><div class="step-content"><div class="step-title">CARVED & SERVED IMMEDIATELY</div><div class="step-desc">When your order is ready, we hand-chop it on a wooden board and plate it with fresh kachumbari and your sides. No waiting under heat lamps — straight from the fire to the table.</div></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MENU PAGE — Full Cart + Live M-Pesa Modal
+═══════════════════════════════════════════ -->
+<div class="page" id="page-menu">
+
+  <div class="page-hero">
+    <div class="page-hero-emoji">🍖</div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag">Full Menu</div>
+      <h1 class="page-hero-title">WHAT'S<br>ON THE GRILL</h1>
+      <p class="page-hero-sub">Everything smoke-kissed and flame-finished · Open 24 Hours</p>
+    </div>
+  </div>
+
+  <div class="menu-app-shell">
+
+    <!-- ══ LEFT: MENU ITEMS ══ -->
+    <div class="menu-app-main">
+
+      <!-- Category Filter -->
+      <div class="menu-filter-bar fade-up">
+        <button class="mf-btn active" onclick="filterMenuApp('all',this)">🍽 All</button>
+        <button class="mf-btn" onclick="filterMenuApp('choma',this)">🔥 Choma</button>
+        <button class="mf-btn" onclick="filterMenuApp('main',this)">🍳 Main Dishes</button>
+        <button class="mf-btn" onclick="filterMenuApp('snacks',this)">🥟 Snacks</button>
+        <button class="mf-btn" onclick="filterMenuApp('drinks',this)">🥤 Drinks</button>
+      </div>
+
+      <!-- CHOMA -->
+      <div class="menu-app-section" id="masSection-choma">
+        <div class="mas-header"><span class="mas-icon">🔥</span><h2 class="mas-title">CHOMA</h2><div class="mas-line"></div></div>
+        <div class="mas-grid" id="masGrid-choma"></div>
+      </div>
+
+      <!-- MAIN DISHES -->
+      <div class="menu-app-section" id="masSection-main">
+        <div class="mas-header"><span class="mas-icon">🍳</span><h2 class="mas-title">MAIN DISHES</h2><div class="mas-line"></div></div>
+        <div class="mas-grid" id="masGrid-main"></div>
+      </div>
+
+      <!-- SNACKS -->
+      <div class="menu-app-section" id="masSection-snacks">
+        <div class="mas-header"><span class="mas-icon">🥟</span><h2 class="mas-title">SNACKS</h2><div class="mas-line"></div></div>
+        <div class="mas-grid" id="masGrid-snacks"></div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="menu-app-section" id="masSection-drinks">
+        <div class="mas-header"><span class="mas-icon">🥤</span><h2 class="mas-title">DRINKS</h2><div class="mas-line"></div></div>
+        <div class="mas-grid" id="masGrid-drinks"></div>
+      </div>
+
+    </div><!-- /menu-app-main -->
+
+    <!-- ══ RIGHT: CART SIDEBAR ══ -->
+    <aside class="cart-panel" id="cartPanel">
+      <div class="cart-panel-header">
+        <div class="cp-title">
+          🛒 Your Order
+          <span class="cp-badge" id="cpBadge">0</span>
+        </div>
+        <button class="cp-clear" onclick="cartClearAll()">Clear all</button>
+      </div>
+
+      <div class="cart-panel-items" id="cartPanelItems">
+        <div class="cart-empty" id="cartEmpty">
+          <div class="cart-empty-icon">🍽</div>
+          <div class="cart-empty-txt">Add items from<br>the menu to start your order</div>
+        </div>
+      </div>
+
+      <div class="cart-panel-footer">
+        <div class="cp-subtotal">
+          <span class="cp-subtotal-label">Items</span>
+          <span class="cp-subtotal-amt" id="cpItemCount">0 items</span>
+        </div>
+        <div class="cp-total-row">
+          <span class="cp-total-label">Total</span>
+          <span class="cp-total-amt">KSH <strong id="cpTotal">0</strong></span>
+        </div>
+        <button class="cp-checkout-btn" id="cpCheckoutBtn" onclick="openPayModal()" disabled>
+          💳 Pay with M-Pesa
+        </button>
+      </div>
+    </aside>
+
+  </div><!-- /menu-app-shell -->
+
+  <!-- Mobile Cart FAB -->
+  <button class="cart-fab-btn" id="cartFabBtn" onclick="toggleCartPanel()">
+    🛒 View Order <span class="cfb-badge" id="cfbBadge">0</span>
+  </button>
+
+</div><!-- /page-menu -->
+
+<!-- ══════════════════════════════════════════════
+     M-PESA PAYMENT MODAL
+══════════════════════════════════════════════ -->
+<div class="pay-overlay" id="payOverlay" onclick="handlePayOverlayClick(event)">
+<div class="pay-modal" id="payModal">
+
+  <div class="pm-head">
+    <div class="pm-head-left">
+      <div class="pm-title">M-PESA CHECKOUT</div>
+      <div class="pm-sub">Lipa Na M-Pesa · Buy Goods Till: 8462960</div>
+    </div>
+    <button class="pm-close" onclick="closePayModal()">✕</button>
+  </div>
+
+  <div class="pm-body">
+
+    <!-- ── SCREEN 1: PHONE ENTRY ── -->
+    <div class="pm-screen active" id="pmScreen1">
+
+      <!-- Order summary -->
+      <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#00a34b;margin-bottom:0.7rem;">Your Order</div>
+      <div class="pm-order-box" id="pmOrderBox"></div>
+
+      <!-- Till -->
+      <div class="pm-till-card">
+        <div class="pm-till-icon">🏦</div>
+        <div>
+          <div class="pm-till-lbl">Pay To — Buy Goods Till</div>
+          <div class="pm-till-num">8462960</div>
+          <div class="pm-till-name">Buddies Choma Place</div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <label class="pm-label">Your M-Pesa Phone Number</label>
+      <div class="pm-phone-wrap">
+        <div class="pm-phone-prefix">🇰🇪 +254</div>
+        <input class="pm-phone-input" id="pmPhone" type="tel"
+          placeholder="7XX XXX XXX" maxlength="9"
+          oninput="this.value=this.value.replace(/\D/g,'');validatePmPhone();" />
+      </div>
+      <div class="pm-hint">Enter your Safaricom number — 9 digits after +254 (e.g. 712345678)</div>
+      <div class="pm-error" id="pmPhoneErr">Please enter a valid Safaricom number (07XX or 01XX)</div>
+
+      <!-- Security -->
+      <div class="pm-security">🔒 After clicking Pay, you'll receive an <strong>M-Pesa PIN prompt</strong> on your phone. Enter your PIN there to complete payment. We never see or store your PIN.</div>
+
+      <button class="pm-pay-btn" id="pmPayBtn" onclick="initiatePay()" disabled>
+        🔒 Send M-Pesa Prompt — KSH <span id="pmPayAmt">0</span>
+      </button>
+      <div class="pm-pay-note">Secured by Safaricom Daraja API · Instant confirmation via SMS</div>
+
+      <!-- Dev notes -->
+      <details class="pm-dev" style="margin-top:1.2rem;">
+        <summary>🛠 Developer: Backend Setup (Node.js + Daraja)</summary>
+        <div class="pm-dev-body">
+          <div class="pm-dev-h">.env Variables</div>
+          <pre class="pm-dev-code">MPESA_CONSUMER_KEY=riZnmgbjOUoSn028zGT1oYHTLKUBeG5vxcCpSmJ0xzbHAwO4
+MPESA_CONSUMER_SECRET=e65PbvfsY0g7FmZG8lLCre9FLob6IXcCUIllytUPxiDZXG6mCpoAAP7nuxgvIvWw
+MPESA_SHORTCODE=8462960
+MPESA_PASSKEY=YOUR_LIPA_NA_MPESA_ONLINE_PASSKEY
+MPESA_CALLBACK_URL=https://yourdomain.com/api/mpesa/callback
+PORT=3001</pre>
+          <div class="pm-dev-h">Express Server (server.js)</div>
+          <pre class="pm-dev-code">const express = require('express');
+const axios   = require('axios');
+const cors    = require('cors');
+require('dotenv').config();
+const app = express();
+app.use(cors({ origin: '*' }));
+app.use(express.json());
+
+async function getToken() {
+  const creds = Buffer.from(
+    `${process.env.MPESA_CONSUMER_KEY}:${process.env.MPESA_CONSUMER_SECRET}`
+  ).toString('base64');
+  const r = await axios.get(
+    'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+    { headers: { Authorization: `Basic ${creds}` } }
+  );
+  return r.data.access_token;
+}
+
+app.post('/api/mpesa/stkpush', async (req, res) => {
+  const { phoneNumber, amount } = req.body;
+  const token = await getToken();
+  const ts = new Date().toISOString().replace(/[^0-9]/g,'').slice(0,14);
+  const pass = Buffer.from(
+    `${process.env.MPESA_SHORTCODE}${process.env.MPESA_PASSKEY}${ts}`
+  ).toString('base64');
+  const r = await axios.post(
+    'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+    {
+      BusinessShortCode: process.env.MPESA_SHORTCODE,
+      Password: pass, Timestamp: ts,
+      TransactionType: 'CustomerBuyGoodsOnline',
+      Amount: Math.ceil(amount),
+      PartyA: phoneNumber, PartyB: process.env.MPESA_SHORTCODE,
+      PhoneNumber: phoneNumber,
+      CallBackURL: process.env.MPESA_CALLBACK_URL,
+      AccountReference: 'BuddiesChoma',
+      TransactionDesc: 'Food Order Payment'
+    },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  res.json(r.data);
+});
+
+app.post('/api/mpesa/callback', (req, res) => {
+  const cb = req.body.Body.stkCallback;
+  if (cb.ResultCode === 0) {
+    const code = cb.CallbackMetadata.Item
+      .find(i => i.Name === 'MpesaReceiptNumber').Value;
+    console.log('SUCCESS:', code);
+  }
+  res.json({ ResultCode: 0, ResultDesc: 'Accepted' });
+});
+
+app.listen(process.env.PORT || 3001);</pre>
+          <div class="pm-dev-p" style="font-size:0.76rem;opacity:0.55;margin-top:0.4rem;">npm install express axios cors dotenv && node server.js — then update the fetch URL in initiatePay() below to point to your server.</div>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- ── SCREEN 2: SENDING STK ── -->
+    <div class="pm-screen" id="pmScreen2">
+      <div class="pm-status">
+        <div class="pm-spinner"></div>
+        <div class="pm-status-icon" style="animation:phonePulse 1s ease-in-out infinite;">📱</div>
+        <div class="pm-status-title">SENDING PROMPT…</div>
+        <div class="pm-status-sub">Connecting to Safaricom Daraja — please wait a moment.</div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 3: PIN ENTRY (phone mockup) ── -->
+    <div class="pm-screen" id="pmScreen3">
+      <div class="pm-pin-wrap">
+
+        <!-- Safaricom phone mockup -->
+        <div class="pm-phone-shell">
+          <div class="pm-phone-bar"></div>
+          <div class="pm-phone-screen">
+            <div class="pm-phone-mpesa">M-PESA</div>
+            <div class="pm-phone-merchant">BUDDIES CHOMA PLACE</div>
+            <div class="pm-phone-amt" id="pmPinAmt">KSH 0</div>
+            <div class="pm-phone-prompt">Enter PIN to confirm</div>
+            <div class="pm-pin-dots" id="pmPinDots">
+              <span class="pm-pin-dot" id="ppd1"></span>
+              <span class="pm-pin-dot" id="ppd2"></span>
+              <span class="pm-pin-dot" id="ppd3"></span>
+              <span class="pm-pin-dot" id="ppd4"></span>
+            </div>
+            <div class="pm-keypad">
+              <button class="pm-key" onclick="pmKey('1')">1</button>
+              <button class="pm-key" onclick="pmKey('2')">2<small>ABC</small></button>
+              <button class="pm-key" onclick="pmKey('3')">3<small>DEF</small></button>
+              <button class="pm-key" onclick="pmKey('4')">4<small>GHI</small></button>
+              <button class="pm-key" onclick="pmKey('5')">5<small>JKL</small></button>
+              <button class="pm-key" onclick="pmKey('6')">6<small>MNO</small></button>
+              <button class="pm-key" onclick="pmKey('7')">7<small>PQRS</small></button>
+              <button class="pm-key" onclick="pmKey('8')">8<small>TUV</small></button>
+              <button class="pm-key" onclick="pmKey('9')">9<small>WXYZ</small></button>
+              <button class="pm-key pm-key-blank"></button>
+              <button class="pm-key" onclick="pmKey('0')">0</button>
+              <button class="pm-key pm-key-del" onclick="pmDel()">⌫</button>
+            </div>
+            <button class="pm-cancel-key" onclick="showPmScreen(1)">Cancel</button>
+          </div>
+          <div class="pm-phone-home"></div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="pm-pin-instructions">
+          <div style="font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#00a34b;margin-bottom:1rem;">What to do</div>
+          <div class="pm-pin-step">
+            <div class="pm-pi-icon">🔑</div>
+            <div><div class="pm-pi-title">Enter your 4-digit M-Pesa PIN</div><div class="pm-pi-desc">Tap the keypad on the phone screen to enter your PIN. Your PIN is never shared or stored.</div></div>
+          </div>
+          <div class="pm-pin-step" style="opacity:0.4;" id="pmStep2inst">
+            <div class="pm-pi-icon">⚡</div>
+            <div><div class="pm-pi-title">Payment processes instantly</div><div class="pm-pi-desc">Safaricom confirms in seconds via the M-Pesa network.</div></div>
+          </div>
+          <div class="pm-pin-step" style="opacity:0.4;" id="pmStep3inst">
+            <div class="pm-pi-icon">📱</div>
+            <div><div class="pm-pi-title">You get an SMS receipt</div><div class="pm-pi-desc">Note down the M-Pesa confirmation code from your SMS.</div></div>
+          </div>
+          <div class="pm-pin-step" style="opacity:0.4;" id="pmStep4inst">
+            <div class="pm-pi-icon">💬</div>
+            <div><div class="pm-pi-title">Send code to Buddies on WhatsApp</div><div class="pm-pi-desc">Share your confirmation code with us so we can start grilling immediately.</div></div>
+          </div>
+          <div style="margin-top:1rem;font-size:0.7rem;opacity:0.3;line-height:1.5;background:rgba(255,255,255,0.03);padding:0.8rem;border-radius:4px;border:1px solid rgba(255,255,255,0.06);">🔒 This demonstrates the M-Pesa STK Push flow. In production, Safaricom sends a real prompt to your handset via the Daraja API — the PIN is entered on your phone, not here.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 4: PROCESSING ── -->
+    <div class="pm-screen" id="pmScreen4">
+      <div class="pm-status">
+        <div class="pm-spinner"></div>
+        <div class="pm-status-title">PROCESSING PAYMENT…</div>
+        <div class="pm-status-sub">Safaricom is confirming your transaction. Please do not close this window.</div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 5: SUCCESS ── -->
+    <div class="pm-screen" id="pmScreen5">
+      <div class="pm-status">
+        <div style="font-size:2rem;animation:bounce 1s ease-in-out infinite;">🎉</div>
+        <div class="pm-success-icon">✓</div>
+        <div class="pm-status-title">PAYMENT CONFIRMED!</div>
+        <div class="pm-status-sub">Your order is placed — we're firing up the jiko right now!</div>
+        <div class="pm-receipt" id="pmReceipt"></div>
+        <a class="pm-wa-btn" id="pmWaBtn" href="#" target="_blank">💬 Send Order Confirmation to Buddies</a>
+        <div class="pm-action-row">
+          <button class="pm-action-btn" onclick="closePayModal();cartClearAll();">+ New Order</button>
+          <button class="pm-action-btn" onclick="closePayModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SCREEN 6: FAIL ── -->
+    <div class="pm-screen" id="pmScreen6">
+      <div class="pm-status">
+        <div class="pm-fail-icon">✕</div>
+        <div class="pm-status-title">PAYMENT FAILED</div>
+        <div class="pm-status-sub" id="pmErrMsg">Payment was not completed. Please check your M-Pesa balance and try again.</div>
+        <button class="pm-retry-btn" onclick="showPmScreen(1)">Try Again</button>
+        <button class="pm-action-btn" style="margin-top:0.6rem;max-width:200px;" onclick="closePayModal()">Cancel</button>
+      </div>
+    </div>
+
+  </div><!-- /pm-body -->
+</div><!-- /pay-modal -->
+</div><!-- /pay-overlay -->
+
+<!-- ═══════════ LOCATION ═══════════ -->
+<div class="page" id="page-location">
+  <div class="page-hero"><div class="page-hero-emoji">📍</div><div class="page-hero-content"><div class="page-hero-tag">Find Us</div><h1 class="page-hero-title">WHERE<br>WE ARE</h1><p class="page-hero-sub">Ground floor, always glowing, hard to miss</p></div></div>
+  <div class="location-section">
+    <div class="location-grid">
+      <div class="map-big fade-up"><iframe src="https://maps.google.com/maps?q=Githurai+Complex+Nairobi+Kenya&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe></div>
+      <div class="fade-up">
+        <div class="info-block"><div class="ib-label">Address</div><div class="ib-value">Ground Floor, Githurai Complex<br>Off Thika Road, Githurai<br>Nairobi, Kenya</div><button class="copy-btn" onclick="copyAddress()">📋 Copy Address</button></div>
+        <div class="info-block"><div class="ib-label">Google Plus Code</div><div class="ib-value">QWV9+Q3 Githurai</div></div>
+        <div class="info-block"><div class="ib-label">Opening Hours</div><table class="hours-table"><tr><td>Monday</td><td>Open 24 Hours</td></tr><tr><td>Tuesday</td><td>Open 24 Hours</td></tr><tr><td>Wednesday</td><td>Open 24 Hours</td></tr><tr><td>Thursday</td><td>Open 24 Hours</td></tr><tr class="today"><td>Friday</td><td>Open 24 Hours</td></tr><tr><td>Saturday</td><td>Open 24 Hours</td></tr><tr><td>Sunday</td><td>Open 24 Hours</td></tr></table><div class="lt-hours" style="margin-top:0.8rem;"><div class="open-dot"></div><span style="font-size:0.8rem;">Always Open — 24 Hours · 7 Days</span></div></div>
+        <div class="info-block"><div class="ib-label">Phone</div><div class="ib-value"><a href="tel:0722552714" style="color:var(--ember);">0722 552714</a></div></div>
+      </div>
+    </div>
+    <div style="margin-top:3rem;" class="fade-up">
+      <div class="section-eyebrow" style="margin-bottom:1rem;">The Atmosphere</div>
+      <h3 style="font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:0.05em;color:var(--cream);margin-bottom:1.5rem;">INSIDE BUDDIES</h3>
+      <div class="gallery-strip">
+        <div class="gallery-card"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&auto=format&fit=crop" alt="Entrance" /><div class="gallery-overlay"></div><div class="gallery-label">The Entrance — Githurai Complex GF</div></div>
+        <div class="gallery-card"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop" alt="Interior" /><div class="gallery-overlay"></div><div class="gallery-label">Wooden benches & filament bulbs</div></div>
+        <div class="gallery-card"><img src="https://images.unsplash.com/photo-1593967931032-f4fb1cf89f73?w=500&auto=format&fit=crop" alt="Grill" /><div class="gallery-overlay"></div><div class="gallery-label">The master at the jiko</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<div class="page" id="page-contact">
+  <div class="page-hero"><div class="page-hero-emoji">📞</div><div class="page-hero-content"><div class="page-hero-tag">Get in Touch</div><h1 class="page-hero-title">CONTACT<br>US</h1><p class="page-hero-sub">Call, WhatsApp, or just walk in</p></div></div>
+  <div class="contact-section">
+    <div class="contact-grid">
+      <div class="contact-card fade-up"><div class="cc-icon">📞</div><div class="cc-title">CALL TO ORDER</div><div class="cc-value">Fastest way to get your choma ready. We're open 24 hours, 7 days a week.</div><div style="font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:0.05em;">0722 552714</div><a href="tel:0722552714" class="cc-btn tel">📞 Call Now</a></div>
+      <div class="contact-card fade-up"><div class="cc-icon">💬</div><div class="cc-title">WHATSAPP ORDER</div><div class="cc-value">Send us a message with your order and we'll confirm it right away.</div><div style="font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--cream);letter-spacing:0.05em;">0722 552714</div><a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." target="_blank" class="cc-btn wa">💬 Open WhatsApp</a></div>
+      <div class="contact-card fade-up"><div class="cc-icon">📍</div><div class="cc-title">VISIT US</div><div class="cc-value">Ground Floor, Githurai Complex<br>Off Thika Road, Githurai<br>Nairobi, Kenya<br><br><strong style="color:var(--glow);">Open 24 Hours · 7 Days</strong></div><a href="#" onclick="showPage('location',null)" class="cc-btn tel">🗺 Get Directions</a></div>
+      <div class="contact-card fade-up"><div class="cc-icon">👥</div><div class="cc-title">GROUP BOOKINGS</div><div class="cc-value">Planning something big? Call ahead and we'll reserve space and prep the grill.</div><div style="font-size:0.85rem;opacity:0.55;margin-top:0.3rem;">Groups of 10+ welcome</div><a href="tel:0722552714" class="cc-btn tel">📞 Book a Group</a></div>
+      <div class="contact-form fade-up" style="grid-column:1/-1;">
+        <div class="cf-title">Send us a message 🔥</div>
+        <div class="cf-row">
+          <div class="cf-field"><label class="cf-label">Your Name</label><input class="cf-input" type="text" placeholder="e.g. James Kamau" /></div>
+          <div class="cf-field"><label class="cf-label">Phone Number</label><input class="cf-input" type="tel" placeholder="07XX XXX XXX" /></div>
+        </div>
+        <div class="cf-field"><label class="cf-label">Subject</label><input class="cf-input" type="text" placeholder="e.g. Group booking for 20 people" /></div>
+        <div class="cf-field"><label class="cf-label">Your Message</label><textarea class="cf-input" placeholder="Tell us what you need — we're listening…"></textarea></div>
+        <button class="cf-submit" onclick="handleFormSubmit(event)">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ M-PESA PAGE ═══════════ -->
+<div class="page" id="page-mpesa">
+  <div class="page-hero" style="background:radial-gradient(circle at 70% 50%,#0A2A14,#050A06);">
+    <div class="page-hero-emoji" style="opacity:0.12;font-size:clamp(5rem,18vw,14rem);">🟢</div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag" style="color:#00a34b;">Secure Payment</div>
+      <h1 class="page-hero-title">PAY VIA<br><span style="color:#00a34b;">M-PESA</span></h1>
+      <p class="page-hero-sub">Build your order. Enter your number. Confirm with PIN. Done.</p>
+    </div>
+  </div>
+  <div class="mpesa-wrap">
+    <div class="mp-stepper fade-up">
+      <div class="mp-step-tab active" id="stab1"><span class="mp-stab-num">1</span><span class="mp-stab-lbl">Build Order</span></div>
+      <div class="mp-step-connector"></div>
+      <div class="mp-step-tab" id="stab2"><span class="mp-stab-num">2</span><span class="mp-stab-lbl">Your Details</span></div>
+      <div class="mp-step-connector"></div>
+      <div class="mp-step-tab" id="stab3"><span class="mp-stab-num">3</span><span class="mp-stab-lbl">Review & Pay</span></div>
+      <div class="mp-step-connector"></div>
+      <div class="mp-step-tab" id="stab4"><span class="mp-stab-num">4</span><span class="mp-stab-lbl">PIN Confirm</span></div>
+    </div>
+    <div class="mp-flow-step" id="mpStep1">
+      <div class="mpesa-grid">
+        <div class="mpesa-calc-card fade-up">
+          <div class="mp-col-label">Choose Your Items</div>
+          <div class="mp-calc-items" id="mpCalcItems">
+            <!-- filled by JS from MENU_DATA -->
+          </div>
+          <div class="mp-total-bar">
+            <div><div class="mp-total-label">Order Total</div><div class="mp-total-amt" id="mpTotal">Ksh 0</div></div>
+            <button class="mp-clear-btn" onclick="mpReset()">Clear All</button>
+          </div>
+          <button class="mp-next-btn" id="mpStep1Btn" onclick="goStep(2)" disabled>Continue — Enter Your Details →</button>
+        </div>
+        <div class="mpesa-steps-card fade-up">
+          <div class="mp-col-label">Payment Information</div>
+          <div style="text-align:center;margin-bottom:1.5rem;"><div class="mpesa-logo-lockup" style="justify-content:center;"><span class="mp-m">M</span><span class="mp-pesa">-PESA</span></div><div class="mp-badge" style="margin:0.5rem auto;display:inline-block;">Lipa Na M-Pesa · Buy Goods</div></div>
+          <div class="mp-info-row"><div class="mp-ir-label">Business Till Number</div><div class="mp-till-box" onclick="copyTillNum()"><span class="mp-till-num">8462960</span><span class="mp-copy-lbl" id="mpCopyLbl">📋 Copy</span></div></div>
+          <div class="mp-info-row"><div class="mp-ir-label">Business Name</div><div class="mp-ir-val">BUDDIES CHOMA PLACE</div></div>
+          <div class="mp-info-row" style="margin-bottom:0;"><div class="mp-ir-label">Payment Method</div><div class="mp-ir-val">Buy Goods & Services</div></div>
+          <div class="mp-safaricom-note"><span>🔒</span> Secured by Safaricom M-Pesa. Your PIN is never shared with us.</div>
+          <div class="mp-trust-row" style="margin-top:1rem;"><span class="mp-trust">⚡ Instant SMS receipt</span><span class="mp-trust">📱 All phones</span><span class="mp-trust">✅ No app needed</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mp-flow-step" id="mpStep2" style="display:none;">
+      <div class="mp-single-card fade-up">
+        <div class="mp-col-label">Your Details</div>
+        <h3 class="mp-card-heading">Who's ordering? 🔥</h3>
+        <p class="mp-card-sub">We need your name and M-Pesa number to link your payment to your order.</p>
+        <div class="mp-form-group"><label class="mp-form-label">Your Full Name</label><input class="mp-form-input" id="mpCustomerName" type="text" placeholder="e.g. James Kamau" autocomplete="name" /></div>
+        <div class="mp-form-group"><label class="mp-form-label">M-Pesa Phone Number</label><div class="mp-phone-wrap"><div class="mp-phone-prefix">🇰🇪 +254</div><input class="mp-form-input mp-phone-input" id="mpPhoneNum" type="tel" placeholder="7XX XXX XXX" maxlength="9" oninput="this.value=this.value.replace(/\D/g,'')" autocomplete="tel" /></div><div class="mp-form-hint">The Safaricom number linked to your M-Pesa wallet</div></div>
+        <div class="mp-form-group" style="margin-bottom:0;"><label class="mp-form-label">Notes <span style="opacity:0.4;">(optional)</span></label><input class="mp-form-input" id="mpNotes" type="text" placeholder="e.g. Extra kachumbari please" /></div>
+        <div class="mp-step-nav"><button class="mp-back-btn" onclick="goStep(1)">← Back</button><button class="mp-next-btn" id="mpStep2Btn" onclick="goStep(3)" style="flex:1;">Review My Order →</button></div>
+      </div>
+    </div>
+    <div class="mp-flow-step" id="mpStep3" style="display:none;">
+      <div class="mp-single-card fade-up">
+        <div class="mp-col-label">Review & Confirm</div>
+        <h3 class="mp-card-heading">Your order summary ✨</h3>
+        <div class="mp-summary-table" id="mpSummaryTable"></div>
+        <div class="mp-customer-row" id="mpCustomerRow"></div>
+        <div class="mp-prompt-box-wrap"><div class="mp-prompt-box-label"><span>✨ WhatsApp Order Message</span><span style="font-size:0.72rem;opacity:0.5;">Ready to send</span></div><div class="mp-prompt-box" id="mpPromptText"></div></div>
+        <div class="mp-step-nav"><button class="mp-back-btn" onclick="goStep(2)">← Back</button><button class="mp-proceed-pay-btn" onclick="goStep(4)">Proceed to Pay — Enter PIN →</button></div>
+        <div class="mp-pp-note" style="margin-top:1rem;">⚠️ Prices shown are as listed. Your team will confirm the final total via WhatsApp.</div>
+      </div>
+    </div>
+    <div class="mp-flow-step" id="mpStep4" style="display:none;">
+      <div class="mp-pin-outer fade-up">
+        <div class="mp-phone-mockup">
+          <div class="mp-phone-notch"></div>
+          <div class="mp-phone-screen">
+            <div id="mpPinScreen" class="mp-screen-state">
+              <div class="mp-screen-logo"><span style="color:#00a34b;font-family:'Anton',sans-serif;font-size:1.1rem;">M-PESA</span></div>
+              <div class="mp-screen-merchant">BUDDIES CHOMA PLACE</div>
+              <div class="mp-screen-amount" id="mpScreenAmt">Ksh 0</div>
+              <div class="mp-screen-prompt">Enter PIN to confirm</div>
+              <div class="mp-pin-dots" id="mpPinDots"><span class="mp-pin-dot"></span><span class="mp-pin-dot"></span><span class="mp-pin-dot"></span><span class="mp-pin-dot"></span></div>
+              <div class="mp-keypad">
+                <button class="mp-key" onclick="mpPinKey('1')">1</button>
+                <button class="mp-key" onclick="mpPinKey('2')">2<span>ABC</span></button>
+                <button class="mp-key" onclick="mpPinKey('3')">3<span>DEF</span></button>
+                <button class="mp-key" onclick="mpPinKey('4')">4<span>GHI</span></button>
+                <button class="mp-key" onclick="mpPinKey('5')">5<span>JKL</span></button>
+                <button class="mp-key" onclick="mpPinKey('6')">6<span>MNO</span></button>
+                <button class="mp-key" onclick="mpPinKey('7')">7<span>PQRS</span></button>
+                <button class="mp-key" onclick="mpPinKey('8')">8<span>TUV</span></button>
+                <button class="mp-key" onclick="mpPinKey('9')">9<span>WXYZ</span></button>
+                <button class="mp-key mp-key-blank"></button>
+                <button class="mp-key" onclick="mpPinKey('0')">0</button>
+                <button class="mp-key mp-key-del" onclick="mpPinDel()">⌫</button>
+              </div>
+              <div class="mp-screen-cancel" onclick="goStep(3)">Cancel</div>
+            </div>
+            <div id="mpProcessingScreen" class="mp-screen-state" style="display:none;"><div class="mp-processing-spinner"></div><div class="mp-processing-text">Processing…</div><div class="mp-processing-sub">Please wait</div></div>
+            <div id="mpSuccessScreen" class="mp-screen-state" style="display:none;"><div class="mp-success-icon">✓</div><div class="mp-success-title">Payment Sent!</div><div class="mp-success-code" id="mpSuccessCode"></div><div class="mp-success-detail" id="mpSuccessDetail"></div></div>
+          </div>
+          <div class="mp-phone-home-bar"></div>
+        </div>
+        <div class="mp-pin-instructions">
+          <div class="mp-col-label">What happens next</div>
+          <div class="mp-pin-steps">
+            <div class="mp-pin-step" id="mpPinStep1"><div class="mp-ps-icon">🔑</div><div><div class="mp-ps-title">Enter your 4-digit M-Pesa PIN</div><div class="mp-ps-desc">Use the keypad on the phone screen. Your PIN is never stored or shared.</div></div></div>
+            <div class="mp-pin-step" id="mpPinStep2" style="opacity:0.35;"><div class="mp-ps-icon">⚡</div><div><div class="mp-ps-title">Payment processes instantly</div><div class="mp-ps-desc">Safaricom confirms the transaction in seconds.</div></div></div>
+            <div class="mp-pin-step" id="mpPinStep3" style="opacity:0.35;"><div class="mp-ps-icon">📱</div><div><div class="mp-ps-title">You receive an SMS receipt</div><div class="mp-ps-desc">Your M-Pesa confirmation code arrives via SMS — note it down.</div></div></div>
+            <div class="mp-pin-step" id="mpPinStep4" style="opacity:0.35;"><div class="mp-ps-icon">💬</div><div><div class="mp-ps-title">Send code to Buddies on WhatsApp</div><div class="mp-ps-desc">Use the button below to share your code + order. We start grilling immediately.</div></div></div>
+          </div>
+          <div id="mpAfterPayActions" style="display:none;">
+            <a class="mp-wa-btn" id="mpFinalWaBtn" href="#" target="_blank">💬 Send Confirmation to Buddies on WhatsApp</a>
+            <button class="mp-start-again" onclick="mpStartAgain()">+ Place Another Order</button>
+          </div>
+          <div class="mp-pin-disclaimer">🔒 This is a demonstration of the M-Pesa payment flow. In production, this step is handled securely by Safaricom's Daraja STK Push API which sends a real push prompt to your handset.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FOOTER ─────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div><div class="f-brand-name">BUDDIES <span>CHOMA</span></div><div class="f-tagline">Githurai's fire-grilled perfection. Real charcoal. Fresh cuts. Open 24 Hours.</div><div class="f-open"><div class="open-dot"></div><span style="font-size:0.78rem;">Open 24hrs</span></div></div>
+    <div><div class="f-col-title">Navigate</div><ul class="f-links"><li><a href="#" onclick="showPage('home',null)">Home</a></li><li><a href="#" onclick="showPage('services',null)">Services</a></li><li><a href="#" onclick="showPage('menu',null)">Menu</a></li><li><a href="#" onclick="showPage('location',null)">Location</a></li><li><a href="#" onclick="showPage('contact',null)">Contact</a></li></ul></div>
+    <div><div class="f-col-title">Order</div><ul class="f-links"><li><a href="tel:0722552714">📞 0722 552714</a></li><li><a href="https://wa.me/254722552714?text=Hi%20Buddies%2C%20I%27d%20like%20to%20order..." target="_blank">💬 WhatsApp Us</a></li><li><a href="#" onclick="showPage('location',null)">📍 Find Us</a></li><li><a href="#" onclick="showPage('menu',null)">🍖 See Menu</a></li><li><a href="#" onclick="showPage('mpesa',null)" style="color:#00a34b;">🟢 Pay via M-Pesa</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Buddies Choma Place. Githurai, Nairobi.</span><span>Since 2022 · Charcoal, not gas.</span></div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// MENU DATA
+// ═══════════════════════════════════════════════════════════════
+const MENU_DATA = {
+  choma: [
+    {id:'c1', name:'1 Kg Mbuzi Choma with Ugali (Marinated)', price:2000},
+    {id:'c2', name:'1 Kg Mbuzi Choma with Ugali (Not Marinated)', price:1900},
+    {id:'c3', name:'½ Kg Mbuzi Choma with Ugali (Marinated)', price:1150},
+    {id:'c4', name:'½ Kg Mbuzi Choma with Ugali (Not Marinated)', price:1100},
+    {id:'c5', name:'1 Kg Mbuzi Choma (Marinated)', price:1900},
+    {id:'c6', name:'1 Kg Mbuzi Choma (Not Marinated)', price:1800},
+    {id:'c7', name:'½ Kg Mbuzi Choma (Marinated)', price:1000},
+    {id:'c8', name:'½ Kg Mbuzi Choma (Not Marinated)', price:1000},
+    {id:'c9', name:'Ugali Plain', price:150},
+  ],
+  main: [
+    {id:'m1', name:'Full Chicken Dry Fry', price:1800},
+    {id:'m2', name:'Half Chicken Dry Fry', price:900},
+    {id:'m3', name:'Ugali Chicken Wet Fry', price:700},
+    {id:'m4', name:'Ugali Beef Fry', price:500},
+    {id:'m5', name:'Rice Chicken Wet Fry', price:700},
+    {id:'m6', name:'Rice Beef Fry', price:500},
+    {id:'m7', name:'Pilau Chicken Wet Fry', price:750},
+    {id:'m8', name:'Pilau Beef Fry', price:670},
+    {id:'m9', name:'Chapati (1) Chicken Wet Fry', price:550},
+    {id:'m10', name:'Chapati (1) Beef Fry', price:420},
+    {id:'m11', name:'Chips', price:250},
+    {id:'m12', name:'Chips Masala', price:370},
+    {id:'m13', name:'Chips Chicken', price:700},
+    {id:'m14', name:'Chips Sausage', price:350},
+  ],
+  snacks: [
+    {id:'s1', name:'Samosa', price:100},
+    {id:'s2', name:'Sausage', price:100},
+    {id:'s3', name:'Chapati', price:80},
+    {id:'s4', name:'Spanish Omelette', price:200},
+  ],
+  drinks: [
+    {id:'d1', name:'PET Soda 500ml', price:150},
+    {id:'d2', name:'PET Soda 1 Litre', price:180},
+    {id:'d3', name:'Minute Maid Juice 400ml', price:150},
+    {id:'d4', name:'Minute Maid Juice 1 Litre', price:250},
+    {id:'d5', name:'Delmonte Juice 1 Litre', price:470},
+    {id:'d6', "name":"Pick 'N' Peel Juice 1 Litre", price:470},
+    {id:'d7', name:'Water 1 Litre', price:100},
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+// CART STATE
+// ═══════════════════════════════════════════════════════════════
+const cart = {}; // id -> {name, price, qty}
+
+function cartAdd(id, name, price) {
+  if (!cart[id]) cart[id] = {name, price, qty:0};
+  cart[id].qty++;
+  renderCart();
+  updateItemCard(id);
+}
+function cartRemove(id) {
+  if (!cart[id]) return;
+  cart[id].qty--;
+  if (cart[id].qty <= 0) delete cart[id];
+  renderCart();
+  updateItemCard(id);
+}
+function cartClearAll() {
+  Object.keys(cart).forEach(id => {
+    delete cart[id];
+    updateItemCard(id);
+  });
+  renderCart();
+}
+function cartTotal() { return Object.values(cart).reduce((s,v)=>s+v.price*v.qty,0); }
+function cartItemCount() { return Object.values(cart).reduce((s,v)=>s+v.qty,0); }
+
+function updateItemCard(id) {
+  const card = document.querySelector(`.mas-item[data-id="${id}"]`);
+  if (!card) return;
+  const qty = cart[id]?.qty || 0;
+  const right = card.querySelector('.mas-item-right');
+  if (qty === 0) {
+    card.classList.remove('in-cart');
+    right.innerHTML = `<div class="mas-item-price">KSH ${(card.dataset.price|0).toLocaleString()}</div><button class="mas-add-btn" onclick="cartAdd('${id}','${card.dataset.name}',${card.dataset.price})">+ Add</button>`;
+  } else {
+    card.classList.add('in-cart');
+    right.innerHTML = `<div class="mas-item-price">KSH ${(card.dataset.price|0).toLocaleString()}</div>
+      <div class="mas-qty-ctrl">
+        <button class="mas-qbtn green" onclick="cartRemove('${id}')">−</button>
+        <span class="mas-qval">${qty}</span>
+        <button class="mas-qbtn" onclick="cartAdd('${id}','${card.dataset.name}',${card.dataset.price})">+</button>
+      </div>`;
+  }
+}
+
+function renderCart() {
+  const items = Object.entries(cart);
+  const total = cartTotal();
+  const count = cartItemCount();
+
+  // badge
+  const badge = document.getElementById('cpBadge');
+  if (badge) {
+    badge.textContent = count;
+    badge.classList.remove('pop');
+    void badge.offsetWidth;
+    badge.classList.add('pop');
+  }
+  const cfb = document.getElementById('cfbBadge');
+  if (cfb) cfb.textContent = count;
+
+  // total
+  const cpTotal = document.getElementById('cpTotal');
+  if (cpTotal) cpTotal.textContent = total.toLocaleString();
+  const cpItemCount = document.getElementById('cpItemCount');
+  if (cpItemCount) cpItemCount.textContent = count + (count===1?' item':' items');
+
+  // checkout btn
+  const btn = document.getElementById('cpCheckoutBtn');
+  if (btn) btn.disabled = count === 0;
+
+  // cart fab
+  const fab = document.getElementById('cartFabBtn');
+  if (fab) fab.style.display = count > 0 ? 'flex' : 'none';
+
+  // items panel
+  const panel = document.getElementById('cartPanelItems');
+  const empty = document.getElementById('cartEmpty');
+  if (!panel) return;
+  if (items.length === 0) {
+    panel.innerHTML = '';
+    panel.appendChild(empty);
+    return;
+  }
+  let html = '';
+  items.forEach(([id,{name,price,qty}]) => {
+    html += `<div class="cp-item">
+      <div class="cp-item-top">
+        <div class="cp-item-name">${name}</div>
+        <span class="cp-item-remove" onclick="cartRemoveAll('${id}')">✕</span>
+      </div>
+      <div class="cp-item-bot">
+        <button class="cp-qbtn" onclick="cartRemove('${id}')">−</button>
+        <span class="cp-qval">${qty}</span>
+        <button class="cp-qbtn" onclick="cartAdd('${id}','${name.replace(/'/g,"\\'")}',${price})">+</button>
+        <span class="cp-item-sub">KSH ${(price*qty).toLocaleString()}</span>
+      </div>
+    </div>`;
+  });
+  panel.innerHTML = html;
+}
+
+function cartRemoveAll(id) {
+  if (cart[id]) {
+    delete cart[id];
+    renderCart();
+    updateItemCard(id);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER MENU ITEMS
+// ═══════════════════════════════════════════════════════════════
+function buildMenuGrids() {
+  Object.entries(MENU_DATA).forEach(([cat, items]) => {
+    const grid = document.getElementById(`masGrid-${cat}`);
+    if (!grid) return;
+    grid.innerHTML = items.map(item => `
+      <div class="mas-item" data-id="${item.id}" data-name="${item.name.replace(/"/g,'&quot;')}" data-cat="${cat}" data-price="${item.price}">
+        <div class="mas-item-info">
+          <div class="mas-item-name">${item.name}</div>
+        </div>
+        <div class="mas-item-right">
+          <div class="mas-item-price">KSH ${item.price.toLocaleString()}</div>
+          <button class="mas-add-btn" onclick="cartAdd('${item.id}','${item.name.replace(/'/g,"\\'")}',${item.price})">+ Add</button>
+        </div>
+      </div>
+    `).join('');
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// MENU FILTER
+// ═══════════════════════════════════════════════════════════════
+function filterMenuApp(cat, btn) {
+  document.querySelectorAll('.mf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  Object.keys(MENU_DATA).forEach(c => {
+    const sec = document.getElementById(`masSection-${c}`);
+    if (sec) sec.style.display = (cat==='all'||cat===c) ? 'block' : 'none';
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CART PANEL TOGGLE (mobile)
+// ═══════════════════════════════════════════════════════════════
+function toggleCartPanel() {
+  document.getElementById('cartPanel').classList.toggle('mobile-open');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// PAYMENT MODAL
+// ═══════════════════════════════════════════════════════════════
+function openPayModal() {
+  if (cartItemCount() === 0) return;
+  buildPayOrderSummary();
+  document.getElementById('pmPayAmt').textContent = cartTotal().toLocaleString();
+  document.getElementById('pmPinAmt').textContent = 'KSH ' + cartTotal().toLocaleString();
+  showPmScreen(1);
+  document.getElementById('payOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePayModal() {
+  document.getElementById('payOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  pmPinBuffer = '';
+  updatePinDots();
+}
+function handlePayOverlayClick(e) {
+  if (e.target === document.getElementById('payOverlay')) closePayModal();
+}
+
+function buildPayOrderSummary() {
+  const box = document.getElementById('pmOrderBox');
+  if (!box) return;
+  const items = Object.entries(cart);
+  let html = items.map(([,{name,price,qty}]) =>
+    `<div class="pm-oi"><span class="pm-oi-name">${qty}× ${name}</span><span class="pm-oi-price">KSH ${(price*qty).toLocaleString()}</span></div>`
+  ).join('');
+  html += `<div class="pm-order-total-row"><span class="pm-order-total-lbl">Total</span><span class="pm-order-total-amt">KSH ${cartTotal().toLocaleString()}</span></div>`;
+  box.innerHTML = html;
+}
+
+function showPmScreen(n) {
+  document.querySelectorAll('.pm-screen').forEach(s => s.classList.remove('active'));
+  const s = document.getElementById('pmScreen'+n);
+  if (s) s.classList.add('active');
+}
+
+// Phone validation
+function validatePmPhone() {
+  const raw = document.getElementById('pmPhone').value.trim();
+  const ok = /^[71][0-9]{8}$/.test(raw);
+  document.getElementById('pmPhoneErr').style.display = ok || raw.length < 9 ? 'none' : 'block';
+  document.getElementById('pmPayBtn').disabled = !ok;
+  return ok;
+}
+
+// ── STK PUSH INITIATION ──
+async function initiatePay() {
+  const phone = '254' + document.getElementById('pmPhone').value.trim();
+  const amount = cartTotal();
+  showPmScreen(2);
+
+  // ── PRODUCTION: uncomment and update URL to your backend ──
+  // try {
+  //   const res = await fetch('https://YOUR_BACKEND/api/mpesa/stkpush', {
+  //     method:'POST',
+  //     headers:{'Content-Type':'application/json'},
+  //     body:JSON.stringify({phoneNumber: phone, amount})
+  //   });
+  //   const data = await res.json();
+  //   if (data.ResponseCode === '0') {
+  //     // STK sent — show PIN screen
+  //     setTimeout(()=>{ showPmScreen(3); }, 1200);
+  //   } else {
+  //     document.getElementById('pmErrMsg').textContent = data.errorMessage || 'Request failed';
+  //     showPmScreen(6);
+  //   }
+  // } catch(err) {
+  //   document.getElementById('pmErrMsg').textContent = 'Could not reach payment server. Check your connection.';
+  //   showPmScreen(6);
+  // }
+
+  // ── DEMO MODE: simulate STK push delay then show PIN prompt ──
+  await delay(1800);
+  document.getElementById('pmPinAmt').textContent = 'KSH ' + amount.toLocaleString();
+  showPmScreen(3);
+}
+
+function delay(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+// ── PIN ENTRY (modal) ──
+let pmPinBuffer = '';
+function pmKey(d) {
+  if (pmPinBuffer.length >= 4) return;
+  pmPinBuffer += d;
+  updatePinDots();
+  if (pmPinBuffer.length === 4) {
+    setTimeout(processPayment, 300);
+  }
+}
+function pmDel() { pmPinBuffer = pmPinBuffer.slice(0,-1); updatePinDots(); }
+function updatePinDots() {
+  [1,2,3,4].forEach(i => {
+    const el = document.getElementById('ppd'+i);
+    if (el) el.classList.toggle('on', i <= pmPinBuffer.length);
+  });
+}
+
+async function processPayment() {
+  showPmScreen(4);
+  await delay(2200);
+
+  // Generate receipt
+  const code = 'QHX' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const total = cartTotal();
+  const phone = '0' + document.getElementById('pmPhone').value.trim();
+  const items = Object.entries(cart);
+
+  const receiptHtml = `
+    <div class="pm-receipt-row"><span class="pm-receipt-lbl">Receipt Code</span><span class="pm-receipt-val pm-receipt-code">${code}</span></div>
+    <div class="pm-receipt-row"><span class="pm-receipt-lbl">Amount Paid</span><span class="pm-receipt-val">KSH ${total.toLocaleString()}</span></div>
+    <div class="pm-receipt-row"><span class="pm-receipt-lbl">Till</span><span class="pm-receipt-val">8462960</span></div>
+    <div class="pm-receipt-row"><span class="pm-receipt-lbl">Phone</span><span class="pm-receipt-val">${phone}</span></div>
+    <div class="pm-receipt-row"><span class="pm-receipt-lbl">Status</span><span class="pm-receipt-val" style="color:#00a34b;">✓ Confirmed</span></div>
+  `;
+  document.getElementById('pmReceipt').innerHTML = receiptHtml;
+
+  // WA message
+  const orderLines = items.map(([,{name,price,qty}])=>`  • ${qty}× ${name} @ KSH ${price.toLocaleString()}`).join('\n');
+  const waMsg = `🔥 Hi Buddies Choma!\n\n✅ M-PESA PAYMENT CONFIRMED\nReceipt: ${code}\nAmount: KSH ${total.toLocaleString()}\n\n📋 MY ORDER:\n${orderLines}\n\nPlease confirm when order is ready. Asante! 🙏`;
+  document.getElementById('pmWaBtn').href = `https://wa.me/254722552714?text=${encodeURIComponent(waMsg)}`;
+
+  showPmScreen(5);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// M-PESA PAGE STEP FLOW
+// ═══════════════════════════════════════════════════════════════
+const mpState = {};
+
+function mpQty(btn, delta) {
+  const row = btn.closest('.mp-calc-item');
+  const qtyEl = row.querySelector('.mp-qty');
+  const subEl = row.querySelector('.mp-ci-sub');
+  const name = row.dataset.name;
+  const price = parseInt(row.dataset.price);
+  let qty = parseInt(qtyEl.textContent) + delta;
+  if (qty < 0) qty = 0;
+  qtyEl.textContent = qty;
+  const sub = qty * price;
+  subEl.textContent = 'Ksh ' + sub.toLocaleString();
+  if (qty === 0) { delete mpState[name]; row.style.opacity='0.55'; }
+  else { mpState[name] = {qty, price}; row.style.opacity='1'; }
+  mpUpdateTotal();
+}
+
+function mpUpdateTotal() {
+  const total = Object.values(mpState).reduce((s,v)=>s+v.qty*v.price,0);
+  const el = document.getElementById('mpTotal');
+  if (el) el.textContent = 'Ksh ' + total.toLocaleString();
+  const btn = document.getElementById('mpStep1Btn');
+  if (btn) btn.disabled = total === 0;
+}
+
+function mpReset() {
+  document.querySelectorAll('.mp-qty').forEach(el=>el.textContent='0');
+  document.querySelectorAll('.mp-ci-sub').forEach(el=>el.textContent='Ksh 0');
+  document.querySelectorAll('.mp-calc-item').forEach(el=>el.style.opacity='0.55');
+  for(const k in mpState) delete mpState[k];
+  mpUpdateTotal();
+}
+
+function goStep(n) {
+  [1,2,3,4].forEach(i => {
+    const s = document.getElementById('mpStep'+i);
+    const t = document.getElementById('stab'+i);
+    if (s) s.style.display = i===n?'block':'none';
+    if (t) { t.classList.toggle('active',i===n); t.classList.toggle('done',i<n); }
+  });
+  if (n===1 && document.getElementById('mpStep1')) document.getElementById('mpStep1').style.display='block';
+
+  if (n===3) buildMpStep3();
+  if (n===4) {
+    const total = Object.values(mpState).reduce((s,v)=>s+v.qty*v.price,0);
+    const el = document.getElementById('mpScreenAmt');
+    if (el) el.textContent = 'Ksh ' + total.toLocaleString();
+    mpPinBuffer2 = '';
+    updateMpPinDots();
+  }
+  window.scrollTo({top: document.getElementById('page-mpesa').offsetTop - 80, behavior:'smooth'});
+}
+
+function buildMpStep3() {
+  const items = Object.entries(mpState);
+  const total = items.reduce((s,[,v])=>s+v.qty*v.price,0);
+  let rows = items.map(([name,{qty,price}])=>`
+    <div class="mp-sum-row">
+      <span class="mp-sum-item">${qty}× ${name}</span>
+      <span class="mp-sum-price">Ksh ${(qty*price).toLocaleString()}</span>
+    </div>`).join('');
+  rows += `<div class="mp-sum-row"><span class="mp-sum-total">TOTAL</span><span class="mp-sum-total-price">Ksh ${total.toLocaleString()}</span></div>`;
+  const tbl = document.getElementById('mpSummaryTable');
+  if (tbl) tbl.innerHTML = rows;
+
+  const name = document.getElementById('mpCustomerName').value.trim() || 'Customer';
+  const phone = document.getElementById('mpPhoneNum').value.trim();
+  const notes = document.getElementById('mpNotes').value.trim();
+  const cr = document.getElementById('mpCustomerRow');
+  if (cr) cr.innerHTML = `
+    <div class="mp-cr-field"><div class="mp-cr-label">Name</div><div class="mp-cr-val">${name}</div></div>
+    <div class="mp-cr-field"><div class="mp-cr-label">Phone</div><div class="mp-cr-val">+254${phone}</div></div>
+    ${notes?`<div class="mp-cr-field"><div class="mp-cr-label">Notes</div><div class="mp-cr-val">${notes}</div></div>`:''}`;
+
+  const orderLines = items.map(([n,{qty,price}])=>`  • ${qty}× ${n} @ Ksh ${price.toLocaleString()}`).join('\n');
+  const msg = `🔥 Hi Buddies Choma Place!\n\nI'd like to order and pay via M-Pesa.\n\n📋 MY ORDER:\n${orderLines}\n\n💰 TOTAL: Ksh ${total.toLocaleString()}\n\n👤 Name: ${name}\n📱 Phone: +254${phone}\n${notes?'📝 Notes: '+notes+'\n':''}\nI'll pay via M-Pesa (Buy Goods Till: 8462960) and send the confirmation code. Asante! 🙏`;
+  const pt = document.getElementById('mpPromptText');
+  if (pt) pt.textContent = msg;
+}
+
+let mpPinBuffer2 = '';
+function mpPinKey(d) {
+  if (mpPinBuffer2.length >= 4) return;
+  mpPinBuffer2 += d;
+  updateMpPinDots();
+  if (mpPinBuffer2.length === 4) setTimeout(processMpPayment, 300);
+}
+function mpPinDel() { mpPinBuffer2 = mpPinBuffer2.slice(0,-1); updateMpPinDots(); }
+function updateMpPinDots() {
+  const dots = document.querySelectorAll('#mpPinDots .mp-pin-dot');
+  dots.forEach((d,i) => d.classList.toggle('filled', i < mpPinBuffer2.length));
+}
+
+async function processMpPayment() {
+  document.getElementById('mpPinScreen').style.display = 'none';
+  document.getElementById('mpProcessingScreen').style.display = 'flex';
+  ['mpPinStep2','mpPinStep3'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.style.opacity='1';
+  });
+  await delay(2500);
+  document.getElementById('mpProcessingScreen').style.display = 'none';
+  document.getElementById('mpSuccessScreen').style.display = 'flex';
+
+  const code = 'RKX' + Math.random().toString(36).slice(2,8).toUpperCase();
+  const total = Object.values(mpState).reduce((s,v)=>s+v.qty*v.price,0);
+  const codeEl = document.getElementById('mpSuccessCode');
+  const detEl = document.getElementById('mpSuccessDetail');
+  if (codeEl) codeEl.textContent = code;
+  if (detEl) detEl.textContent = `Ksh ${total.toLocaleString()} to Buddies Choma (8462960)`;
+
+  document.getElementById('mpPinStep4').style.opacity = '1';
+  const act = document.getElementById('mpAfterPayActions');
+  if (act) act.style.display = 'block';
+  const name = document.getElementById('mpCustomerName').value.trim()||'Customer';
+  const phone = document.getElementById('mpPhoneNum').value.trim();
+  const items = Object.entries(mpState);
+  const orderLines = items.map(([n,{qty,price}])=>`  • ${qty}× ${n} @ Ksh ${price.toLocaleString()}`).join('\n');
+  const waMsg = `🔥 Hi Buddies Choma!\n\n✅ M-PESA CONFIRMED\nReceipt: ${code}\nAmount: Ksh ${total.toLocaleString()}\n\n📋 ORDER:\n${orderLines}\n\n👤 ${name} · +254${phone}\n\nPlease confirm. Asante! 🙏`;
+  const waBtn = document.getElementById('mpFinalWaBtn');
+  if (waBtn) waBtn.href = `https://wa.me/254722552714?text=${encodeURIComponent(waMsg)}`;
+}
+
+function mpStartAgain() { mpReset(); goStep(1); }
+function copyTillNum() {
+  navigator.clipboard.writeText('8462960').then(()=>{
+    const el = document.getElementById('mpCopyLbl');
+    if(el){el.textContent='✅ Copied!';setTimeout(()=>el.textContent='📋 Copy',2500);}
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// BUILD M-PESA PAGE CALC ITEMS
+// ═══════════════════════════════════════════════════════════════
+function buildMpCalcItems() {
+  const container = document.getElementById('mpCalcItems');
+  if (!container) return;
+  const all = Object.values(MENU_DATA).flat();
+  container.innerHTML = all.map(item => `
+    <div class="mp-calc-item" data-name="${item.name.replace(/"/g,'&quot;')}" data-price="${item.price}" style="opacity:0.55;">
+      <div class="mp-ci-img">${getCatEmoji(item.id)}</div>
+      <div><div class="mp-ci-name">${item.name}</div><div class="mp-ci-unit">Ksh ${item.price.toLocaleString()}</div></div>
+      <div class="mp-ci-ctrl">
+        <button class="mp-btn-q" onclick="mpQty(this,-1)">−</button>
+        <span class="mp-qty">0</span>
+        <button class="mp-btn-q" onclick="mpQty(this,1)">+</button>
+      </div>
+      <div class="mp-ci-sub">Ksh 0</div>
+    </div>
+  `).join('');
+}
+
+function getCatEmoji(id) {
+  if (id.startsWith('c')) return '🐐';
+  if (id.startsWith('m')) return '🍳';
+  if (id.startsWith('s')) return '🥟';
+  if (id.startsWith('d')) return '🥤';
+  return '🍽';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ROUTING & NAV
+// ═══════════════════════════════════════════════════════════════
+function showPage(name, linkEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(observeFadeUps, 100);
+}
+
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY>50);
+});
+
+function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
+function toggleFab() { document.getElementById('fabPanel').classList.toggle('open'); }
+document.addEventListener('click', e => {
+  if (!e.target.closest('.fab') && !e.target.closest('.fab-panel'))
+    document.getElementById('fabPanel').classList.remove('open');
+  if (!e.target.closest('.cart-panel') && !e.target.closest('.cart-fab-btn'))
+    document.getElementById('cartPanel')?.classList.remove('mobile-open');
+});
+
+function observeFadeUps() {
+  const els = document.querySelectorAll('.fade-up:not(.visible)');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => { if (e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'), i*80); });
+  }, {threshold:0.1});
+  els.forEach(el => obs.observe(el));
+}
+
+function copyAddress() {
+  navigator.clipboard.writeText('Ground Floor, Githurai Complex, Off Thika Road, Githurai, Nairobi, Kenya').then(()=>{
+    const btn = document.querySelector('.copy-btn');
+    if(btn){btn.textContent='✅ Copied!';setTimeout(()=>btn.textContent='📋 Copy Address',2200);}
+  });
+}
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const btn = e.target;
+  btn.textContent='✅ Message Sent!';
+  btn.style.background='#4CAF50';
+  setTimeout(()=>{btn.textContent='Send Message →';btn.style.background='';},3000);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  buildMenuGrids();
+  buildMpCalcItems();
+  renderCart();
+  observeFadeUps();
+  // Show step 1 only
+  [2,3,4].forEach(i=>{ const el=document.getElementById('mpStep'+i); if(el) el.style.display='none'; });
+});
+</script>
+</body>
+</html>
